@@ -64,80 +64,81 @@ class TripTableViewController: UITableViewController {
                                                 let originTextField = alertController.textFields![2]
                                                 let priceTextField = alertController.textFields![3]
                                                 let timeTextField = alertController.textFields![4]
-                                                
+                                                let trip = Trip(capacity: Int(capacityTextField.text!)!, destination: destinationTextField.text!, origin: originTextField.text!, price: Float(priceTextField.text!)!, time: timeTextField.text!)
+                                                self.trips.insert(trip, at: 0)
+                                                if self.trips.count == 1 {
+                                                    self.tableView.reloadData()
+                                                } else {
+                                                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: UITableViewRowAnimation.top)
+                                                }
         }
+        alertController.addAction(cancelAction)
+        alertController.addAction(createTripAction)
+        present(alertController, animated: true, completion: nil)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        if trips.count == 0 {
+            print("Don't allow editing mode at this time")
+            super.setEditing(false, animated: animated)
+        } else {
+            super.setEditing(editing, animated: animated)
+        }
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return max(trips.count, 1)
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        var cell: UITableViewCell
+        if trips.count == 0 {
+            cell = tableView.dequeueReusableCell(withIdentifier: noTripCellIdentifier, for: indexPath)
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: tripCellIdentifier, for: indexPath)
+            cell.textLabel?.text = "\(trips[indexPath.row].origin) to \(trips[indexPath.row].destination)"
+            cell.detailTextLabel?.text = trips[indexPath.row].time
+        }
         return cell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        return trips.count > 0
     }
-    */
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            trips.remove(at: indexPath.row)
+            if trips.count == 0 {
+                tableView.reloadData()
+                self.setEditing(false, animated: true)
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
     }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == showTripDetailSegueIdentifier {
+            // Goal: Pass the selected trip to the detail view controller.
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                
+                (segue.destination as! TripDetailViewController).trip = trips[indexPath.row]
+            }
+        }
     }
-    */
 
 }
