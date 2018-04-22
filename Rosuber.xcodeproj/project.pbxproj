@@ -13,6 +13,8 @@
 		1B81FCF52086F91300C12059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF42086F91300C12059 /* Assets.xcassets */; };
 		1B81FCF82086F91300C12059 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF62086F91300C12059 /* LaunchScreen.storyboard */; };
 		942B256A208C1FA900022A9A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B2569208C1FA900022A9A /* User.swift */; };
+		942B256C208C2B3200022A9A /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B256B208C2B3200022A9A /* TripDetailViewController.swift */; };
+		942B256E208C332000022A9A /* TripTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B256D208C332000022A9A /* TripTableViewController.swift */; };
 		9455A08E208ADE0B001AE3AB /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455A08D208ADE0B001AE3AB /* Trip.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,8 @@
 		1B81FCF72086F91300C12059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B81FCF92086F91300C12059 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		942B2569208C1FA900022A9A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		942B256B208C2B3200022A9A /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
+		942B256D208C332000022A9A /* TripTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTableViewController.swift; sourceTree = "<group>"; };
 		9455A08D208ADE0B001AE3AB /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +70,8 @@
 				1B81FCF92086F91300C12059 /* Info.plist */,
 				9455A08D208ADE0B001AE3AB /* Trip.swift */,
 				942B2569208C1FA900022A9A /* User.swift */,
+				942B256B208C2B3200022A9A /* TripDetailViewController.swift */,
+				942B256D208C332000022A9A /* TripTableViewController.swift */,
 			);
 			path = Rosuber;
 			sourceTree = "<group>";
@@ -141,7 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				942B256C208C2B3200022A9A /* TripDetailViewController.swift in Sources */,
 				942B256A208C1FA900022A9A /* User.swift in Sources */,
+				942B256E208C332000022A9A /* TripTableViewController.swift in Sources */,
 				9455A08E208ADE0B001AE3AB /* Trip.swift in Sources */,
 				1B81FCF02086F90B00C12059 /* ViewController.swift in Sources */,
 				1B81FCEE2086F90B00C12059 /* AppDelegate.swift in Sources */,

@@ -60,7 +60,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="fqY-J5-ua3">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" id="fqY-J5-ua3">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fqY-J5-ua3" id="cDg-kK-goe">
@@ -68,8 +68,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="XFQ-2j-7CF" kind="show" id="eXl-jL-MK5"/>
+                                    <segue destination="XFQ-2j-7CF" kind="show" identifier="ShowTripDetailSegue" id="eXl-jL-MK5"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoTripCell" id="RCi-Qh-WCw">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RCi-Qh-WCw" id="Uif-gX-Peo">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -86,7 +94,7 @@
         <!--Trip Detail View Controller-->
         <scene sceneID="3ab-Gc-UZi">
             <objects>
-                <viewController id="XFQ-2j-7CF" userLabel="Trip Detail View Controller" sceneMemberID="viewController">
+                <viewController id="XFQ-2j-7CF" userLabel="Trip Detail View Controller" customClass="TripDetailViewController" customModule="Rosuber" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gV7-AQ-sNA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,6 +180,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sOy-IS-pvV"/>
                     </view>
+                    <connections>
+                        <outlet property="capacityLabel" destination="uv6-R8-mLK" id="uf8-mJ-tzm"/>
+                        <outlet property="destinationLabel" destination="lBe-Xu-Cmr" id="naK-97-fUG"/>
+                        <outlet property="originLabel" destination="rJ8-Eu-kON" id="A9h-eq-pyy"/>
+                        <outlet property="priceLabel" destination="iqH-If-bdW" id="UJI-9H-QHW"/>
+                        <outlet property="timeLabel" destination="Wxf-uU-GUu" id="KvJ-uR-oMx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Z3-42-zuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
