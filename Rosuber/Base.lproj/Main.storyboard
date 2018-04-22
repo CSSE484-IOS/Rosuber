@@ -54,7 +54,7 @@
         <!--Trips-->
         <scene sceneID="FlY-RM-2qI">
             <objects>
-                <tableViewController id="GPr-fu-aHk" customClass="TripTableViewController" customModule="Rosuber" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="GPr-fu-aHk" customClass="TripsTableViewController" customModule="Rosuber" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GFY-MB-myW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,13 +220,13 @@
         <!--Users-->
         <scene sceneID="Zcp-co-5Wl">
             <objects>
-                <tableViewController id="D17-nP-LIr" sceneMemberID="viewController">
+                <tableViewController id="D17-nP-LIr" customClass="UsersTableViewController" customModule="Rosuber" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Zmo-nO-um6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cVE-lI-fbY">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" id="cVE-lI-fbY">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cVE-lI-fbY" id="SZR-3e-E36">
@@ -234,8 +234,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="1Bd-pX-TrM" kind="show" id="iVC-td-hEP"/>
+                                    <segue destination="1Bd-pX-TrM" kind="show" identifier="ShowUserDetailSegue" id="iVC-td-hEP"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoUserCell" id="DDX-gh-LS7">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DDX-gh-LS7" id="5vO-gb-NGG">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -252,7 +260,7 @@
         <!--User Detail View Controller-->
         <scene sceneID="QJW-bb-Coa">
             <objects>
-                <viewController id="1Bd-pX-TrM" userLabel="User Detail View Controller" sceneMemberID="viewController">
+                <viewController id="1Bd-pX-TrM" userLabel="User Detail View Controller" customClass="UserDetailViewController" customModule="Rosuber" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c5r-ve-wYi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -312,6 +320,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tpn-Ue-JEX"/>
                     </view>
+                    <connections>
+                        <outlet property="emailLabel" destination="na5-tw-nup" id="uX0-Ru-nZl"/>
+                        <outlet property="nameLabel" destination="iEc-Rr-hZZ" id="JwF-3r-HEl"/>
+                        <outlet property="phoneNumberLabel" destination="Xlo-aI-fuS" id="9oM-Bq-IX0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BbP-Qf-Xi1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

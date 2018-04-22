@@ -12,9 +12,11 @@
 		1B81FCF32086F90B00C12059 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF12086F90B00C12059 /* Main.storyboard */; };
 		1B81FCF52086F91300C12059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF42086F91300C12059 /* Assets.xcassets */; };
 		1B81FCF82086F91300C12059 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF62086F91300C12059 /* LaunchScreen.storyboard */; };
+		94194D87208D010B0026E7E5 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94194D86208D010B0026E7E5 /* UserDetailViewController.swift */; };
+		94194D89208D04D00026E7E5 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94194D88208D04D00026E7E5 /* UsersTableViewController.swift */; };
 		942B256A208C1FA900022A9A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B2569208C1FA900022A9A /* User.swift */; };
 		942B256C208C2B3200022A9A /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B256B208C2B3200022A9A /* TripDetailViewController.swift */; };
-		942B256E208C332000022A9A /* TripTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B256D208C332000022A9A /* TripTableViewController.swift */; };
+		942B256E208C332000022A9A /* TripsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B256D208C332000022A9A /* TripsTableViewController.swift */; };
 		9455A08E208ADE0B001AE3AB /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455A08D208ADE0B001AE3AB /* Trip.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,9 +28,11 @@
 		1B81FCF42086F91300C12059 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B81FCF72086F91300C12059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B81FCF92086F91300C12059 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94194D86208D010B0026E7E5 /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
+		94194D88208D04D00026E7E5 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		942B2569208C1FA900022A9A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		942B256B208C2B3200022A9A /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
-		942B256D208C332000022A9A /* TripTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTableViewController.swift; sourceTree = "<group>"; };
+		942B256D208C332000022A9A /* TripsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableViewController.swift; sourceTree = "<group>"; };
 		9455A08D208ADE0B001AE3AB /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,7 +75,9 @@
 				9455A08D208ADE0B001AE3AB /* Trip.swift */,
 				942B2569208C1FA900022A9A /* User.swift */,
 				942B256B208C2B3200022A9A /* TripDetailViewController.swift */,
-				942B256D208C332000022A9A /* TripTableViewController.swift */,
+				942B256D208C332000022A9A /* TripsTableViewController.swift */,
+				94194D86208D010B0026E7E5 /* UserDetailViewController.swift */,
+				94194D88208D04D00026E7E5 /* UsersTableViewController.swift */,
 			);
 			path = Rosuber;
 			sourceTree = "<group>";
@@ -147,9 +153,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94194D87208D010B0026E7E5 /* UserDetailViewController.swift in Sources */,
 				942B256C208C2B3200022A9A /* TripDetailViewController.swift in Sources */,
+				94194D89208D04D00026E7E5 /* UsersTableViewController.swift in Sources */,
 				942B256A208C1FA900022A9A /* User.swift in Sources */,
-				942B256E208C332000022A9A /* TripTableViewController.swift in Sources */,
+				942B256E208C332000022A9A /* TripsTableViewController.swift in Sources */,
 				9455A08E208ADE0B001AE3AB /* Trip.swift in Sources */,
 				1B81FCF02086F90B00C12059 /* ViewController.swift in Sources */,
 				1B81FCEE2086F90B00C12059 /* AppDelegate.swift in Sources */,
