@@ -8,20 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		1B81FCEE2086F90B00C12059 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FCED2086F90B00C12059 /* AppDelegate.swift */; };
-		1B81FCF02086F90B00C12059 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FCEF2086F90B00C12059 /* ViewController.swift */; };
+		1B81FCF02086F90B00C12059 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FCEF2086F90B00C12059 /* HomeViewController.swift */; };
 		1B81FCF32086F90B00C12059 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF12086F90B00C12059 /* Main.storyboard */; };
 		1B81FCF52086F91300C12059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF42086F91300C12059 /* Assets.xcassets */; };
 		1B81FCF82086F91300C12059 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF62086F91300C12059 /* LaunchScreen.storyboard */; };
+		1B81FD04208D1AA600C12059 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FD03208D1AA600C12059 /* ProfileViewController.swift */; };
+		1B81FD06208D1D6E00C12059 /* BottomMenuLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FD05208D1D6E00C12059 /* BottomMenuLauncher.swift */; };
+		1B81FD08208D245400C12059 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FD07208D245400C12059 /* MenuCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1B81FCEA2086F90B00C12059 /* Rosuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rosuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B81FCED2086F90B00C12059 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1B81FCEF2086F90B00C12059 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1B81FCEF2086F90B00C12059 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1B81FCF22086F90B00C12059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1B81FCF42086F91300C12059 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B81FCF72086F91300C12059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B81FCF92086F91300C12059 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B81FD03208D1AA600C12059 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1B81FD05208D1D6E00C12059 /* BottomMenuLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLauncher.swift; sourceTree = "<group>"; };
+		1B81FD07208D245400C12059 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +61,14 @@
 			isa = PBXGroup;
 			children = (
 				1B81FCED2086F90B00C12059 /* AppDelegate.swift */,
-				1B81FCEF2086F90B00C12059 /* ViewController.swift */,
+				1B81FCEF2086F90B00C12059 /* HomeViewController.swift */,
 				1B81FCF12086F90B00C12059 /* Main.storyboard */,
 				1B81FCF42086F91300C12059 /* Assets.xcassets */,
 				1B81FCF62086F91300C12059 /* LaunchScreen.storyboard */,
 				1B81FCF92086F91300C12059 /* Info.plist */,
+				1B81FD03208D1AA600C12059 /* ProfileViewController.swift */,
+				1B81FD05208D1D6E00C12059 /* BottomMenuLauncher.swift */,
+				1B81FD07208D245400C12059 /* MenuCell.swift */,
 			);
 			path = Rosuber;
 			sourceTree = "<group>";
@@ -135,8 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B81FCF02086F90B00C12059 /* ViewController.swift in Sources */,
+				1B81FD04208D1AA600C12059 /* ProfileViewController.swift in Sources */,
+				1B81FD08208D245400C12059 /* MenuCell.swift in Sources */,
+				1B81FCF02086F90B00C12059 /* HomeViewController.swift in Sources */,
 				1B81FCEE2086F90B00C12059 /* AppDelegate.swift in Sources */,
+				1B81FD06208D1D6E00C12059 /* BottomMenuLauncher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
