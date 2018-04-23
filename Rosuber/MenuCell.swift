@@ -20,11 +20,14 @@ class MenuCell: UICollectionViewCell {
         return button
     }()
     
+    var action: (() -> ())?
+    
     var menuItem: MenuItem? {
         didSet {
             button.setTitle(menuItem?.title, for: .normal)
             button.setImage(UIImage(named: (menuItem?.image)!), for: .normal)
             button.imageView?.contentMode = .scaleAspectFit
+            action = menuItem?.action
         }
     }
     
@@ -48,8 +51,8 @@ class MenuCell: UICollectionViewCell {
 //        addConstraint(NSLayoutConstraint(item: button, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
     }
     
-    @objc func pressedLabel() {
-        print("tap working")
+    @objc func actionOnPressed() {
+        action!()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,6 +65,7 @@ class MenuCell: UICollectionViewCell {
         addSubview(button)
         button.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        button.addTarget(self, action: #selector(pressedLabel), for: .touchUpInside)
+        button.addTarget(self, action: #selector(actionOnPressed), for: .touchUpInside)
+        button.isUserInteractionEnabled = true
     }
 }

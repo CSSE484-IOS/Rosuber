@@ -25,6 +25,9 @@
                                     <navigationItem title="Home" id="NBV-LV-gvX">
                                         <barButtonItem key="leftBarButtonItem" image="menu" id="Ejb-Ld-ODG">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="pressedMenu:" destination="wAx-do-p6D" id="OS9-Bn-zDr"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="fengy2" id="aoH-nN-uSF">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

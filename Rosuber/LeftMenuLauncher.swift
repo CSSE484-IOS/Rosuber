@@ -1,14 +1,15 @@
 //
-//  BottomMenuLauncher.swift
+//  LeftMenuLauncher.swift
 //  Rosuber
 //
-//  Created by FengYizhi on 2018/4/22.
+//  Created by FengYizhi on 2018/4/23.
 //  Copyright © 2018年 FengYizhi. All rights reserved.
 //
+
 import UIKit
 import Foundation
 
-class BottomMenuLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate,
+class LeftMenuLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout {
     let blackView = UIView()
     
@@ -82,17 +83,8 @@ UICollectionViewDelegateFlowLayout {
         return 0
     }
     
-//    override init() {
-//        super.init()
-//
-//        menuView.dataSource = self
-//        menuView.delegate = self
-//        menuView.register(MenuCell.self, forCellWithReuseIdentifier: cellId)
-//    }
-    
-    init(menuItems: [MenuItem]) {
+    override init() {
         super.init()
-        self.menuItems = menuItems
         
         menuView.dataSource = self
         menuView.delegate = self

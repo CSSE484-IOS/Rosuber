@@ -9,7 +9,13 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    let menuLauncher = BottomMenuLauncher()
+    let menuLauncher = BottomMenuLauncher(
+        menuItems: [
+            MenuItem(title: " Upload Profile Image", image: "add_photo", action: {
+                ()->() in print("pressed upload")
+            }),MenuItem(title: " Update Phone Number", image: "phone", action: {
+                ()->() in print("pressed update")
+            })])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,5 +24,5 @@ class ProfileViewController: UIViewController {
     @IBAction func pressedEdit(_ sender: Any) {
         menuLauncher.showMenu()
     }
-
+    
 }
