@@ -21,7 +21,8 @@ UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
     let cellHeight: CGFloat = 50
-    var menuItems: [MenuItem]!
+//    var menuItems: [MenuItem]!
+    var buttons: [UIButton]!
     
     func showMenu() {
         if let window = UIApplication.shared.keyWindow {
@@ -34,7 +35,7 @@ UICollectionViewDelegateFlowLayout {
             blackView.alpha = 0
             
             window.addSubview(menuView)
-            let height: CGFloat = CGFloat(menuItems.count) * cellHeight
+            let height: CGFloat = CGFloat(buttons.count) * cellHeight
             let y = window.frame.height - height
             menuView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
             
@@ -63,14 +64,15 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return menuItems.count
+        return buttons.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = menuView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MenuCell
         
-        let menuItem = menuItems[indexPath.row]
-        cell.menuItem = menuItem
+//        let menuItem = menuItems[indexPath.row]
+//        cell.menuItem = menuItem
+        cell.button = buttons[indexPath.row]
         return cell
     }
     
@@ -81,18 +83,19 @@ UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
-//    override init() {
+//
+//    init(menuItems: [MenuItem]) {
 //        super.init()
+//        self.menuItems = menuItems
 //
 //        menuView.dataSource = self
 //        menuView.delegate = self
 //        menuView.register(MenuCell.self, forCellWithReuseIdentifier: cellId)
 //    }
     
-    init(menuItems: [MenuItem]) {
+    init(buttons: [UIButton]) {
         super.init()
-        self.menuItems = menuItems
+        self.buttons = buttons
         
         menuView.dataSource = self
         menuView.delegate = self

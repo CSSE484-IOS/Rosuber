@@ -24,6 +24,8 @@ UICollectionViewDelegateFlowLayout {
     let cellHeight: CGFloat = 50
     var menuItems: [MenuItem]!
     
+    let y: CGFloat = UIApplication.shared.statusBarFrame.size.height
+    
     func showMenu() {
         if let window = UIApplication.shared.keyWindow {
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
@@ -35,20 +37,18 @@ UICollectionViewDelegateFlowLayout {
             blackView.alpha = 0
             
             window.addSubview(menuView)
-            let height: CGFloat = CGFloat(menuItems.count) * cellHeight
-            let y = window.frame.height - height
-            menuView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
+            let height: CGFloat = CGFloat(menuItems.count) * (cellHeight + 5.0)
+            menuView.frame = CGRect(x: 0, y: y, width: 0, height: 0)
             
             // acceleration animation
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.blackView.alpha = 1
-                self.menuView.frame = CGRect(x: 0, y: y, width: self.menuView.frame.width, height: self.menuView.frame.height)
+                self.menuView.frame = CGRect(x: 0, y: self.y, width: window.frame.width / 2.5, height: height)
             }, completion: nil)
             
             UIView.animate(withDuration: 0.5) {
                 self.blackView.alpha = 1
-                
-                self.menuView.frame = CGRect(x: 0, y: y, width: self.menuView.frame.width, height: self.menuView.frame.height)
+                self.menuView.frame = CGRect(x: 0, y: self.y, width: self.menuView.frame.width, height: height)
             }
         }
     }
@@ -56,10 +56,7 @@ UICollectionViewDelegateFlowLayout {
     @objc func handleDismiss() {
         UIView.animate(withDuration: 0.5) {
             self.blackView.alpha = 0
-            
-            if let window = UIApplication.shared.keyWindow {
-                self.menuView.frame = CGRect(x: 0, y: window.frame.height, width: self.menuView.frame.width, height: self.menuView.frame.height)
-            }
+            self.menuView.frame = CGRect(x: 0, y: self.y, width: 0, height: 0)
         }
     }
     
@@ -72,6 +69,7 @@ UICollectionViewDelegateFlowLayout {
         
         let menuItem = menuItems[indexPath.row]
         cell.menuItem = menuItem
+        cell.button?.contentHorizontalAlignment = .center
         return cell
     }
     
@@ -80,11 +78,12 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 5
     }
     
-    override init() {
+    init(menuItems: [MenuItem]) {
         super.init()
+        self.menuItems = menuItems
         
         menuView.dataSource = self
         menuView.delegate = self
