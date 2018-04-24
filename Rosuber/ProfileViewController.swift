@@ -9,65 +9,39 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    //    let menuLauncher = BottomMenuLauncher(
-    //        menuItems: [
-    //            MenuItem(title: " Upload Profile Image", image: "add_photo", action: {
-    //                ()->() in print("pressed upload")
-    //            }),MenuItem(title: " Update Phone Number", image: "phone", action: {
-    //                ()->() in print("pressed update")
-    //            })])
-    //    var buttons: [UIButton]!
-    //    let menuLauncher: BottomMenuLauncher!
+    @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var blackView: UIView!
     
-    let menuLauncher = BottomMenuLauncher(
-        buttons: [
-            {
-                let button = UIButton(type: UIButtonType.system)
-                button.setTitle(" Upload Profile Image", for: .normal)
-                button.setImage(UIImage(named: "add_photo"), for: .normal)
-                button.addTarget(self, action: #selector(pressedUploadPhoto), for: .touchUpInside)
-                return button
-            }(),
-            {
-                let button = UIButton(type: UIButtonType.system)
-                button.setTitle(" Update Phone Number", for: .normal)
-                button.setImage(UIImage(named: "phone"), for: .normal)
-                button.addTarget(self, action: #selector(pressedUpdatePhone), for: .touchUpInside)
-                return button
-            }()
-        ]
-    )
+    var showMenu = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        let photoBtn: UIButton = {
-        //            let button = UIButton(type: UIButtonType.system)
-        //            button.setTitle(" Upload Profile Image", for: .normal)
-        //            button.setImage(UIImage(named: "add_photo"), for: .normal)
-        //            button.addTarget(self, action: #selector(pressedUploadPhoto), for: .touchUpInside)
-        //            return button
-        //        }()
-        //        let phoneBtn: UIButton = {
-        //            let button = UIButton(type: UIButtonType.system)
-        //            button.setTitle(" Update Phone Number", for: .normal)
-        //            button.setImage(UIImage(named: "phone"), for: .normal)
-        //            button.addTarget(self, action: #selector(pressedUpdatePhone), for: .touchUpInside)
-        //            return button
-        //        }()
-        //        buttons = [photoBtn, phoneBtn]
-        //        menuLauncher = BottomMenuLauncher(buttons: buttons)
+        menuView.layer.shadowOpacity = 1
+        menuView.layer.shadowRadius = 6
+        blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
     }
     
     @IBAction func pressedEdit(_ sender: Any) {
-        menuLauncher.showMenu()
+        if showMenu {
+            blackView.alpha = 1
+            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+            menuBottomConstraint.constant = 0
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        } else {
+            handleDismiss()
+        }
+        showMenu = !showMenu
     }
     
-    @objc func pressedUploadPhoto() {
-        print("pressed upload")
-    }
-    
-    @objc func pressedUpdatePhone() {
-        print("pressed update")
+    @objc func handleDismiss() {
+        blackView.alpha = 0
+        menuBottomConstraint.constant = 100
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
     
 }

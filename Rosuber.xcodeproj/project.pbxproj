@@ -64,6 +64,7 @@
 		1B81FCEC2086F90B00C12059 /* Rosuber */ = {
 			isa = PBXGroup;
 			children = (
+				1BE31188208FAF890094975C /* CollectionViewAttempt */,
 				1B81FCED2086F90B00C12059 /* AppDelegate.swift */,
 				1B81FCEF2086F90B00C12059 /* HomeViewController.swift */,
 				1B81FCF12086F90B00C12059 /* Main.storyboard */,
@@ -71,12 +72,19 @@
 				1B81FCF62086F91300C12059 /* LaunchScreen.storyboard */,
 				1B81FCF92086F91300C12059 /* Info.plist */,
 				1B81FD03208D1AA600C12059 /* ProfileViewController.swift */,
+			);
+			path = Rosuber;
+			sourceTree = "<group>";
+		};
+		1BE31188208FAF890094975C /* CollectionViewAttempt */ = {
+			isa = PBXGroup;
+			children = (
 				1B81FD05208D1D6E00C12059 /* BottomMenuLauncher.swift */,
 				1B81FD07208D245400C12059 /* MenuCell.swift */,
 				1B81FD09208E115000C12059 /* LeftMenuLauncher.swift */,
 				1B81FD0B208E118400C12059 /* MenuItem.swift */,
 			);
-			path = Rosuber;
+			path = CollectionViewAttempt;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
