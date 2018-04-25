@@ -43,7 +43,21 @@ class NewTripViewController: UIViewController {
         capacityField.text = "\(Int(capacitySlider.value))"
     }
     
+    @IBAction func pressedCancel(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func pressedAdd(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+        let tripsTableViewController =
+            self.navigationController?.topViewController as! TripsTableViewController
+        let newTrip = Trip(capacity: Int(self.capacitySlider.value),
+                            destination: self.toField.text!,
+                            origin: self.fromField.text!,
+                            price: Float(self.priceField.text!)!,
+                            time: self.datePicker.date)
+        tripsTableViewController.trips.append(newTrip)
+        tripsTableViewController.tableView.reloadData()
     }
     
 
