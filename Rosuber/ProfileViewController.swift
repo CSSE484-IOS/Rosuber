@@ -8,17 +8,19 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var phoneLabel: UILabel!
     
     var showMenu = true
-    
-    @IBOutlet weak var phoneLabel: UILabel!
+    var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker.delegate = self
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
@@ -77,5 +79,65 @@ class ProfileViewController: UIViewController {
         present(alertController, animated: true)
     }
     
+    @IBAction func pressedUploadImage(_ sender: Any) {
+        let alertController = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        
+        alertController.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.openCamera()
+        }))
+        alertController.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+            self.openGallary()
+        }))
+        
+        alertController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true)
+    }
     
+    func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .camera
+            imagePicker.cameraCaptureMode = .photo
+            imagePicker.modalPresentationStyle = .fullScreen
+            present(imagePicker, animated: true)
+        } else {
+            let errorAlert = UIAlertController(title: "Error", message: "No camera available!", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {
+                alert -> Void in
+                self.pressedUploadImage(self)
+            }))
+            present(errorAlert, animated: true)
+        }
+    }
+    
+    func openGallary() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+            imagePicker.modalPresentationStyle = .popover
+            present(imagePicker, animated: true)
+        } else {
+            let errorAlert = UIAlertController(title: "Error", message: "No camera available!", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {
+                alert -> Void in
+                self.pressedUploadImage(self)
+            }))
+            present(errorAlert, animated: true)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView.contentMode = .scaleToFill
+            imageView.image = pickedImage
+        }
+        picker.dismiss(animated: true)
+        handleDismiss()
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+        pressedUploadImage(self)
+    }
 }

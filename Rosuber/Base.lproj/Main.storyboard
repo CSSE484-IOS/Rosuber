@@ -242,6 +242,9 @@
                                                 <state key="normal" title=" Upload Profile Image" image="add_photo">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pressedUploadImage:" destination="6px-2q-3fw" eventType="touchUpInside" id="wcX-Gi-gS6"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aic-ab-sHp">
                                                 <rect key="frame" x="0.0" y="45" width="355" height="45"/>
@@ -289,6 +292,7 @@
                     </view>
                     <connections>
                         <outlet property="blackView" destination="npS-Ar-hed" id="toL-hb-6A3"/>
+                        <outlet property="imageView" destination="9TA-dD-3dC" id="ipw-0u-3R6"/>
                         <outlet property="menuBottomConstraint" destination="Sb4-CM-y0V" id="j58-rK-Rdj"/>
                         <outlet property="menuView" destination="rJY-dT-iaa" id="lRe-nP-B6A"/>
                         <outlet property="phoneLabel" destination="g7T-PK-tzg" id="NgU-Qz-4Sg"/>
