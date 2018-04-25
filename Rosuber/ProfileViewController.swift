@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
     
     var showMenu = true
     
+    @IBOutlet weak var phoneLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         menuView.layer.shadowOpacity = 1
@@ -43,5 +45,37 @@ class ProfileViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
+    
+    @IBAction func pressedUpdatePhone(_ sender: Any) {
+        let alertController = UIAlertController(title: "Update My Phone Number", message: "", preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "My Phone Number"
+            textField.keyboardType = .numberPad
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let defaultAction = UIAlertAction(title: "Update", style: .default) { (action) -> Void in
+            let phoneTextField = alertController.textFields![0]
+            if phoneTextField.text!.count == 10 {
+                let start = phoneTextField.text!.index(phoneTextField.text!.startIndex, offsetBy: 3)
+                let end = phoneTextField.text!.index(phoneTextField.text!.endIndex, offsetBy: -4)
+                let range = start..<end
+                self.phoneLabel.text = "\(phoneTextField.text!.prefix(3))-\(phoneTextField.text![range])-\(phoneTextField.text!.suffix(4))"
+                self.handleDismiss()
+            } else {
+                let errorAlert = UIAlertController(title: "Error", message: "Please enter a 10-digit number!", preferredStyle: .alert)
+                errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {
+                    alert -> Void in
+                    self.present(alertController, animated: true)
+                }))
+                self.present(errorAlert, animated: true)
+            }
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(defaultAction)
+        present(alertController, animated: true)
+    }
+    
     
 }
