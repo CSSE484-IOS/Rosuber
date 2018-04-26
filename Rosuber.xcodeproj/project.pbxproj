@@ -18,6 +18,7 @@
 		942B256C208C2B3200022A9A /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B256B208C2B3200022A9A /* TripDetailViewController.swift */; };
 		942B256E208C332000022A9A /* TripsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B256D208C332000022A9A /* TripsTableViewController.swift */; };
 		9455A08E208ADE0B001AE3AB /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455A08D208ADE0B001AE3AB /* Trip.swift */; };
+		947B49B92091745A00EE225F /* UserEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947B49B82091745A00EE225F /* UserEditViewController.swift */; };
 		94E2AEF4208EB48E0003A63F /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2AEF3208EB48E0003A63F /* NewTripViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		942B256B208C2B3200022A9A /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		942B256D208C332000022A9A /* TripsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableViewController.swift; sourceTree = "<group>"; };
 		9455A08D208ADE0B001AE3AB /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		947B49B82091745A00EE225F /* UserEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEditViewController.swift; sourceTree = "<group>"; };
 		94E2AEF3208EB48E0003A63F /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 				94194D86208D010B0026E7E5 /* UserDetailViewController.swift */,
 				94194D88208D04D00026E7E5 /* UsersTableViewController.swift */,
 				94E2AEF3208EB48E0003A63F /* NewTripViewController.swift */,
+				947B49B82091745A00EE225F /* UserEditViewController.swift */,
 			);
 			path = Rosuber;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				94E2AEF4208EB48E0003A63F /* NewTripViewController.swift in Sources */,
 				94194D89208D04D00026E7E5 /* UsersTableViewController.swift in Sources */,
 				942B256A208C1FA900022A9A /* User.swift in Sources */,
+				947B49B92091745A00EE225F /* UserEditViewController.swift in Sources */,
 				942B256E208C332000022A9A /* TripsTableViewController.swift in Sources */,
 				9455A08E208ADE0B001AE3AB /* Trip.swift in Sources */,
 				1B81FCF02086F90B00C12059 /* ViewController.swift in Sources */,
