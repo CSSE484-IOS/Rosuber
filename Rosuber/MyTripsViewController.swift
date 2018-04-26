@@ -27,7 +27,7 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: myNoTripCellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: myTripCellIdentifier, for: indexPath)
         
         // Configure the cell...
         

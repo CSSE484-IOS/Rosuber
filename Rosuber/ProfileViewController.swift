@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var showMenu = true
     var imagePicker = UIImagePickerController()
+    var profileImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+//        if profileImage != nil {
+//            imageView.contentMode = .scaleToFill
+//            imageView.image = profileImage
+//        }
     }
     
     @IBAction func pressedEdit(_ sender: Any) {
@@ -129,6 +134,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            profileImage = pickedImage
             imageView.contentMode = .scaleToFill
             imageView.image = pickedImage
         }
