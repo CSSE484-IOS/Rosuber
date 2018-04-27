@@ -9,6 +9,8 @@
 import UIKit
 
 class MyTripDetailViewController: UIViewController {
+    
+    var trip: Trip?
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,11 +13,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var phoneLabel: UILabel!
     
     var showMenu = true
     var imagePicker = UIImagePickerController()
     var profileImage: UIImage?
+    
+    var user: User?
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +75,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 let end = phoneTextField.text!.index(phoneTextField.text!.endIndex, offsetBy: -4)
                 let range = start..<end
                 self.phoneLabel.text = "\(phoneTextField.text!.prefix(3))-\(phoneTextField.text![range])-\(phoneTextField.text!.suffix(4))"
+                // TODO: update user's phone number
                 self.handleDismiss()
             } else {
                 let errorAlert = UIAlertController(title: "Error", message: "Please enter a 10-digit number!", preferredStyle: .alert)
