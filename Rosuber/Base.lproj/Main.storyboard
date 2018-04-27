@@ -429,8 +429,25 @@
                                 <rect key="frame" x="10" y="74" width="355" height="583"/>
                                 <color key="backgroundColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="findTripCell" textLabel="r0L-90-6iJ" detailTextLabel="bBb-Li-Vq8" style="IBUITableViewCellStyleValue1" id="d2J-IX-4Ez">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="findNoTripCell" textLabel="viF-Wd-XC7" style="IBUITableViewCellStyleDefault" id="pvt-Mr-XgE">
                                         <rect key="frame" x="0.0" y="28" width="355" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pvt-Mr-XgE" id="Qoi-4R-xWB">
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="No Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="viF-Wd-XC7">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="findTripCell" textLabel="r0L-90-6iJ" detailTextLabel="bBb-Li-Vq8" style="IBUITableViewCellStyleValue1" id="d2J-IX-4Ez">
+                                        <rect key="frame" x="0.0" y="72" width="355" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d2J-IX-4Ez" id="tYL-UQ-RYe">
                                             <rect key="frame" x="0.0" y="0.0" width="322" height="44"/>
@@ -455,23 +472,6 @@
                                         <connections>
                                             <segue destination="UH3-Pq-3Tl" kind="showDetail" identifier="findDetailSegue" id="xz1-31-8V8"/>
                                         </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="findNoTripCell" textLabel="viF-Wd-XC7" style="IBUITableViewCellStyleDefault" id="pvt-Mr-XgE">
-                                        <rect key="frame" x="0.0" y="72" width="355" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pvt-Mr-XgE" id="Qoi-4R-xWB">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="No Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="viF-Wd-XC7">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -1175,9 +1175,10 @@
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="xz1-31-8V8"/>
         <segue reference="i5o-xv-ivH"/>
         <segue reference="2Bk-U5-ttq"/>
         <segue reference="8ov-Pd-cLN"/>
-        <segue reference="g7f-sr-xTp"/>
+        <segue reference="y1V-BE-tFQ"/>
     </inferredMetricsTieBreakers>
 </document>

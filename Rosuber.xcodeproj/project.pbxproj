@@ -29,6 +29,8 @@
 		1BE311A42092A6B30094975C /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE311A32092A6B30094975C /* Trip.swift */; };
 		1BE311A62092A6C60094975C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE311A52092A6C60094975C /* User.swift */; };
 		1BE311A82092AE3E0094975C /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE311A72092AE3E0094975C /* NewTripViewController.swift */; };
+		8839A8FED821D098F04A3EE2 /* Pods_Rosuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E178465827C102B658590BB /* Pods_Rosuber.framework */; };
+		94330C5E20937A6500E1C242 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94330C5D20937A6500E1C242 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,10 @@
 		1BE311A32092A6B30094975C /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		1BE311A52092A6C60094975C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1BE311A72092AE3E0094975C /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
+		3E178465827C102B658590BB /* Pods_Rosuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rosuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51D7DD90F8A926037CA0096C /* Pods-Rosuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rosuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rosuber/Pods-Rosuber.release.xcconfig"; sourceTree = "<group>"; };
+		94330C5D20937A6500E1C242 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B3F3FE752157934310A36810 /* Pods-Rosuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rosuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rosuber/Pods-Rosuber.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,17 +69,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8839A8FED821D098F04A3EE2 /* Pods_Rosuber.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0099552B1435D8ADE9C6F210 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3E178465827C102B658590BB /* Pods_Rosuber.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1B81FCE12086F90A00C12059 = {
 			isa = PBXGroup;
 			children = (
 				1B81FCEC2086F90B00C12059 /* Rosuber */,
 				1B81FCEB2086F90B00C12059 /* Products */,
+				E67515411770C50D39BFD5C6 /* Pods */,
+				0099552B1435D8ADE9C6F210 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,6 +105,7 @@
 		1B81FCEC2086F90B00C12059 /* Rosuber */ = {
 			isa = PBXGroup;
 			children = (
+				94330C5D20937A6500E1C242 /* GoogleService-Info.plist */,
 				1BE311A22092A68B0094975C /* Model */,
 				1B81FCED2086F90B00C12059 /* AppDelegate.swift */,
 				1B81FCF12086F90B00C12059 /* Main.storyboard */,
@@ -147,6 +165,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		E67515411770C50D39BFD5C6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B3F3FE752157934310A36810 /* Pods-Rosuber.debug.xcconfig */,
+				51D7DD90F8A926037CA0096C /* Pods-Rosuber.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -154,9 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B81FCFC2086F91300C12059 /* Build configuration list for PBXNativeTarget "Rosuber" */;
 			buildPhases = (
+				35C911E8B630AB200A3FC1BA /* [CP] Check Pods Manifest.lock */,
 				1B81FCE62086F90B00C12059 /* Sources */,
 				1B81FCE72086F90B00C12059 /* Frameworks */,
 				1B81FCE82086F90B00C12059 /* Resources */,
+				39197C305F472DC7A4DA1BA5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -208,6 +237,7 @@
 				1BE3119A208FB95E0094975C /* Icon.png in Resources */,
 				1B81FCF82086F91300C12059 /* LaunchScreen.storyboard in Resources */,
 				1B81FCF52086F91300C12059 /* Assets.xcassets in Resources */,
+				94330C5E20937A6500E1C242 /* GoogleService-Info.plist in Resources */,
 				1B81FCF32086F90B00C12059 /* Main.storyboard in Resources */,
 				1BE3119B208FB95E0094975C /* Icon@2x.png in Resources */,
 				1BE3119C208FB95E0094975C /* Icon-72.png in Resources */,
@@ -215,6 +245,61 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		35C911E8B630AB200A3FC1BA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rosuber-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		39197C305F472DC7A4DA1BA5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Rosuber/Pods-Rosuber-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rosuber/Pods-Rosuber-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1B81FCE62086F90B00C12059 /* Sources */ = {
@@ -378,15 +463,13 @@
 		};
 		1B81FCFD2086F91300C12059 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3F3FE752157934310A36810 /* Pods-Rosuber.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = Rosuber/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.rosehulman.fengy2.Rosuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -396,15 +479,13 @@
 		};
 		1B81FCFE2086F91300C12059 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51D7DD90F8A926037CA0096C /* Pods-Rosuber.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = Rosuber/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.rosehulman.fengy2.Rosuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
