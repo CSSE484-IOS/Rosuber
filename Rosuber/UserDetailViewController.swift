@@ -16,11 +16,13 @@ class UserDetailViewController: UIViewController {
     
     var user: User?
     
+    var editProfileSegueIdentifier = "EditProfileSegue"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
-                                                            target: self,
-                                                            action: #selector(showEditDialog))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
+//                                                            target: self,
+//                                                            action: #selector(showEditDialog))
     }
     
     @objc func showEditDialog() {
@@ -69,5 +71,17 @@ class UserDetailViewController: UIViewController {
         nameLabel.text = user?.name
         phoneNumberLabel.text = user?.phoneNumber
     }
+    
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+        if segue.identifier == editProfileSegueIdentifier {
+            (segue.destination as! UserEditViewController).user = self.user
+        }
+     }
+    
 
 }

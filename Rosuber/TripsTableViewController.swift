@@ -13,6 +13,7 @@ class TripsTableViewController: UITableViewController {
     let tripCellIdentifier = "TripCell"
     let noTripCellIdentifier = "NoTripCell"
     let showTripDetailSegueIdentifier = "ShowTripDetailSegue"
+    let newTripSegueIdentifier = "NewTripSegue"
     var trips = [Trip]()
 
     override func viewDidLoad() {
@@ -22,11 +23,11 @@ class TripsTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+//         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self,
-                                                            action: #selector(showAddDialog))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+//                                                            target: self,
+//                                                            action: #selector(showAddDialog))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,48 +35,48 @@ class TripsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    @objc func showAddDialog() {
-        let alertController = UIAlertController(title: "Create a new trip",
-                                                message: "",
-                                                preferredStyle: .alert)
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Capacity"
-        }
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Destination"
-        }
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Origin"
-        }
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Price"
-        }
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Time"
-        }
-        let cancelAction = UIAlertAction(title: "Cancel",
-                                         style: UIAlertActionStyle.cancel,
-                                         handler: nil)
-        let createTripAction = UIAlertAction(title: "Create Trip",
-                                             style: UIAlertActionStyle.default) {
-                                                (action) in
-                                                let capacityTextField = alertController.textFields![0]
-                                                let destinationTextField = alertController.textFields![1]
-                                                let originTextField = alertController.textFields![2]
-                                                let priceTextField = alertController.textFields![3]
-                                                let timeTextField = alertController.textFields![4]
-                                                let trip = Trip(capacity: Int(capacityTextField.text!)!, destination: destinationTextField.text!, origin: originTextField.text!, price: Float(priceTextField.text!)!, time: timeTextField.text!)
-                                                self.trips.insert(trip, at: 0)
-                                                if self.trips.count == 1 {
-                                                    self.tableView.reloadData()
-                                                } else {
-                                                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: UITableViewRowAnimation.top)
-                                                }
-        }
-        alertController.addAction(cancelAction)
-        alertController.addAction(createTripAction)
-        present(alertController, animated: true, completion: nil)
-    }
+//    @objc func showAddDialog() {
+//        let alertController = UIAlertController(title: "Create a new trip",
+//                                                message: "",
+//                                                preferredStyle: .alert)
+//        alertController.addTextField { (textField) in
+//            textField.placeholder = "Capacity"
+//        }
+//        alertController.addTextField { (textField) in
+//            textField.placeholder = "Destination"
+//        }
+//        alertController.addTextField { (textField) in
+//            textField.placeholder = "Origin"
+//        }
+//        alertController.addTextField { (textField) in
+//            textField.placeholder = "Price"
+//        }
+//        alertController.addTextField { (textField) in
+//            textField.placeholder = "Time"
+//        }
+//        let cancelAction = UIAlertAction(title: "Cancel",
+//                                         style: UIAlertActionStyle.cancel,
+//                                         handler: nil)
+//        let createTripAction = UIAlertAction(title: "Create Trip",
+//                                             style: UIAlertActionStyle.default) {
+//                                                (action) in
+//                                                let capacityTextField = alertController.textFields![0]
+//                                                let destinationTextField = alertController.textFields![1]
+//                                                let originTextField = alertController.textFields![2]
+//                                                let priceTextField = alertController.textFields![3]
+//                                                let timeTextField = alertController.textFields![4]
+//                                                let trip = Trip(capacity: Int(capacityTextField.text!)!, destination: destinationTextField.text!, origin: originTextField.text!, price: Float(priceTextField.text!)!, time: timeTextField.text!)
+//                                                self.trips.insert(trip, at: 0)
+//                                                if self.trips.count == 1 {
+//                                                    self.tableView.reloadData()
+//                                                } else {
+//                                                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: UITableViewRowAnimation.top)
+//                                                }
+//        }
+//        alertController.addAction(cancelAction)
+//        alertController.addAction(createTripAction)
+//        present(alertController, animated: true, completion: nil)
+//    }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         if trips.count == 0 {
@@ -103,7 +104,7 @@ class TripsTableViewController: UITableViewController {
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: tripCellIdentifier, for: indexPath)
             cell.textLabel?.text = "\(trips[indexPath.row].origin) to \(trips[indexPath.row].destination)"
-            cell.detailTextLabel?.text = trips[indexPath.row].time
+            cell.detailTextLabel?.text = trips[indexPath.row].time.description
         }
         return cell
     }

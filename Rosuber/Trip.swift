@@ -15,7 +15,7 @@ class Trip: NSObject {
 //    var driverKey: String
     var origin: String
     var price: Float
-    var time: String
+    var time: Date
     
     let capacityKey = "capacity"
     let destinationKey = "destination"
@@ -24,7 +24,7 @@ class Trip: NSObject {
     let priceKey = "price"
     let timeKey = "time"
     
-    init(capacity: Int, destination: String, origin: String, price: Float, time: String) {
+    init(capacity: Int, destination: String, origin: String, price: Float, time: Date) {
         self.capacity = capacity
         self.destination = destination
         self.origin = origin
