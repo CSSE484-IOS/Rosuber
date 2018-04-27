@@ -8,11 +8,12 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 class FindTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var tripsRef: CollectionReference!
-    var tripsListener: ListenerRegistration!
+    var tripsRef: DatabaseReference!
+//    var tripsListener: ListenerRegistration!
     
     let findTripCellIdentifier = "findTripCell"
     let findNoTripCellIdentifier = "findNoTripCell"
@@ -25,44 +26,56 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.delegate = self
         tableView.dataSource = self
         
-        tripsRef = Firestore.firestore().collection("trips")
+        tripsRef = Database.database().reference().child("trips")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.trips.removeAll()
-        tripsListener = tripsRef.order(by: "time", descending: true).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
-            guard let snapshot = querySnapshot else {
-                print("Error fetching trips. error: \(error!.localizedDescription)")
-                return
-            }
-            snapshot.documentChanges.forEach({ (docChange) in
-                if (docChange.type == .added) {
-                    print("New trip: \(docChange.document.data())")
-                    self.tripAdded(docChange.document)
-                } else if (docChange.type == .modified) {
-                    print("Modified trip: \(docChange.document.data())")
-                    self.tripUpdated(docChange.document)
-                } else if (docChange.type == .removed) {
-                    print("Removed trip: \(docChange.document.data())")
-                    self.tripRemoved(docChange.document)
-                }
-                self.trips.sort(by: { (t1, t2) -> Bool in
-                    return t1.time > t2.time
-                })
-                self.tableView.reloadData()
+        tripsRef.queryOrdered(byChild: "time")
+        tripsRef.observe(.childAdded, with: { (dataSnapshot) in
+            print("New trip: \(dataSnapshot.value)")
+            self.tripAdded(dataSnapshot)
+            self.trips.sort(by: { (t1, t2) -> Bool in
+                return t1.time > t2.time
             })
-        })
+            self.tableView.reloadData()
+        }) { (error) in
+            print("Error fetching trips. error: \(error.localizedDescription)")
+            return
+        }
+        tripsRef.observe(.childChanged, with: { (dataSnapshot) in
+            print("Modified trip: \(dataSnapshot.value)")
+            self.tripUpdated(dataSnapshot)
+            self.trips.sort(by: { (t1, t2) -> Bool in
+                return t1.time > t2.time
+            })
+            self.tableView.reloadData()
+        }) { (error) in
+                print("Error fetching trips. error: \(error.localizedDescription)")
+                return
+        }
+        tripsRef.observe(.childRemoved, with: { (dataSnapshot) in
+            print("Removed trip: \(dataSnapshot.value)")
+            self.tripRemoved(dataSnapshot)
+            self.trips.sort(by: { (t1, t2) -> Bool in
+                return t1.time > t2.time
+            })
+            self.tableView.reloadData()
+            }) { (error) in
+                    print("Error fetching trips. error: \(error.localizedDescription)")
+                    return
+            }
     }
     
-    func tripAdded(_ document: DocumentSnapshot) {
-        let newTrip = Trip(documentSnapshot: document)
+    func tripAdded(_ data: DataSnapshot) {
+        let newTrip = Trip(dataSnapshot: data)
         trips.append(newTrip)
     }
     
-    func tripUpdated(_ document: DocumentSnapshot) {
-        let modifiedTrip = Trip(documentSnapshot: document)
+    func tripUpdated(_ data: DataSnapshot) {
+        let modifiedTrip = Trip(dataSnapshot: data)
         for trip in trips {
             if (trip.id == modifiedTrip.id) {
                 trip.capacity = modifiedTrip.capacity
@@ -77,9 +90,9 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    func tripRemoved(_ document: DocumentSnapshot) {
+    func tripRemoved(_ data: DataSnapshot) {
         for i in 0 ..< trips.count {
-            if trips[i].id == document.documentID {
+            if trips[i].id == data.key {
                 trips.remove(at: i)
                 break
             }
@@ -88,7 +101,7 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        tripsListener.remove()
+//        tripsListener.remove()
     }
 
     // MARK: - Table view data source
