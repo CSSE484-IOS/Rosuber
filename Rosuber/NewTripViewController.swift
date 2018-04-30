@@ -28,7 +28,7 @@ class NewTripViewController: UIViewController {
             self.capacitySlider.value = Float(self.trip.capacity)
             self.fromField.text = self.trip.origin
             self.toField.text = self.trip.destination
-            self.datePicker.date = self.trip.time
+            self.datePicker.date = self.trip.time!
             self.priceField.text = "\(self.trip.price)"
         } else {
             self.capacitySlider.value = 0

@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var imagePicker = UIImagePickerController()
     var profileImage: UIImage?
     
-    var user: User?
+    var user: User!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -31,10 +31,27 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        
+        user = appDelegate.user
+        updateView()
+        
 //        if profileImage != nil {
 //            imageView.contentMode = .scaleToFill
 //            imageView.image = profileImage
 //        }
+    }
+    
+    func updateView() {
+        nameLabel.text = user.name
+        usernameLabel.text = user.id
+        emailLabel.text = user.email
+        
+        if user.phoneNumber.count == 10 {
+            let start = user.phoneNumber.index(user.phoneNumber.startIndex, offsetBy: 3)
+            let end = user.phoneNumber.index(user.phoneNumber.endIndex, offsetBy: -4)
+            let range = start..<end
+            phoneLabel.text = "\(user.phoneNumber.prefix(3))-\(user.phoneNumber[range])-\(user.phoneNumber.suffix(4))"
+        }
     }
     
     @IBAction func pressedEdit(_ sender: Any) {

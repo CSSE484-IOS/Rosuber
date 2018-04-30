@@ -30,8 +30,11 @@
                                                 <action selector="pressedMenu:" destination="wAx-do-p6D" id="OS9-Bn-zDr"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="fengy2" id="aoH-nN-uSF">
+                                        <barButtonItem key="rightBarButtonItem" image="login" id="oPv-KK-yrO">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="pressedLoginLogout:" destination="wAx-do-p6D" id="Pn3-IV-b8F"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -114,8 +117,12 @@
                     </view>
                     <connections>
                         <outlet property="blackView" destination="eFa-b5-jt7" id="5DH-aU-Qvb"/>
+                        <outlet property="findTripsButton" destination="KVK-Tc-MDZ" id="chp-kj-eCy"/>
+                        <outlet property="loginLogoutButton" destination="oPv-KK-yrO" id="QLE-jh-ZZU"/>
                         <outlet property="menuLeadingConstraint" destination="DEH-bV-0ke" id="bPH-rk-7DQ"/>
                         <outlet property="menuView" destination="jJi-pe-3o4" id="92G-WV-KYA"/>
+                        <outlet property="myTripsButton" destination="UKZ-Dv-Xtt" id="3dg-NT-roy"/>
+                        <outlet property="profileButton" destination="Irs-Bg-rHs" id="Rcb-N7-jOY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MeL-eh-T1M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1167,6 +1174,7 @@
         <image name="edit" width="24" height="24"/>
         <image name="info" width="24" height="24"/>
         <image name="list" width="24" height="24"/>
+        <image name="login" width="30" height="30"/>
         <image name="menu" width="24" height="24"/>
         <image name="origin" width="30" height="30"/>
         <image name="passenger" width="30" height="30"/>
@@ -1176,8 +1184,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="i5o-xv-ivH"/>
-        <segue reference="2Bk-U5-ttq"/>
-        <segue reference="8ov-Pd-cLN"/>
+        <segue reference="riU-KQ-JZn"/>
+        <segue reference="YoK-xz-ML3"/>
         <segue reference="g7f-sr-xTp"/>
     </inferredMetricsTieBreakers>
 </document>
