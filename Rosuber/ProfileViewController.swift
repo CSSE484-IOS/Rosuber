@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
@@ -19,6 +20,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var profileImage: UIImage?
     
     var user: User!
+    var userRef: DocumentReference!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -33,6 +35,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         
         user = appDelegate.user
+        userRef = Firestore.firestore().collection("users").document(user.id)
         updateView()
         
 //        if profileImage != nil {
@@ -88,11 +91,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let defaultAction = UIAlertAction(title: "Update", style: .default) { (action) -> Void in
             let phoneTextField = alertController.textFields![0]
             if phoneTextField.text!.count == 10 {
-                let start = phoneTextField.text!.index(phoneTextField.text!.startIndex, offsetBy: 3)
-                let end = phoneTextField.text!.index(phoneTextField.text!.endIndex, offsetBy: -4)
-                let range = start..<end
-                self.phoneLabel.text = "\(phoneTextField.text!.prefix(3))-\(phoneTextField.text![range])-\(phoneTextField.text!.suffix(4))"
-                // TODO: update user's phone number
+                self.user.phoneNumber = phoneTextField.text!
+                self.updateView()
+                self.userRef.setData(self.user.data)
                 self.handleDismiss()
             } else {
                 let errorAlert = UIAlertController(title: "Error", message: "Please enter a 10-digit number!", preferredStyle: .alert)

@@ -13,7 +13,7 @@ class User: NSObject {
     var email: String
     var name: String
     var phoneNumber: String
-    var created: Date?
+    var created: Date!
     
     let emailKey = "email"
     let nameKey = "name"
@@ -24,6 +24,7 @@ class User: NSObject {
         self.email = email
         self.name = name
         self.phoneNumber = phoneNumber
+        self.created = Date()
     }
     
     init(documentSnapshot: DocumentSnapshot) {

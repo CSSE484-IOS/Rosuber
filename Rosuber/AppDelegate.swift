@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     self.user = User(email: result.email, name: result.name, phoneNumber: "")
                     self.user!.id = result.username
+                    userRef.setData(self.user!.data)
                 }
             }
         }
