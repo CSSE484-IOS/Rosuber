@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
 
 class FindTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -19,6 +18,10 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
     let findNoTripCellIdentifier = "findNoTripCell"
     var trips = [Trip]()
     
+    var tripsRef: CollectionReference!
+    var tripsListener: ListenerRegistration!
+    var trips = [Trip]()
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -26,56 +29,44 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.delegate = self
         tableView.dataSource = self
         
-        tripsRef = Database.database().reference().child("trips")
+        tripsRef = Firestore.firestore().collection("trips")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.trips.removeAll()
-        tripsRef.queryOrdered(byChild: "time")
-        tripsRef.observe(.childAdded, with: { (dataSnapshot) in
-            print("New trip: \(dataSnapshot.value)")
-            self.tripAdded(dataSnapshot)
-            self.trips.sort(by: { (t1, t2) -> Bool in
-                return t1.time > t2.time
-            })
-            self.tableView.reloadData()
-        }) { (error) in
-            print("Error fetching trips. error: \(error.localizedDescription)")
-            return
-        }
-        tripsRef.observe(.childChanged, with: { (dataSnapshot) in
-            print("Modified trip: \(dataSnapshot.value)")
-            self.tripUpdated(dataSnapshot)
-            self.trips.sort(by: { (t1, t2) -> Bool in
-                return t1.time > t2.time
-            })
-            self.tableView.reloadData()
-        }) { (error) in
-                print("Error fetching trips. error: \(error.localizedDescription)")
+        tripsListener = tripsRef.order(by: "time", descending: true).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
+            guard let snapshot = querySnapshot else {
+                print("Error fetching trips. error: \(error!.localizedDescription)")
                 return
-        }
-        tripsRef.observe(.childRemoved, with: { (dataSnapshot) in
-            print("Removed trip: \(dataSnapshot.value)")
-            self.tripRemoved(dataSnapshot)
-            self.trips.sort(by: { (t1, t2) -> Bool in
-                return t1.time > t2.time
-            })
-            self.tableView.reloadData()
-            }) { (error) in
-                    print("Error fetching trips. error: \(error.localizedDescription)")
-                    return
             }
+            snapshot.documentChanges.forEach({ (docChange) in
+                if (docChange.type == .added) {
+                    print("New trip: \(docChange.document.data())")
+                    self.tripAdded(docChange.document)
+                } else if (docChange.type == .modified) {
+                    print("Modified trip: \(docChange.document.data())")
+                    self.tripUpdated(docChange.document)
+                } else if (docChange.type == .removed) {
+                    print("Removed trip: \(docChange.document.data())")
+                    self.tripRemoved(docChange.document)
+                }
+                self.trips.sort(by: { (t1, t2) -> Bool in
+                    return t1.time > t2.time
+                })
+                self.tableView.reloadData()
+            })
+        })
     }
     
-    func tripAdded(_ data: DataSnapshot) {
-        let newTrip = Trip(dataSnapshot: data)
+    func tripAdded(_ document: DocumentSnapshot) {
+        let newTrip = Trip(documentSnapshot: document)
         trips.append(newTrip)
     }
     
-    func tripUpdated(_ data: DataSnapshot) {
-        let modifiedTrip = Trip(dataSnapshot: data)
+    func tripUpdated(_ document: DocumentSnapshot) {
+        let modifiedTrip = Trip(documentSnapshot: document)
         for trip in trips {
             if (trip.id == modifiedTrip.id) {
                 trip.capacity = modifiedTrip.capacity
@@ -90,9 +81,9 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    func tripRemoved(_ data: DataSnapshot) {
+    func tripRemoved(_ document: DocumentSnapshot) {
         for i in 0 ..< trips.count {
-            if trips[i].id == data.key {
+            if trips[i].id == document.documentID {
                 trips.remove(at: i)
                 break
             }
@@ -101,7 +92,7 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        tripsListener.remove()
+        tripsListener.remove()
     }
 
     // MARK: - Table view data source
@@ -117,26 +108,11 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: findTripCellIdentifier, for: indexPath)
             cell.textLabel?.text = "\(trips[indexPath.row].origin) - \(trips[indexPath.row].destination)"
-            cell.detailTextLabel?.text = "\(trips[indexPath.row].time)"
+            cell.detailTextLabel?.text = "\(trips[indexPath.row].time!)"
         }
         
         return cell
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation

@@ -7,19 +7,71 @@
 //
 
 import UIKit
+import Firebase
+import Rosefire
 
 class HomeViewController: UIViewController {
+    let ROSEFIRE_REGISTRY_TOKEN = "4cecdaba-e05f-435d-bbfe-8b111f2447f4"
+    
     @IBOutlet weak var menuLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!
+    @IBOutlet weak var loginLogoutButton: UIBarButtonItem!
     
     var showMenu = true
+    
+    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var myTripsButton: UIButton!
+    @IBOutlet weak var findTripsButton: UIButton!
+    
+    @IBOutlet weak var helloLabel: UILabel!
+    @IBOutlet weak var helloDetailLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        
+        updateViewBasedOnAuth(Auth.auth().currentUser != nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateViewBasedOnAuth(Auth.auth().currentUser != nil)
+    }
+    
+    func updateViewBasedOnAuth(_ signedIn: Bool) {
+        loginLogoutButton.image = signedIn ? #imageLiteral(resourceName: "logout") : #imageLiteral(resourceName: "login")
+        profileButton.isEnabled = signedIn
+        myTripsButton.isEnabled = signedIn
+        findTripsButton.isEnabled = signedIn
+        
+        if signedIn {
+            if let currentUser = Auth.auth().currentUser {
+                let userRef = Firestore.firestore().collection("users").document(currentUser.uid)
+                userRef.getDocument { (documentSnapshot, error) in
+                    if let error = error {
+                        print("Error fetching user document.  \(error.localizedDescription)")
+                        return
+                    }
+                    if let document = documentSnapshot {
+                        if document.exists {
+                            let user = User(documentSnapshot: document)
+                            self.helloLabel.text = "Hi, \(user.name.split(separator: " ")[0])"
+                            self.helloDetailLabel.text = "Thank you for using Rosuber"
+                            self.dateLabel.text = "since \(user.created.description)"
+                        }
+                    }
+                }
+            }
+        } else {
+            helloLabel.text = "Dear Rose Family,"
+            helloDetailLabel.text = "Please login to explore Rosuber!"
+            dateLabel.text = ""
+        }
+        
     }
     
     @IBAction func pressedMenu(_ sender: Any) {
@@ -41,6 +93,38 @@ class HomeViewController: UIViewController {
         menuLeadingConstraint.constant = -150
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
+        }
+    }
+    
+    @IBAction func pressedLoginLogout(_ sender: Any) {
+        if Auth.auth().currentUser == nil {
+            loginViaRosefire()
+        } else {
+            appDelegate.handleLogout()
+            updateViewBasedOnAuth(false)
+        }
+    }
+    
+    func loginViaRosefire() {
+        Rosefire.sharedDelegate().uiDelegate = self
+        Rosefire.sharedDelegate().signIn(registryToken: ROSEFIRE_REGISTRY_TOKEN) {
+            (error, result) in
+            if let error = error {
+                print("Error communicating with Rosefire! \(error.localizedDescription)")
+                return
+            }
+            print("You are now signed in with Rosefire! username: \(result!.username)")
+            Auth.auth().signIn(withCustomToken: result!.token, completion: { (user, error) in
+                if let error = error {
+                    print("Error during log in: \(error.localizedDescription)")
+                    let ac = UIAlertController(title: "Login failed", message: error.localizedDescription, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(ac, animated: true)
+                } else {
+                    self.appDelegate.handleLogin(result: result!)
+                    self.updateViewBasedOnAuth(true)
+                }
+            })
         }
     }
 }

@@ -7,7 +7,6 @@
 //
 import UIKit
 import Firebase
-import FirebaseDatabase
 
 class Trip: NSObject {
     var id: String?
@@ -17,7 +16,8 @@ class Trip: NSObject {
     var passengerKeys: String
     var origin: String
     var price: Float
-    var time: Date
+    var time: Date!
+    var created: Date?
     
     let capacityKey = "capacity"
     let destinationKey = "destination"
@@ -26,6 +26,7 @@ class Trip: NSObject {
     let originKey = "origin"
     let priceKey = "price"
     let timeKey = "time"
+    let createdKey = "created"
     
     init(capacity: Int, destination: String, origin: String, price: Float, time: Date) {
         self.capacity = capacity
@@ -35,6 +36,24 @@ class Trip: NSObject {
         self.origin = origin
         self.price = price
         self.time = time
+        self.created = Date()
+    }
+    
+    init(documentSnapshot: DocumentSnapshot) {
+        self.id = documentSnapshot.documentID
+        let data = documentSnapshot.data()!
+        self.destination = data[destinationKey] as! String
+        self.driverKey = data[driverKeyKey] as! String
+        self.passengerKeys = data[passengerKeysKey] as! String
+        self.capacity = documentSnapshot.get(capacityKey) as? Int ?? 0
+        self.origin = data[originKey] as! String
+        self.price = data[priceKey] as! Float
+        if data[timeKey] != nil {
+            self.time = data[timeKey] as! Date
+        }
+        if data[createdKey] != nil {
+            self.created = data[createdKey] as! Date
+        }
     }
     
     init(documentSnapshot: DocumentSnapshot) {
@@ -68,7 +87,8 @@ class Trip: NSObject {
                 passengerKeysKey: self.passengerKeys,
                 originKey: self.origin,
                 priceKey: self.price,
-                timeKey: self.time]
+                timeKey: self.time,
+                createdKey: self.created]
     }
     
 }

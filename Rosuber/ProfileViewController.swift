@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
@@ -18,7 +19,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var imagePicker = UIImagePickerController()
     var profileImage: UIImage?
     
-    var user: User?
+    var user: User!
+    var userRef: DocumentReference!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -31,10 +33,28 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        
+        user = appDelegate.user
+        userRef = Firestore.firestore().collection("users").document(user.id)
+        updateView()
+        
 //        if profileImage != nil {
 //            imageView.contentMode = .scaleToFill
 //            imageView.image = profileImage
 //        }
+    }
+    
+    func updateView() {
+        nameLabel.text = user.name
+        usernameLabel.text = user.id
+        emailLabel.text = user.email
+        
+        if user.phoneNumber.count == 10 {
+            let start = user.phoneNumber.index(user.phoneNumber.startIndex, offsetBy: 3)
+            let end = user.phoneNumber.index(user.phoneNumber.endIndex, offsetBy: -4)
+            let range = start..<end
+            phoneLabel.text = "\(user.phoneNumber.prefix(3))-\(user.phoneNumber[range])-\(user.phoneNumber.suffix(4))"
+        }
     }
     
     @IBAction func pressedEdit(_ sender: Any) {
@@ -71,11 +91,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let defaultAction = UIAlertAction(title: "Update", style: .default) { (action) -> Void in
             let phoneTextField = alertController.textFields![0]
             if phoneTextField.text!.count == 10 {
-                let start = phoneTextField.text!.index(phoneTextField.text!.startIndex, offsetBy: 3)
-                let end = phoneTextField.text!.index(phoneTextField.text!.endIndex, offsetBy: -4)
-                let range = start..<end
-                self.phoneLabel.text = "\(phoneTextField.text!.prefix(3))-\(phoneTextField.text![range])-\(phoneTextField.text!.suffix(4))"
-                // TODO: update user's phone number
+                self.user.phoneNumber = phoneTextField.text!
+                self.updateView()
+                self.userRef.setData(self.user.data)
                 self.handleDismiss()
             } else {
                 let errorAlert = UIAlertController(title: "Error", message: "Please enter a 10-digit number!", preferredStyle: .alert)
