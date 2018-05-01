@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import Rosefire
+import MaterialComponents.MaterialSnackbar
 
 class HomeViewController: UIViewController {
     let ROSEFIRE_REGISTRY_TOKEN = "4cecdaba-e05f-435d-bbfe-8b111f2447f4"
@@ -17,6 +18,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var loginLogoutButton: UIBarButtonItem!
+    @IBOutlet weak var spinnerStackView: UIStackView!
+    @IBOutlet weak var spinnerLabel: UILabel!
     
     var showMenu = true
     
@@ -33,6 +36,7 @@ class HomeViewController: UIViewController {
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        spinnerStackView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,11 +106,17 @@ class HomeViewController: UIViewController {
     
     @IBAction func pressedLoginLogout(_ sender: Any) {
         if Auth.auth().currentUser == nil {
+            blackView.alpha = 1
+            spinnerStackView.isHidden = false
+            spinnerLabel.text = "Signing in Rosefire..."
             loginViaRosefire()
         } else {
             let ac = UIAlertController(title: "Are you sure you want to logout?", message: "", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             ac.addAction(UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
+//                self.blackView.alpha = 1
+//                self.spinnerStackView.isHidden = false
+//                self.spinnerLabel.text = "Signing out from Rosefire..."
                 self.appDelegate.handleLogout()
             }))
             present(ac, animated: true)
@@ -133,6 +143,14 @@ class HomeViewController: UIViewController {
                 }
             })
         }
+    }
+}
+
+extension UIApplicationDelegate {
+    func showSignedOutSnackbar() {
+        let message = MDCSnackbarMessage()
+        message.text = "You've signed out!"
+        MDCSnackbarManager.show(message)
     }
 }
 
