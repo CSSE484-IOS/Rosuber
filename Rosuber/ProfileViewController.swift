@@ -33,15 +33,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        
-        user = appDelegate.user
-        userRef = Firestore.firestore().collection("users").document(user.id)
-        updateView()
-        
 //        if profileImage != nil {
 //            imageView.contentMode = .scaleToFill
 //            imageView.image = profileImage
 //        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        user = appDelegate.user
+        userRef = Firestore.firestore().collection("users").document(user.id)
+        updateView()
     }
     
     func updateView() {

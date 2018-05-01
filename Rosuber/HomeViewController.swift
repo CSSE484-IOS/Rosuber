@@ -33,8 +33,6 @@ class HomeViewController: UIViewController {
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        
-        updateViewBasedOnAuth(Auth.auth().currentUser != nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +46,10 @@ class HomeViewController: UIViewController {
         myTripsButton.isEnabled = signedIn
         findTripsButton.isEnabled = signedIn
         
+        updateGreetingLabels(signedIn)
+    }
+    
+    func updateGreetingLabels(_ signedIn: Bool) {
         if signedIn {
             if let currentUser = Auth.auth().currentUser {
                 let userRef = Firestore.firestore().collection("users").document(currentUser.uid)
@@ -59,9 +61,12 @@ class HomeViewController: UIViewController {
                     if let document = documentSnapshot {
                         if document.exists {
                             let user = User(documentSnapshot: document)
-                            self.helloLabel.text = "Hi, \(user.name.split(separator: " ")[0])"
-                            self.helloDetailLabel.text = "Thank you for using Rosuber"
-                            self.dateLabel.text = "since \(user.created.description)"
+                            self.helloLabel.text = "Hi, \(user.name.split(separator: " ")[0])!"
+                            self.helloDetailLabel.text = "You're an Rosuber user"
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "MMM dd, yyyy"
+                            let date = formatter.string(from: user.created)
+                            self.dateLabel.text = "since \(date)."
                         }
                     }
                 }
@@ -71,7 +76,6 @@ class HomeViewController: UIViewController {
             helloDetailLabel.text = "Please login to explore Rosuber!"
             dateLabel.text = ""
         }
-        
     }
     
     @IBAction func pressedMenu(_ sender: Any) {
@@ -100,8 +104,12 @@ class HomeViewController: UIViewController {
         if Auth.auth().currentUser == nil {
             loginViaRosefire()
         } else {
-            appDelegate.handleLogout()
-            updateViewBasedOnAuth(false)
+            let ac = UIAlertController(title: "Are you sure you want to logout?", message: "", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
+                self.appDelegate.handleLogout()
+            }))
+            present(ac, animated: true)
         }
     }
     
@@ -122,7 +130,6 @@ class HomeViewController: UIViewController {
                     self.present(ac, animated: true)
                 } else {
                     self.appDelegate.handleLogin(result: result!)
-                    self.updateViewBasedOnAuth(true)
                 }
             })
         }

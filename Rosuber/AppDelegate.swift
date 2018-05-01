@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        
+        window?.makeKeyAndVisible()
         return true
     }
     
@@ -52,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.user!.id = result.username
                     userRef.setData(self.user!.data)
                 }
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController")
             }
         }
     }
@@ -62,6 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Error on sign out: \(error.localizedDescription)")
         }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
     }
 }
 
