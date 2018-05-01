@@ -24,6 +24,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var myTripsButton: UIButton!
     @IBOutlet weak var findTripsButton: UIButton!
     
+    @IBOutlet weak var helloLabel: UILabel!
+    @IBOutlet weak var helloDetailLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         menuView.layer.shadowOpacity = 1
@@ -33,11 +37,41 @@ class HomeViewController: UIViewController {
         updateViewBasedOnAuth(Auth.auth().currentUser != nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateViewBasedOnAuth(Auth.auth().currentUser != nil)
+    }
+    
     func updateViewBasedOnAuth(_ signedIn: Bool) {
         loginLogoutButton.image = signedIn ? #imageLiteral(resourceName: "logout") : #imageLiteral(resourceName: "login")
         profileButton.isEnabled = signedIn
         myTripsButton.isEnabled = signedIn
         findTripsButton.isEnabled = signedIn
+        
+        if signedIn {
+            if let currentUser = Auth.auth().currentUser {
+                let userRef = Firestore.firestore().collection("users").document(currentUser.uid)
+                userRef.getDocument { (documentSnapshot, error) in
+                    if let error = error {
+                        print("Error fetching user document.  \(error.localizedDescription)")
+                        return
+                    }
+                    if let document = documentSnapshot {
+                        if document.exists {
+                            let user = User(documentSnapshot: document)
+                            self.helloLabel.text = "Hi, \(user.name.split(separator: " ")[0])"
+                            self.helloDetailLabel.text = "Thank you for using Rosuber"
+                            self.dateLabel.text = "since \(user.created.description)"
+                        }
+                    }
+                }
+            }
+        } else {
+            helloLabel.text = "Dear Rose Family,"
+            helloDetailLabel.text = "Please login to explore Rosuber!"
+            dateLabel.text = ""
+        }
+        
     }
     
     @IBAction func pressedMenu(_ sender: Any) {
@@ -65,7 +99,6 @@ class HomeViewController: UIViewController {
     @IBAction func pressedLoginLogout(_ sender: Any) {
         if Auth.auth().currentUser == nil {
             loginViaRosefire()
-            updateViewBasedOnAuth(true)
         } else {
             appDelegate.handleLogout()
             updateViewBasedOnAuth(false)
@@ -89,6 +122,7 @@ class HomeViewController: UIViewController {
                     self.present(ac, animated: true)
                 } else {
                     self.appDelegate.handleLogin(result: result!)
+                    self.updateViewBasedOnAuth(true)
                 }
             })
         }
