@@ -16,7 +16,7 @@ class Trip: NSObject {
     var passengerKeys: String?
     var origin: String
     var price: Float
-    var time: Date?
+    var time: Date!
     var created: Date?
     
     let capacityKey = "capacity"
@@ -43,7 +43,7 @@ class Trip: NSObject {
         self.destination = data[destinationKey] as! String
         self.driverKey = data[driverKeyKey] as! String
         self.passengerKeys = data[passengerKeysKey] as! String
-        self.capacity = data[capacityKey] as! Int
+        self.capacity = documentSnapshot.get(capacityKey) as? Int ?? 0
         self.origin = data[originKey] as! String
         self.price = data[priceKey] as! Float
         if data[timeKey] != nil {
