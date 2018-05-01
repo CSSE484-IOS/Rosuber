@@ -11,7 +11,6 @@
 		1B2FD62C20978D2000C9E12D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B2FD62B20978D2000C9E12D /* GoogleService-Info.plist */; };
 		1B81FCEE2086F90B00C12059 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FCED2086F90B00C12059 /* AppDelegate.swift */; };
 		1B81FCF02086F90B00C12059 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FCEF2086F90B00C12059 /* HomeViewController.swift */; };
-		1B81FCF32086F90B00C12059 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF12086F90B00C12059 /* Main.storyboard */; };
 		1B81FCF52086F91300C12059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF42086F91300C12059 /* Assets.xcassets */; };
 		1B81FCF82086F91300C12059 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF62086F91300C12059 /* LaunchScreen.storyboard */; };
 		1B81FD04208D1AA600C12059 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FD03208D1AA600C12059 /* ProfileViewController.swift */; };
@@ -31,8 +30,8 @@
 		1BE311A42092A6B30094975C /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE311A32092A6B30094975C /* Trip.swift */; };
 		1BE311A62092A6C60094975C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE311A52092A6C60094975C /* User.swift */; };
 		1BE311A82092AE3E0094975C /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE311A72092AE3E0094975C /* NewTripViewController.swift */; };
-		8839A8FED821D098F04A3EE2 /* Pods_Rosuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E178465827C102B658590BB /* Pods_Rosuber.framework */; };
-		94330C5E20937A6500E1C242 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94330C5D20937A6500E1C242 /* GoogleService-Info.plist */; };
+		94330C5E20937A6500E1C242 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		94D1C83B20980C3E007FDB19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94D1C83920980C3D007FDB19 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +39,6 @@
 		1B81FCEA2086F90B00C12059 /* Rosuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rosuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B81FCED2086F90B00C12059 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B81FCEF2086F90B00C12059 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		1B81FCF22086F90B00C12059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1B81FCF42086F91300C12059 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B81FCF72086F91300C12059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B81FCF92086F91300C12059 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,6 +60,7 @@
 		1BE311A52092A6C60094975C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1BE311A72092AE3E0094975C /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
 		70F10D04CE80D9AFCA8F49E7 /* Pods-Rosuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rosuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rosuber/Pods-Rosuber.debug.xcconfig"; sourceTree = "<group>"; };
+		94D1C83A20980C3D007FDB19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E2418F31CAA5D8F2D08D1DF /* Pods-Rosuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rosuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rosuber/Pods-Rosuber.release.xcconfig"; sourceTree = "<group>"; };
 		CB633554A87FA51BA91F0B08 /* Pods_Rosuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rosuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -110,7 +109,7 @@
 			children = (
 				1B2FD62B20978D2000C9E12D /* GoogleService-Info.plist */,
 				1B81FCED2086F90B00C12059 /* AppDelegate.swift */,
-				1B81FCF12086F90B00C12059 /* Main.storyboard */,
+				94D1C83920980C3D007FDB19 /* Main.storyboard */,
 				1B81FCF42086F91300C12059 /* Assets.xcassets */,
 				1B81FCF62086F91300C12059 /* LaunchScreen.storyboard */,
 				1B81FCF92086F91300C12059 /* Info.plist */,
@@ -239,8 +238,8 @@
 				1BE3119A208FB95E0094975C /* Icon.png in Resources */,
 				1B81FCF82086F91300C12059 /* LaunchScreen.storyboard in Resources */,
 				1B81FCF52086F91300C12059 /* Assets.xcassets in Resources */,
-				94330C5E20937A6500E1C242 /* GoogleService-Info.plist in Resources */,
-				1B81FCF32086F90B00C12059 /* Main.storyboard in Resources */,
+				94D1C83B20980C3E007FDB19 /* Main.storyboard in Resources */,
+				94330C5E20937A6500E1C242 /* (null) in Resources */,
 				1BE3119B208FB95E0094975C /* Icon@2x.png in Resources */,
 				1BE3119C208FB95E0094975C /* Icon-72.png in Resources */,
 				1B2FD62C20978D2000C9E12D /* GoogleService-Info.plist in Resources */,
@@ -335,20 +334,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1B81FCF12086F90B00C12059 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1B81FCF22086F90B00C12059 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1B81FCF62086F91300C12059 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1B81FCF72086F91300C12059 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		94D1C83920980C3D007FDB19 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94D1C83A20980C3D007FDB19 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -476,7 +475,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = Rosuber/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.rosehulman.fengy2.Rosuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -492,7 +494,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = Rosuber/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.rosehulman.fengy2.Rosuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

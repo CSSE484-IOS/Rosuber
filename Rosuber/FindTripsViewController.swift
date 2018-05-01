@@ -11,15 +11,11 @@ import Firebase
 
 class FindTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var tripsRef: DatabaseReference!
-//    var tripsListener: ListenerRegistration!
+    var tripsRef: CollectionReference!
+    var tripsListener: ListenerRegistration!
     
     let findTripCellIdentifier = "findTripCell"
     let findNoTripCellIdentifier = "findNoTripCell"
-    var trips = [Trip]()
-    
-    var tripsRef: CollectionReference!
-    var tripsListener: ListenerRegistration!
     var trips = [Trip]()
     
     @IBOutlet weak var tableView: UITableView!

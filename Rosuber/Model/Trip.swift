@@ -56,30 +56,6 @@ class Trip: NSObject {
         }
     }
     
-    init(documentSnapshot: DocumentSnapshot) {
-        self.id = documentSnapshot.documentID
-        let data = documentSnapshot.data()!
-        self.capacity = data[capacityKey] as! Int
-        self.destination = data[destinationKey] as! String
-        self.driverKey = data[driverKeyKey] as! String
-        self.passengerKeys = data[passengerKeysKey] as! String
-        self.origin = data[originKey] as! String
-        self.price = data[priceKey] as! Float
-        self.time = data[timeKey] as! Date
-    }
-    
-    init(dataSnapshot: DataSnapshot) {
-        self.id = dataSnapshot.key
-        let data = dataSnapshot.value as? [String : AnyObject] ?? [:]
-        self.capacity = data[capacityKey] as! Int
-        self.destination = data[destinationKey] as! String
-        self.driverKey = data[driverKeyKey] as! String
-        self.passengerKeys = data[passengerKeysKey] as! String
-        self.origin = data[originKey] as! String
-        self.price = data[priceKey] as! Float
-        self.time = data[timeKey] as! Date
-    }
-    
     var data: [String: Any] {
         return [capacityKey: self.capacity,
                 destinationKey: self.destination,
