@@ -755,6 +755,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ycd-mL-KNz"/>
                     </view>
+                    <connections>
+                        <outlet property="capacityLabel" destination="OKk-c3-fcd" id="7BK-5p-apa"/>
+                        <outlet property="dateLabel" destination="Cxv-kJ-tCK" id="3kk-S9-TbD"/>
+                        <outlet property="destinationLabel" destination="6GU-SR-dCY" id="v4J-43-X95"/>
+                        <outlet property="driverLabel" destination="ueT-zr-3T9" id="S5E-kd-A9P"/>
+                        <outlet property="originLabel" destination="1oa-ze-pEZ" id="4bW-Y8-231"/>
+                        <outlet property="passengerLabel" destination="NoJ-3F-7aC" id="bL7-FH-gRT"/>
+                        <outlet property="priceLabel" destination="zks-8J-FNI" id="sBy-PX-yhc"/>
+                        <outlet property="timeLabel" destination="2l2-mu-X0Y" id="Aag-Hl-W5C"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kqG-XB-QyI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1228,10 +1238,9 @@
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xz1-31-8V8"/>
         <segue reference="Diu-yy-2SK"/>
         <segue reference="2Bk-U5-ttq"/>
-        <segue reference="YoK-xz-ML3"/>
+        <segue reference="8ov-Pd-cLN"/>
         <segue reference="Wud-gt-uDd"/>
     </inferredMetricsTieBreakers>
 </document>
