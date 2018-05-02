@@ -114,9 +114,6 @@ class HomeViewController: UIViewController {
             let ac = UIAlertController(title: "Are you sure you want to logout?", message: "", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             ac.addAction(UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
-//                self.blackView.alpha = 1
-//                self.spinnerStackView.isHidden = false
-//                self.spinnerLabel.text = "Signing out from Rosefire..."
                 self.appDelegate.handleLogout()
             }))
             present(ac, animated: true)
