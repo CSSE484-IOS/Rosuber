@@ -14,8 +14,23 @@ class MyTripDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
+    @IBAction func pressedMenu(_ sender: Any) {
+        let actionController = UIAlertController(title: "My Trip Options", message: nil, preferredStyle: .actionSheet)
+        
+        actionController.addAction(UIAlertAction(title: "Contact Driver", style: .default, handler: { _ in
+            print("pressed contact driver")
+        }))
+        actionController.addAction(UIAlertAction(title: "Contact Passenger(s)", style: .default, handler: { _ in
+            print("pressed contact passenger(s)")
+        }))
+        
+        actionController.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: { _ in
+            print("pressed leave")
+        }))
+        
+        actionController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        present(actionController, animated: true)
+    }
 }

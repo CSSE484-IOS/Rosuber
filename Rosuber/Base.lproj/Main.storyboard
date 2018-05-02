@@ -587,6 +587,12 @@
                                                 <segue destination="tFP-wo-cWY" kind="show" identifier="backFromMyDetailSegue" id="8ov-Pd-cLN"/>
                                             </connections>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" image="list" id="grc-sO-4lq">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="pressedMenu:" destination="odg-lx-4tZ" id="9B9-U0-7mF"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -807,6 +813,12 @@
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <segue destination="DwZ-7n-gEL" kind="show" identifier="backFromFindDetailSegue" id="2Bk-U5-ttq"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" image="list" id="UyN-6Z-f29">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="pressedMenu:" destination="UH3-Pq-3Tl" id="wAC-QQ-caZ"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1247,8 +1259,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="i5o-xv-ivH"/>
-        <segue reference="riU-KQ-JZn"/>
-        <segue reference="YoK-xz-ML3"/>
+        <segue reference="2Bk-U5-ttq"/>
+        <segue reference="8ov-Pd-cLN"/>
         <segue reference="g7f-sr-xTp"/>
     </inferredMetricsTieBreakers>
 </document>
