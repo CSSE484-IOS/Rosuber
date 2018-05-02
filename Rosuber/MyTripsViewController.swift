@@ -13,6 +13,10 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     let myTripCellIdentifier = "myTripCell"
     let myNoTripCellIdentifier = "myNoTripCell"
     
+    var currentUserCollectionRef: CollectionReference!
+    var tripsListener: ListenerRegistration!
+    var trips = [Trip]()
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -20,65 +24,94 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let currentUser = Auth.auth().currentUser else { return }
+        currentUserCollectionRef = Firestore.firestore().collection(currentUser.uid)
+        self.trips.removeAll()
+        tripsListener = currentUserCollectionRef.order(by: "time", descending: true).addSnapshotListener({ (tripSnapshot, error) in
+            guard let snapshot = tripSnapshot else {
+                print("Error fetching trips. \(error!.localizedDescription)")
+                return
+            }
+            snapshot.documentChanges.forEach({ (docChange) in
+                if (docChange.type == .added) {
+                    print("New trip: \(docChange.document.data())")
+                    self.tripAdded(docChange.document)
+                } else if (docChange.type == .modified) {
+                    print("Modified trip: \(docChange.document.data())")
+                    self.tripUpdated(docChange.document)
+                } else if (docChange.type == .removed) {
+                    print("Removed trip: \(docChange.document.data())")
+                    self.tripRemoved(docChange.document)
+                }
+                self.trips.sort(by: { (t1, t2) -> Bool in
+                    return t1.time > t2.time
+                })
+                self.tableView.reloadData()
+            })
+        })
+    }
+    
+    func tripAdded(_ document: DocumentSnapshot) {
+        let newTrip = Trip(documentSnapshot: document)
+        trips.append(newTrip)
+    }
+    
+    func tripUpdated(_ document: DocumentSnapshot) {
+        let modifiedTrip = Trip(documentSnapshot: document)
+        for trip in trips {
+            if (trip.id == modifiedTrip.id) {
+                trip.capacity = modifiedTrip.capacity
+                trip.destination = modifiedTrip.destination
+                trip.driverKey = modifiedTrip.driverKey
+                trip.passengerKeys = modifiedTrip.passengerKeys
+                trip.origin = modifiedTrip.origin
+                trip.price = modifiedTrip.price
+                trip.time = modifiedTrip.time
+                break
+            }
+        }
+    }
+    
+    func tripRemoved(_ document: DocumentSnapshot) {
+        for i in 0 ..< trips.count {
+            if trips[i].id == document.documentID {
+                trips.remove(at: i)
+                break
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tripsListener.remove()
+    }
 
     // MARK: - Table view data source
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return trips.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: myTripCellIdentifier, for: indexPath)
-        
-        // Configure the cell...
+        var cell: UITableViewCell
+        if trips.count == 0 {
+            cell = tableView.dequeueReusableCell(withIdentifier: myNoTripCellIdentifier, for: indexPath)
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: myTripCellIdentifier, for: indexPath)
+            cell.textLabel?.text = "\(trips[indexPath.row].origin) - \(trips[indexPath.row].destination)"
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yyyy HH:mma"
+            formatter.amSymbol = "AM"
+            formatter.pmSymbol = "PM"
+            cell.detailTextLabel?.text = formatter.string(from: trips[indexPath.row].time)
+        }
         
         return cell
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation

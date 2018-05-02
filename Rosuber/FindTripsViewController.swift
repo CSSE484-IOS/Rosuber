@@ -104,7 +104,11 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: findTripCellIdentifier, for: indexPath)
             cell.textLabel?.text = "\(trips[indexPath.row].origin) - \(trips[indexPath.row].destination)"
-            cell.detailTextLabel?.text = "\(trips[indexPath.row].time!)"
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yyyy HH:mma"
+            formatter.amSymbol = "AM"
+            formatter.pmSymbol = "PM"
+            cell.detailTextLabel?.text = formatter.string(from: trips[indexPath.row].time)
         }
         
         return cell

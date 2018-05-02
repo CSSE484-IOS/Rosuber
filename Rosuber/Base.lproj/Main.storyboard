@@ -1228,6 +1228,7 @@
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="xz1-31-8V8"/>
         <segue reference="Diu-yy-2SK"/>
         <segue reference="2Bk-U5-ttq"/>
         <segue reference="YoK-xz-ML3"/>
