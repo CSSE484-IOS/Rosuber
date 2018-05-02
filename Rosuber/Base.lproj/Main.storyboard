@@ -1035,8 +1035,8 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Nvo-FG-vQs">
-                                <rect key="frame" x="40" y="84" width="295" height="408"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Nvo-FG-vQs">
+                                <rect key="frame" x="40" y="84" width="295" height="443"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="yyc-AP-2rx">
                                         <rect key="frame" x="0.0" y="0.0" width="295" height="31"/>
@@ -1053,7 +1053,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="eQM-1J-p5W">
-                                        <rect key="frame" x="0.0" y="31" width="295" height="30"/>
+                                        <rect key="frame" x="0.0" y="36" width="295" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMS-XX-NH4">
                                                 <rect key="frame" x="0.0" y="0.0" width="147.5" height="30"/>
@@ -1070,7 +1070,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="L4b-qR-DfO">
-                                        <rect key="frame" x="0.0" y="61" width="295" height="30"/>
+                                        <rect key="frame" x="0.0" y="71" width="295" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geW-Tn-aUE">
                                                 <rect key="frame" x="0.0" y="0.0" width="147.5" height="30"/>
@@ -1087,13 +1087,13 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CxR-gm-fX8">
-                                        <rect key="frame" x="0.0" y="91" width="295" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="106" width="295" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="uSI-xX-aIA">
-                                        <rect key="frame" x="0.0" y="111.5" width="295" height="216"/>
+                                        <rect key="frame" x="0.0" y="131.5" width="295" height="216"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="uSI-xX-aIA" secondAttribute="height" multiplier="295:216" id="Xnv-8g-G12"/>
@@ -1103,7 +1103,7 @@
                                         </date>
                                     </datePicker>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="YCf-Yt-q6K">
-                                        <rect key="frame" x="0.0" y="327.5" width="295" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="352.5" width="295" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Capacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-w6-G0H">
                                                 <rect key="frame" x="0.0" y="0.0" width="147.5" height="20.5"/>
@@ -1120,13 +1120,13 @@
                                         </subviews>
                                     </stackView>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="YSR-LV-3Al">
-                                        <rect key="frame" x="-2" y="348" width="299" height="31"/>
+                                        <rect key="frame" x="-2" y="378" width="299" height="31"/>
                                         <connections>
                                             <action selector="changedSlider:" destination="AlY-ur-EVd" eventType="valueChanged" id="Zhh-IO-m0h"/>
                                         </connections>
                                     </slider>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="SCS-Kv-PwH">
-                                        <rect key="frame" x="0.0" y="378" width="295" height="30"/>
+                                        <rect key="frame" x="0.0" y="413" width="295" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suggested Price Per Passenger" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJn-ah-wB0">
                                                 <rect key="frame" x="0.0" y="0.0" width="203" height="30"/>

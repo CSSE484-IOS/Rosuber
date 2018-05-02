@@ -46,6 +46,7 @@ class HomeViewController: UIViewController {
     
     func updateViewBasedOnAuth(_ signedIn: Bool) {
         loginLogoutButton.image = signedIn ? #imageLiteral(resourceName: "logout") : #imageLiteral(resourceName: "login")
+        loginLogoutButton.tintColor = signedIn ? UIColor.red : UIColor.black
         profileButton.isEnabled = signedIn
         myTripsButton.isEnabled = signedIn
         findTripsButton.isEnabled = signedIn
