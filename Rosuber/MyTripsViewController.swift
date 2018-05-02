@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MyTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let myTripCellIdentifier = "myTripCell"
