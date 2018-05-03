@@ -14,6 +14,9 @@ import MaterialComponents.MaterialSnackbar
 class HomeViewController: UIViewController {
     let ROSEFIRE_REGISTRY_TOKEN = "4cecdaba-e05f-435d-bbfe-8b111f2447f4"
     
+    let toProfileSegueIdentifier = "toProfileSegue"
+    
+    
     @IBOutlet weak var menuLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!

@@ -17,7 +17,6 @@ class NewTripViewController: UIViewController {
     @IBOutlet weak var capacitySlider: UISlider!
     @IBOutlet weak var priceField: UITextField!
     
-    
     var trip: Trip!
     
     let doneCreateSegueIdentifier = "doneCreateSegue"
