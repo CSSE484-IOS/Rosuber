@@ -219,7 +219,7 @@
                                 </constraints>
                             </imageView>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dhq-gG-Lyl">
-                                <rect key="frame" x="110" y="200.5" width="155" height="2"/>
+                                <rect key="frame" x="130" y="200.5" width="115" height="2"/>
                             </progressView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3Ko-No-9hq">
                                 <rect key="frame" x="30" y="309" width="315" height="97"/>
@@ -343,7 +343,7 @@
                             <constraint firstItem="3Ko-No-9hq" firstAttribute="leading" secondItem="3Sj-DU-vam" secondAttribute="leading" constant="30" id="JPi-u4-uhp"/>
                             <constraint firstItem="npS-Ar-hed" firstAttribute="leading" secondItem="3Sj-DU-vam" secondAttribute="leading" id="KGm-LM-NLv"/>
                             <constraint firstItem="3Sj-DU-vam" firstAttribute="trailing" secondItem="rJY-dT-iaa" secondAttribute="trailing" id="M8O-O2-D0M"/>
-                            <constraint firstItem="Dhq-gG-Lyl" firstAttribute="trailing" secondItem="9TA-dD-3dC" secondAttribute="trailing" constant="-10" id="OQN-9V-S3Q"/>
+                            <constraint firstItem="Dhq-gG-Lyl" firstAttribute="trailing" secondItem="9TA-dD-3dC" secondAttribute="trailing" constant="-30" id="OQN-9V-S3Q"/>
                             <constraint firstItem="9TA-dD-3dC" firstAttribute="leading" secondItem="3Sj-DU-vam" secondAttribute="leading" constant="100" id="PZx-0s-NaI"/>
                             <constraint firstItem="JQe-zc-z9r" firstAttribute="top" secondItem="3Sj-DU-vam" secondAttribute="top" id="QiT-PN-gVO"/>
                             <constraint firstItem="rJY-dT-iaa" firstAttribute="bottom" secondItem="3Sj-DU-vam" secondAttribute="bottom" constant="100" id="Sb4-CM-y0V"/>
@@ -353,7 +353,7 @@
                             <constraint firstItem="3Sj-DU-vam" firstAttribute="trailing" secondItem="3Ko-No-9hq" secondAttribute="trailing" constant="30" id="f4I-a7-oWA"/>
                             <constraint firstItem="npS-Ar-hed" firstAttribute="bottom" secondItem="3Sj-DU-vam" secondAttribute="bottom" id="iWs-aT-2bT"/>
                             <constraint firstItem="npS-Ar-hed" firstAttribute="top" secondItem="MIZ-nc-1Da" secondAttribute="top" id="jNG-DE-itP"/>
-                            <constraint firstItem="Dhq-gG-Lyl" firstAttribute="leading" secondItem="9TA-dD-3dC" secondAttribute="leading" constant="10" id="v3h-R7-FyR"/>
+                            <constraint firstItem="Dhq-gG-Lyl" firstAttribute="leading" secondItem="9TA-dD-3dC" secondAttribute="leading" constant="30" id="v3h-R7-FyR"/>
                             <constraint firstItem="JQe-zc-z9r" firstAttribute="trailing" secondItem="3Sj-DU-vam" secondAttribute="trailing" id="xQs-Rd-lmc"/>
                             <constraint firstItem="Dhq-gG-Lyl" firstAttribute="centerY" secondItem="9TA-dD-3dC" secondAttribute="centerY" id="yBf-OM-OOX"/>
                             <constraint firstItem="3Ko-No-9hq" firstAttribute="top" secondItem="9TA-dD-3dC" secondAttribute="bottom" constant="20" id="zqc-Ju-XFl"/>
@@ -1037,8 +1037,8 @@
                                         <barButtonItem key="leftBarButtonItem" image="back" id="jXb-pB-kHQ">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Done" id="wKU-dQ-vqg">
-                                            <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <barButtonItem key="rightBarButtonItem" image="check" id="wKU-dQ-vqg">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="pressedDone:" destination="AlY-ur-EVd" id="Ij3-EL-kni"/>
                                                 <segue destination="odg-lx-4tZ" kind="show" identifier="doneTripSegue" id="i5o-xv-ivH"/>
@@ -1209,7 +1209,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ese-gK-5mA">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Wix-lJ-49U"/>
+                                </constraints>
                                 <items>
                                     <navigationItem title="About" id="QVr-4s-uts">
                                         <barButtonItem key="leftBarButtonItem" image="back" id="3hS-rs-rzo">
@@ -1221,33 +1224,132 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nuc-uo-wYI" userLabel="CreditView">
+                                <rect key="frame" x="0.0" y="70" width="375" height="597"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CREDITS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzW-eK-dgm">
+                                        <rect key="frame" x="122" y="146.5" width="132" height="32"/>
+                                        <fontDescription key="fontDescription" name="ArialHebrew-Bold" family="Arial Hebrew" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iaq-0f-uhv">
+                                        <rect key="frame" x="50" y="238.5" width="275" height="120"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="TeE-8a-A32">
+                                                <rect key="frame" x="0.0" y="0.0" width="275" height="30"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="developer" translatesAutoresizingMaskIntoConstraints="NO" id="A1g-8V-ASJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YIZHI FENG" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dus-3g-BJN">
+                                                        <rect key="frame" x="177.5" y="0.0" width="97.5" height="30"/>
+                                                        <fontDescription key="fontDescription" name="MyanmarSangamMN" family="Myanmar Sangam MN" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="wET-bW-dy8">
+                                                <rect key="frame" x="0.0" y="30" width="275" height="30"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="developer" translatesAutoresizingMaskIntoConstraints="NO" id="qI4-E5-PxJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RYAN GREENLEE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YxU-el-Hoc">
+                                                        <rect key="frame" x="132" y="0.0" width="143" height="30"/>
+                                                        <fontDescription key="fontDescription" name="MyanmarSangamMN" family="Myanmar Sangam MN" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="DJd-mW-dib">
+                                                <rect key="frame" x="0.0" y="60" width="275" height="30"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instructor" translatesAutoresizingMaskIntoConstraints="NO" id="WaS-NE-USt">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DR. DAVID FISHER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68y-g8-OdC">
+                                                        <rect key="frame" x="122" y="0.0" width="153" height="30"/>
+                                                        <fontDescription key="fontDescription" name="MyanmarSangamMN" family="Myanmar Sangam MN" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="fuy-qC-une">
+                                                <rect key="frame" x="0.0" y="90" width="275" height="30"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="khp-LS-nLW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018 SPRING" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANM-3l-xAh">
+                                                        <rect key="frame" x="162" y="0.0" width="113" height="30"/>
+                                                        <fontDescription key="fontDescription" name="MyanmarSangamMN" family="Myanmar Sangam MN" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RHIT_logo" translatesAutoresizingMaskIntoConstraints="NO" id="u3z-FK-Ybm">
+                                        <rect key="frame" x="20" y="363.5" width="335" height="150"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="iaq-0f-uhv" firstAttribute="centerY" secondItem="Nuc-uo-wYI" secondAttribute="centerY" id="4w8-d0-TO0"/>
+                                    <constraint firstItem="u3z-FK-Ybm" firstAttribute="leading" secondItem="Nuc-uo-wYI" secondAttribute="leading" constant="20" id="9ZZ-Vf-NB5"/>
+                                    <constraint firstAttribute="trailing" secondItem="iaq-0f-uhv" secondAttribute="trailing" constant="50" id="Hzu-jC-Ztq"/>
+                                    <constraint firstItem="u3z-FK-Ybm" firstAttribute="top" secondItem="iaq-0f-uhv" secondAttribute="bottom" constant="5" id="MOv-XY-h0C"/>
+                                    <constraint firstItem="iaq-0f-uhv" firstAttribute="top" secondItem="hzW-eK-dgm" secondAttribute="bottom" constant="60" id="OC3-Wr-XDE"/>
+                                    <constraint firstItem="iaq-0f-uhv" firstAttribute="leading" secondItem="Nuc-uo-wYI" secondAttribute="leading" constant="50" id="OVy-Sa-X7N"/>
+                                    <constraint firstAttribute="trailing" secondItem="u3z-FK-Ybm" secondAttribute="trailing" constant="20" id="hrz-ss-LKY"/>
+                                    <constraint firstItem="hzW-eK-dgm" firstAttribute="centerX" secondItem="iaq-0f-uhv" secondAttribute="centerX" id="vER-sK-VNm"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ese-gK-5mA" firstAttribute="leading" secondItem="ZoQ-ZL-bnO" secondAttribute="leading" id="44M-7c-AUm"/>
                             <constraint firstItem="Ese-gK-5mA" firstAttribute="top" secondItem="ZoQ-ZL-bnO" secondAttribute="top" id="Sgk-TZ-3sv"/>
                             <constraint firstItem="Ese-gK-5mA" firstAttribute="trailing" secondItem="ZoQ-ZL-bnO" secondAttribute="trailing" id="guh-UA-kC4"/>
+                            <constraint firstItem="Nuc-uo-wYI" firstAttribute="leading" secondItem="ZoQ-ZL-bnO" secondAttribute="leading" id="jl6-i4-n0X"/>
+                            <constraint firstItem="Nuc-uo-wYI" firstAttribute="bottom" secondItem="ZoQ-ZL-bnO" secondAttribute="bottom" id="qhT-Lc-40h"/>
+                            <constraint firstItem="Nuc-uo-wYI" firstAttribute="top" secondItem="Ese-gK-5mA" secondAttribute="bottom" id="vaa-Yg-ykJ"/>
+                            <constraint firstItem="Nuc-uo-wYI" firstAttribute="trailing" secondItem="ZoQ-ZL-bnO" secondAttribute="trailing" id="zE1-Ok-QeD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZoQ-ZL-bnO"/>
                     </view>
+                    <connections>
+                        <outlet property="creditView" destination="Nuc-uo-wYI" id="buT-01-RRl"/>
+                        <outlet property="creditViewTopConstraint" destination="vaa-Yg-ykJ" id="Dzx-U4-ne2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1l9-gL-lT6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="540" y="-484"/>
+            <point key="canvasLocation" x="540" y="-484.40779610194909"/>
         </scene>
     </scenes>
     <resources>
+        <image name="RHIT_logo" width="547" height="150"/>
         <image name="add" width="30" height="30"/>
         <image name="add_photo" width="24" height="24"/>
         <image name="back" width="24" height="24"/>
         <image name="calendar" width="30" height="30"/>
         <image name="capacity" width="30" height="30"/>
+        <image name="check" width="26" height="26"/>
         <image name="clock" width="30" height="30"/>
         <image name="dest" width="30" height="30"/>
+        <image name="developer" width="30" height="30"/>
         <image name="dollar" width="30" height="30"/>
         <image name="driver" width="30" height="30"/>
         <image name="edit" width="24" height="24"/>
         <image name="info" width="24" height="24"/>
+        <image name="instructor" width="30" height="30"/>
+        <image name="launch" width="30" height="30"/>
         <image name="list" width="24" height="24"/>
         <image name="login" width="30" height="30"/>
         <image name="menu" width="24" height="24"/>
@@ -1261,6 +1363,6 @@
         <segue reference="i5o-xv-ivH"/>
         <segue reference="2Bk-U5-ttq"/>
         <segue reference="8ov-Pd-cLN"/>
-        <segue reference="g7f-sr-xTp"/>
+        <segue reference="ArO-S7-SFv"/>
     </inferredMetricsTieBreakers>
 </document>
