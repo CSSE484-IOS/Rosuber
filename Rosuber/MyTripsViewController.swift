@@ -9,7 +9,8 @@
 import UIKit
 
 class MyTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let myTripCellIdentifier = "myTripCell"
+    let myTripDriverCellIdentifier = "myTripDriverCell"
+    let myTripPassengerCellIdentifier = "myTripPassengerCell"
     let myNoTripCellIdentifier = "myNoTripCell"
     
     @IBOutlet weak var tableView: UITableView!
@@ -27,7 +28,7 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: myTripCellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: myTripDriverCellIdentifier, for: indexPath)
         
         // Configure the cell...
         
