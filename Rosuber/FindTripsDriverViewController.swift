@@ -104,7 +104,7 @@ class FindTripsDriverViewController: UIViewController, UITableViewDataSource, UI
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: findTripDriverCellIdentifier, for: indexPath)
             cell.textLabel?.text = "\(trips[indexPath.row].origin) - \(trips[indexPath.row].destination)"
-            cell.detailTextLabel?.text = "\(trips[indexPath.row].time!)"
+            cell.detailTextLabel?.text = "\(trips[indexPath.row].time)"
         }
         
         return cell

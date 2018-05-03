@@ -212,7 +212,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="9TA-dD-3dC">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="9TA-dD-3dC">
                                 <rect key="frame" x="100" y="114" width="175" height="175"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="9TA-dD-3dC" secondAttribute="height" multiplier="1:1" id="zfJ-me-TUh"/>
@@ -1509,6 +1509,6 @@
         <segue reference="usi-en-bvW"/>
         <segue reference="Diu-yy-2SK"/>
         <segue reference="8ov-Pd-cLN"/>
-        <segue reference="Wud-gt-uDd"/>
+        <segue reference="g7f-sr-xTp"/>
     </inferredMetricsTieBreakers>
 </document>

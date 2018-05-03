@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import Kingfisher
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
@@ -73,9 +72,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             if let url = snapshot?.get("imgUrl") as? String {
                 if url.count != 0 {
                     print("Loading image from url")
-                    if let imgUrl = URL(string: url) {
-                        self.imageView.kf.setImage(with: imgUrl)
-                    }
+                    ImageUtils.load(imageView: self.imageView, from: url)
                 }
             }
         })
@@ -183,14 +180,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            uploadImage(UIImageJPEGRepresentation(pickedImage, 0.5))
+            uploadImage(pickedImage)
         }
         picker.dismiss(animated: true)
         handleDismiss()
     }
     
-    func uploadImage(_ data: Data?) {
-        guard let data = data else { return }
+    func uploadImage(_ image: UIImage) {
+        guard let data = ImageUtils.resize(image: image) else { return }
         let uploadMetadata = StorageMetadata()
         uploadMetadata.contentType = "image/jpeg"
         progressView.isHidden = false
