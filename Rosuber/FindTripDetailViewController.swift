@@ -1,4 +1,4 @@
-//
+ //
 //  FindTripDetailViewController.swift
 //  Rosuber
 //
@@ -20,17 +20,18 @@ class FindTripDetailViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var capacityLabel: UILabel!
     
-    var tripRef: DocumentReference?
+    var tripRef: DocumentReference!
     var tripListener: ListenerRegistration!
     var trip: Trip?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tripRef = Firestore.firestore().collection("trips").document((trip?.id)!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tripListener = tripRef?.addSnapshotListener({ (documentSnapshot, error) in
+        tripListener = tripRef.addSnapshotListener({ (documentSnapshot, error) in
             if let error = error {
                 print("Error getting the document: \(error.localizedDescription)")
                 return
