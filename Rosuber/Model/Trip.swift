@@ -16,8 +16,9 @@ class Trip: NSObject {
     var passengerKeys: String
     var origin: String
     var price: Float
-    var time: Date!
-    var created: Date?
+    var time: Date
+    var created: Date
+    var passengerMap: [String: Bool]?
     
     let capacityKey = "capacity"
     let destinationKey = "destination"
@@ -48,15 +49,18 @@ class Trip: NSObject {
         self.capacity = documentSnapshot.get(capacityKey) as? Int ?? 0
         self.origin = data[originKey] as! String
         self.price = data[priceKey] as! Float
-        if data[timeKey] != nil {
-            self.time = data[timeKey] as! Date
-        }
-        if data[createdKey] != nil {
-            self.created = data[createdKey] as! Date
+        self.time = data[timeKey] as! Date
+        self.created = data[createdKey] as! Date
+        if data["passengerMap"] != nil {
+            self.passengerMap = data["passengerMap"] as! [String: Bool]
+            for (key,_) in self.passengerMap! {
+                print("\(key)")
+            }
         }
     }
     
     var data: [String: Any] {
+        //TODO: include driverKey and passengerKeys
         return [capacityKey: self.capacity,
                 destinationKey: self.destination,
                 driverKeyKey: self.driverKey,
@@ -67,4 +71,16 @@ class Trip: NSObject {
                 createdKey: self.created]
     }
     
+//    func contains(passenger: String) -> Bool {
+//        for i in 0..<passengers.count {
+//            if passengers[i] == passenger {
+//                return true
+//            }
+//        }
+//        return false
+//    }
+//
+//    var passengers: [String.SubSequence] {
+//        return self.passengerKeys.split(separator: ",")
+//    }
 }

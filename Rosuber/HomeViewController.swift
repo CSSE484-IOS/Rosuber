@@ -9,16 +9,24 @@
 import UIKit
 import Firebase
 import Rosefire
+import MaterialComponents.MaterialSnackbar
 
 class HomeViewController: UIViewController {
     let ROSEFIRE_REGISTRY_TOKEN = "4cecdaba-e05f-435d-bbfe-8b111f2447f4"
+    
+    let homeToProfileSegueIdentifier = "homeToProfileSegue"
+    let homeToMySegueIdentifier = "homeToMySegue"
+    let homeToFindSegueIdentifier = "homeToFindSegue"
+    let homeToAboutSegueIdentifier = "homeToAboutSegue"
+    
+    var showMenu = true
     
     @IBOutlet weak var menuLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var loginLogoutButton: UIBarButtonItem!
-    
-    var showMenu = true
+    @IBOutlet weak var spinnerStackView: UIStackView!
+    @IBOutlet weak var spinnerLabel: UILabel!
     
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var myTripsButton: UIButton!
@@ -33,8 +41,7 @@ class HomeViewController: UIViewController {
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        
-        updateViewBasedOnAuth(Auth.auth().currentUser != nil)
+        spinnerStackView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,10 +51,15 @@ class HomeViewController: UIViewController {
     
     func updateViewBasedOnAuth(_ signedIn: Bool) {
         loginLogoutButton.image = signedIn ? #imageLiteral(resourceName: "logout") : #imageLiteral(resourceName: "login")
+        loginLogoutButton.tintColor = signedIn ? UIColor.red : UIColor.black
         profileButton.isEnabled = signedIn
         myTripsButton.isEnabled = signedIn
         findTripsButton.isEnabled = signedIn
         
+        updateGreetingLabels(signedIn)
+    }
+    
+    func updateGreetingLabels(_ signedIn: Bool) {
         if signedIn {
             if let currentUser = Auth.auth().currentUser {
                 let userRef = Firestore.firestore().collection("users").document(currentUser.uid)
@@ -59,9 +71,12 @@ class HomeViewController: UIViewController {
                     if let document = documentSnapshot {
                         if document.exists {
                             let user = User(documentSnapshot: document)
-                            self.helloLabel.text = "Hi, \(user.name.split(separator: " ")[0])"
-                            self.helloDetailLabel.text = "Thank you for using Rosuber"
-                            self.dateLabel.text = "since \(user.created.description)"
+                            self.helloLabel.text = "Hi, \(user.name.split(separator: " ")[0])!"
+                            self.helloDetailLabel.text = "You're an Rosuber user"
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "MMM dd, yyyy"
+                            let date = formatter.string(from: user.created)
+                            self.dateLabel.text = "since \(date)."
                         }
                     }
                 }
@@ -71,7 +86,6 @@ class HomeViewController: UIViewController {
             helloDetailLabel.text = "Please login to explore Rosuber!"
             dateLabel.text = ""
         }
-        
     }
     
     @IBAction func pressedMenu(_ sender: Any) {
@@ -98,10 +112,17 @@ class HomeViewController: UIViewController {
     
     @IBAction func pressedLoginLogout(_ sender: Any) {
         if Auth.auth().currentUser == nil {
+            blackView.alpha = 1
+            spinnerStackView.isHidden = false
+            spinnerLabel.text = "Signing in Rosefire..."
             loginViaRosefire()
         } else {
-            appDelegate.handleLogout()
-            updateViewBasedOnAuth(false)
+            let ac = UIAlertController(title: "Are you sure you want to logout?", message: "", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
+                self.appDelegate.handleLogout()
+            }))
+            present(ac, animated: true)
         }
     }
     
@@ -122,10 +143,17 @@ class HomeViewController: UIViewController {
                     self.present(ac, animated: true)
                 } else {
                     self.appDelegate.handleLogin(result: result!)
-                    self.updateViewBasedOnAuth(true)
                 }
             })
         }
+    }
+}
+
+extension UIApplicationDelegate {
+    func showSignedOutSnackbar() {
+        let message = MDCSnackbarMessage()
+        message.text = "You've signed out!"
+        MDCSnackbarManager.show(message)
     }
 }
 

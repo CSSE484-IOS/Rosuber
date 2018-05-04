@@ -10,7 +10,11 @@ import UIKit
 import Firebase
 
 class MyTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let myTripCellIdentifier = "myTripCell"
+    let myToHomeSegueIdentifier = "myToHomeSegue"
+    let myToMyDetailSegueIdentifier = "myToMyDetailSegue"
+    
+    let myTripDriverCellIdentifier = "myTripDriverCell"
+    let myTripPassengerCellIdentifier = "myTripPassengerCell"
     let myNoTripCellIdentifier = "myNoTripCell"
     
     var currentUserCollectionRef: CollectionReference!
@@ -29,8 +33,10 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewWillAppear(animated)
         
         guard let currentUser = Auth.auth().currentUser else { return }
-        currentUserCollectionRef = Firestore.firestore().collection(currentUser.uid)
-        self.trips.removeAll()
+//        currentUserCollectionRef = Firestore.firestore().collection(currentUser.uid)
+        currentUserCollectionRef = Firestore.firestore().collection("trips")
+        
+        trips.removeAll()
         tripsListener = currentUserCollectionRef.order(by: "time", descending: true).addSnapshotListener({ (tripSnapshot, error) in
             guard let snapshot = tripSnapshot else {
                 print("Error fetching trips. \(error!.localizedDescription)")
@@ -90,8 +96,8 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
         tripsListener.remove()
     }
 
-    // MARK: - Table view data source
 
+    // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return trips.count
     }
@@ -101,7 +107,7 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
         if trips.count == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: myNoTripCellIdentifier, for: indexPath)
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: myTripCellIdentifier, for: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: myTripDriverCellIdentifier, for: indexPath)
             cell.textLabel?.text = "\(trips[indexPath.row].origin) - \(trips[indexPath.row].destination)"
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yyyy HH:mma"
@@ -113,14 +119,14 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == myToMyDetailSegueIdentifier {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                (segue.destination as! MyTripDetailViewController).trip = trips[indexPath.row]
+            }
+        }
     }
-    */
 
 }

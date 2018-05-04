@@ -1,21 +1,24 @@
 //
-//  FindTripsTableViewController.swift
+//  FindTripsPassengerViewController.swift
 //  Rosuber
 //
-//  Created by FengYizhi on 2018/4/24.
+//  Created by FengYizhi on 2018/5/2.
 //  Copyright © 2018年 FengYizhi. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class FindTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FindTripsPassengerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    let passengerToHomeSegueIdentifier = "passengerToHomeSegue"
+    let passengerToCreateSegueIdentifier = "passengerToCreateSegue"
+    let passengerToFindDetailSegueIdentifier = "passengerToFindDetailSegue"
     
+    let findTripPassengerCellIdentifier = "findTripPassengerCell"
+    let findNoTripPassengerCellIdentifier = "findNoTripPassengerCell"
+
     var tripsRef: CollectionReference!
     var tripsListener: ListenerRegistration!
-    
-    let findTripCellIdentifier = "findTripCell"
-    let findNoTripCellIdentifier = "findNoTripCell"
     var trips = [Trip]()
     
     @IBOutlet weak var tableView: UITableView!
@@ -32,7 +35,7 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewWillAppear(animated)
         
         self.trips.removeAll()
-        tripsListener = tripsRef.order(by: "time", descending: true).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
+        tripsListener = tripsRef.order(by: "time", descending: false).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
             guard let snapshot = querySnapshot else {
                 print("Error fetching trips. error: \(error!.localizedDescription)")
                 return
@@ -49,7 +52,7 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
                     self.tripRemoved(docChange.document)
                 }
                 self.trips.sort(by: { (t1, t2) -> Bool in
-                    return t1.time > t2.time
+                    return t1.time < t2.time
                 })
                 self.tableView.reloadData()
             })
@@ -90,7 +93,7 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewWillDisappear(animated)
         tripsListener.remove()
     }
-
+    
     // MARK: - Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -100,9 +103,9 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         if trips.count == 0 {
-            cell = tableView.dequeueReusableCell(withIdentifier: findNoTripCellIdentifier, for: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: findNoTripPassengerCellIdentifier, for: indexPath)
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: findTripCellIdentifier, for: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: findTripPassengerCellIdentifier, for: indexPath)
             cell.textLabel?.text = "\(trips[indexPath.row].origin) - \(trips[indexPath.row].destination)"
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yyyy HH:mma"
@@ -116,9 +119,8 @@ class FindTripsViewController: UIViewController, UITableViewDataSource, UITableV
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "findDetailSegue" {
+        if segue.identifier == passengerToFindDetailSegueIdentifier {
             if let indexPath = tableView.indexPathForSelectedRow {
                 (segue.destination as! FindTripDetailViewController).trip = trips[indexPath.row]
             }

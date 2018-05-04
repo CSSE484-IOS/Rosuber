@@ -8,24 +8,32 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    let profileToHomeSegueIdentifier = "profileToHomeSegue"
+    
+    var showMenu = true
+    var imagePicker = UIImagePickerController()
+    
+    var user: User!
+    var userRef: DocumentReference!
+    
+    var photoStorageRef: StorageReference!
+    var photoDocRef: DocumentReference!
+    var photoListener: ListenerRegistration!
+    
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     
-    var showMenu = true
-    var imagePicker = UIImagePickerController()
-    var profileImage: UIImage?
-    
-    var user: User!
-    var userRef: DocumentReference!
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
+    
+    @IBOutlet weak var progressView: UIProgressView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,15 +41,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         user = appDelegate.user
         userRef = Firestore.firestore().collection("users").document(user.id)
-        updateView()
+        photoStorageRef = Storage.storage().reference(withPath: "images/\(user.id!)")
         
-//        if profileImage != nil {
-//            imageView.contentMode = .scaleToFill
-//            imageView.image = profileImage
-//        }
+        updateView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        photoListener.remove()
     }
     
     func updateView() {
@@ -55,6 +68,18 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             let range = start..<end
             phoneLabel.text = "\(user.phoneNumber.prefix(3))-\(user.phoneNumber[range])-\(user.phoneNumber.suffix(4))"
         }
+        
+        photoListener = userRef.addSnapshotListener({ (snapshot, error) in
+            if let error = error {
+                print("Error getting the Firestore document. Error: \(error.localizedDescription)")
+            }
+            if let url = snapshot?.get("imgUrl") as? String {
+                if url.count != 0 {
+                    print("Loading image from url")
+                    ImageUtils.load(imageView: self.imageView, from: url)
+                }
+            }
+        })
     }
     
     @IBAction func pressedEdit(_ sender: Any) {
@@ -159,12 +184,42 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            profileImage = pickedImage
-            imageView.contentMode = .scaleToFill
-            imageView.image = pickedImage
+            uploadImage(pickedImage)
         }
         picker.dismiss(animated: true)
         handleDismiss()
+    }
+    
+    func uploadImage(_ image: UIImage) {
+        guard let data = ImageUtils.resize(image: image) else { return }
+        let uploadMetadata = StorageMetadata()
+        uploadMetadata.contentType = "image/jpeg"
+        progressView.isHidden = false
+        progressView.progress = 0
+        
+        let uploadTask = photoStorageRef.putData(data, metadata: uploadMetadata) { (metadata, error) in
+            if let error = error {
+                print("Error with upload \(error.localizedDescription)")
+            }
+        }
+        uploadTask.observe(.progress) { (snapshot) in
+            guard let progress = snapshot.progress else { return }
+            self.progressView.progress = Float(progress.fractionCompleted)
+        }
+        uploadTask.observe(.success) { (snapshot) in
+            self.progressView.isHidden = true
+            print("Your upload is finished")
+            self.photoStorageRef.downloadURL(completion: { (url, error) in
+                if let error = error {
+                    print("Error getting the download url. Error: \(error.localizedDescription)")
+                }
+                if let url = url {
+                    print("Saving the url \(url.absoluteString)")
+                    self.user.imgUrl = url.absoluteString
+                    self.userRef.setData(self.user.data)
+                }
+            })
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

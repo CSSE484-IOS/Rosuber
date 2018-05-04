@@ -9,6 +9,11 @@
 import UIKit
 
 class NewTripViewController: UIViewController {
+    let createToFindSegueIdentifier = "createToFindSegue"
+    let createToMyDetailSegueIdentifier = "createToMyDetailSegue"
+    
+    var trip: Trip!
+    
     @IBOutlet weak var driverSwitch: UISwitch!
     @IBOutlet weak var fromField: UITextField!
     @IBOutlet weak var toField: UITextField!
@@ -16,10 +21,6 @@ class NewTripViewController: UIViewController {
     @IBOutlet weak var capacityField: UILabel!
     @IBOutlet weak var capacitySlider: UISlider!
     @IBOutlet weak var priceField: UITextField!
-    
-    var trip: Trip!
-    
-    let doneTripSegueIdentifier = "doneTripSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,7 @@ class NewTripViewController: UIViewController {
             self.capacitySlider.value = Float(self.trip.capacity)
             self.fromField.text = self.trip.origin
             self.toField.text = self.trip.destination
-            self.datePicker.date = self.trip.time!
+            self.datePicker.date = self.trip.time
             self.priceField.text = "\(self.trip.price)"
         } else {
             self.capacitySlider.value = 0
@@ -57,7 +58,7 @@ class NewTripViewController: UIViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //TODO: if segue is doneTripSegue then set the trip
+        //TODO: if segue is doneCreateSegue then set the trip
     }
 
 }

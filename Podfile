@@ -9,7 +9,10 @@ target 'Rosuber' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
   
   pod 'Rosefire', :git => 'https://ada.csse.rose-hulman.edu/rosefire/ios-sdk.git'
+  pod 'MaterialComponents/Snackbar'
+  pod 'Kingfisher', '~> 4.0'
 
 end

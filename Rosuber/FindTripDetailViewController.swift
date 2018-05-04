@@ -10,6 +10,11 @@ import UIKit
 import Firebase
 
 class FindTripDetailViewController: UIViewController {
+    let findDetailToFindSegueIdentifier = "findDetailToFindSegue"
+    
+    var trip: Trip!
+    var tripRef: DocumentReference!
+    var tripListener: ListenerRegistration!
     
     @IBOutlet weak var originLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
@@ -19,14 +24,10 @@ class FindTripDetailViewController: UIViewController {
     @IBOutlet weak var passengerLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var capacityLabel: UILabel!
-    
-    var tripRef: DocumentReference!
-    var tripListener: ListenerRegistration!
-    var trip: Trip?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tripRef = Firestore.firestore().collection("trips").document((trip?.id)!)
+        tripRef = Firestore.firestore().collection("trips").document(trip.id!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,22 +52,41 @@ class FindTripDetailViewController: UIViewController {
     }
     
     func updateView() {
-        originLabel.text = trip?.origin
-        destinationLabel.text = trip?.destination
+        originLabel.text = trip.origin
+        destinationLabel.text = trip.destination
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy"
-        dateLabel.text = formatter.string(from: (trip?.time)!)
+        formatter.dateFormat = "MMM dd, yyyy"
+        dateLabel.text = formatter.string(from: trip.time)
         
         formatter.dateFormat = "HH:mm a"
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
-        timeLabel.text = formatter.string(from: (trip?.time)!)
+        timeLabel.text = formatter.string(from: trip.time)
         
-        driverLabel.text = trip?.driverKey
-        passengerLabel.text = trip?.passengerKeys
-        priceLabel.text = "\(trip!.price)"
-        capacityLabel.text = "\(trip!.capacity)"
+        driverLabel.text = trip.driverKey
+        passengerLabel.text = trip.passengerKeys
+        priceLabel.text = "\(trip.price)"
+        capacityLabel.text = "\(trip.capacity)"
     }
-
+    
+    
+    @IBAction func pressedMenu(_ sender: Any) {
+        let actionController = UIAlertController(title: "Find Trip Options", message: nil, preferredStyle: .actionSheet)
+        
+        actionController.addAction(UIAlertAction(title: "Contact Driver", style: .default, handler: { _ in
+            print("pressed contact driver")
+        }))
+        actionController.addAction(UIAlertAction(title: "Contact Passenger(s)", style: .default, handler: { _ in
+            print("pressed contact passenger(s)")
+        }))
+        
+        actionController.addAction(UIAlertAction(title: "Join", style: .default, handler: { _ in
+            print("pressed join")
+        }))
+        
+        actionController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        present(actionController, animated: true)
+    }
+    
 }
