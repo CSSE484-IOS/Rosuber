@@ -717,6 +717,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ycd-mL-KNz"/>
                     </view>
+                    <connections>
+                        <outlet property="capacityLabel" destination="OKk-c3-fcd" id="gE0-FD-igK"/>
+                        <outlet property="dateLabel" destination="Cxv-kJ-tCK" id="gH6-aJ-Vsy"/>
+                        <outlet property="destinationLabel" destination="6GU-SR-dCY" id="B7w-aQ-pQD"/>
+                        <outlet property="driverLabel" destination="ueT-zr-3T9" id="6wB-Md-Nkl"/>
+                        <outlet property="originLabel" destination="1oa-ze-pEZ" id="3hH-Ta-JtG"/>
+                        <outlet property="passengerLabel" destination="NoJ-3F-7aC" id="pKG-my-eUZ"/>
+                        <outlet property="priceLabel" destination="zks-8J-FNI" id="2Ie-4K-Khy"/>
+                        <outlet property="timeLabel" destination="2l2-mu-X0Y" id="ESD-TS-3nz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kqG-XB-QyI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -935,6 +945,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MPf-9c-vbH"/>
                     </view>
+                    <connections>
+                        <outlet property="capacityLabel" destination="0fB-93-NEJ" id="gZO-Nc-akk"/>
+                        <outlet property="dateLabel" destination="lOU-nM-4Lk" id="Rh3-go-77h"/>
+                        <outlet property="destinationLabel" destination="sZb-2Q-trC" id="T1U-60-XPH"/>
+                        <outlet property="driverLabel" destination="LsQ-q3-kC8" id="dVH-kw-QYQ"/>
+                        <outlet property="originLabel" destination="Gla-Gu-R7D" id="QcX-wJ-eXq"/>
+                        <outlet property="passengerLabel" destination="IB1-F6-o6Z" id="Bgo-B1-oCe"/>
+                        <outlet property="priceLabel" destination="4eZ-6j-k0H" id="Et8-MI-R04"/>
+                        <outlet property="timeLabel" destination="kGH-DR-SKJ" id="Xwn-G9-wQ8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NSM-9x-uja" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1507,8 +1527,7 @@
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="M1x-rv-Lrf"/>
-        <segue reference="QZV-dJ-4Dz"/>
+        <segue reference="jDa-KX-QTb"/>
         <segue reference="8zC-SI-9QQ"/>
         <segue reference="iQs-pZ-IgL"/>
         <segue reference="i5o-xv-ivH"/>

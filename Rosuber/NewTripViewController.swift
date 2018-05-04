@@ -12,6 +12,8 @@ class NewTripViewController: UIViewController {
     let createToFindSegueIdentifier = "createToFindSegue"
     let createToMyDetailSegueIdentifier = "createToMyDetailSegue"
     
+    var trip: Trip!
+    
     @IBOutlet weak var driverSwitch: UISwitch!
     @IBOutlet weak var fromField: UITextField!
     @IBOutlet weak var toField: UITextField!
@@ -19,10 +21,6 @@ class NewTripViewController: UIViewController {
     @IBOutlet weak var capacityField: UILabel!
     @IBOutlet weak var capacitySlider: UISlider!
     @IBOutlet weak var priceField: UITextField!
-    
-    var trip: Trip!
-    
-    let doneCreateSegueIdentifier = "doneCreateSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()

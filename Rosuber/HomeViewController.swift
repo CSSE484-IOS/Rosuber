@@ -19,14 +19,14 @@ class HomeViewController: UIViewController {
     let homeToFindSegueIdentifier = "homeToFindSegue"
     let homeToAboutSegueIdentifier = "homeToAboutSegue"
     
+    var showMenu = true
+    
     @IBOutlet weak var menuLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var loginLogoutButton: UIBarButtonItem!
     @IBOutlet weak var spinnerStackView: UIStackView!
     @IBOutlet weak var spinnerLabel: UILabel!
-    
-    var showMenu = true
     
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var myTripsButton: UIButton!

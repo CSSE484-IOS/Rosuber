@@ -35,7 +35,7 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
         super.viewWillAppear(animated)
         
         self.trips.removeAll()
-        tripsListener = tripsRef.order(by: "time", descending: true).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
+        tripsListener = tripsRef.order(by: "time", descending: false).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
             guard let snapshot = querySnapshot else {
                 print("Error fetching trips. error: \(error!.localizedDescription)")
                 return
@@ -52,7 +52,7 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
                     self.tripRemoved(docChange.document)
                 }
                 self.trips.sort(by: { (t1, t2) -> Bool in
-                    return t1.time > t2.time
+                    return t1.time < t2.time
                 })
                 self.tableView.reloadData()
             })
@@ -107,20 +107,24 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: findTripPassengerCellIdentifier, for: indexPath)
             cell.textLabel?.text = "\(trips[indexPath.row].origin) - \(trips[indexPath.row].destination)"
-            cell.detailTextLabel?.text = "\(trips[indexPath.row].time)"
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yyyy HH:mma"
+            formatter.amSymbol = "AM"
+            formatter.pmSymbol = "PM"
+            cell.detailTextLabel?.text = formatter.string(from: trips[indexPath.row].time)
         }
         
         return cell
     }
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == passengerToFindDetailSegueIdentifier {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                (segue.destination as! FindTripDetailViewController).trip = trips[indexPath.row]
+            }
+        }
     }
-    */
 
 }

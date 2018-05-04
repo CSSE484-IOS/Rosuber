@@ -8,9 +8,20 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let profileToHomeSegueIdentifier = "profileToHomeSegue"
+    
+    var showMenu = true
+    var imagePicker = UIImagePickerController()
+    
+    var user: User!
+    var userRef: DocumentReference!
+    
+    var photoStorageRef: StorageReference!
+    var photoDocRef: DocumentReference!
+    var photoListener: ListenerRegistration!
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuView: UIView!
@@ -22,15 +33,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     
-    var showMenu = true
-    var imagePicker = UIImagePickerController()
-    
-    var user: User!
-    var userRef: DocumentReference!
-    
-    var photoStorageRef: StorageReference!
-    var photoDocRef: DocumentReference!
-    var photoListener: ListenerRegistration!
     @IBOutlet weak var progressView: UIProgressView!
     
     override func viewDidLoad() {
