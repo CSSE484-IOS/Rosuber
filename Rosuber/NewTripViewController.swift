@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class NewTripViewController: UIViewController {
+    var tripsRef: CollectionReference!
+    
     let createToFindSegueIdentifier = "createToFindSegue"
     let createToMyDetailSegueIdentifier = "createToMyDetailSegue"
     
@@ -35,6 +38,7 @@ class NewTripViewController: UIViewController {
             self.capacitySlider.value = 0
         }
         updateView()
+        tripsRef = Firestore.firestore().collection("trips")
     }
     
     @IBAction func pressedDone(_ sender: Any) {
@@ -43,7 +47,8 @@ class NewTripViewController: UIViewController {
                            origin: self.fromField.text!,
                            price: Float(self.priceField.text!)!,
                            time: self.datePicker.date)
-        //TODO: update to Firestore
+        //DONE: update to Firestore
+        self.tripsRef.addDocument(data: newTrip.data)
     }
     
     @IBAction func changedSlider(_ sender: Any) {
