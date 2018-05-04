@@ -9,6 +9,8 @@
 import UIKit
 
 class AboutViewController: UIViewController {
+    let aboutToHomeSegueIdentifier = "aboutToHomeSegue"
+    
     @IBOutlet weak var creditViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var creditView: UIView!
     

@@ -10,6 +10,7 @@ import UIKit
 import MessageUI
 
 class MyTripDetailViewController: UIViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate {
+    let myDetailToMySegueIdentifier = "myDetailToMySegue"
     
     var trip: Trip?
 

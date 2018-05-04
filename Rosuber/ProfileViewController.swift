@@ -10,10 +10,17 @@ import UIKit
 import Firebase
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    let profileToHomeSegueIdentifier = "profileToHomeSegue"
+    
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
     
     var showMenu = true
     var imagePicker = UIImagePickerController()
@@ -25,11 +32,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var photoDocRef: DocumentReference!
     var photoListener: ListenerRegistration!
     @IBOutlet weak var progressView: UIProgressView!
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var phoneLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

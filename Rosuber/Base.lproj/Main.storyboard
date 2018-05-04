@@ -84,7 +84,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="6px-2q-3fw" kind="show" identifier="toProfileSegue" id="zsB-8W-ESN"/>
+                                                    <segue destination="6px-2q-3fw" kind="show" identifier="homeToProfileSegue" id="zsB-8W-ESN"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKZ-Dv-Xtt">
@@ -93,7 +93,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="tFP-wo-cWY" kind="show" identifier="toMySegue" id="YoK-xz-ML3"/>
+                                                    <segue destination="tFP-wo-cWY" kind="show" identifier="homeToMySegue" id="YoK-xz-ML3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVK-Tc-MDZ">
@@ -102,7 +102,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="Bge-u5-3P3" kind="show" identifier="toFindSegue" id="BBr-Dw-EvE"/>
+                                                    <segue destination="Bge-u5-3P3" kind="show" identifier="homeToFindSegue" id="BBr-Dw-EvE"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -113,7 +113,7 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="omz-wT-Kr4" kind="show" identifier="toAboutSegue" id="sao-W9-Rae"/>
+                                            <segue destination="omz-wT-Kr4" kind="show" identifier="homeToAboutSegue" id="sao-W9-Rae"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -200,7 +200,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="back" id="bdQ-Yk-3EH">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="wAx-do-p6D" kind="show" identifier="backFromProfileSegue" id="g7f-sr-xTp"/>
+                                                <segue destination="wAx-do-p6D" kind="show" identifier="profileToHomeSegue" id="g7f-sr-xTp"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" image="edit" id="HyA-T7-6Ms">
@@ -391,7 +391,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="back" id="hRP-9F-aSM">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="wAx-do-p6D" kind="show" identifier="backFromMySegue" id="Wud-gt-uDd"/>
+                                                <segue destination="wAx-do-p6D" kind="show" identifier="myToHomeSegue" id="Wud-gt-uDd"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -429,7 +429,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="odg-lx-4tZ" kind="showDetail" identifier="myDetailSegue" id="Diu-yy-2SK"/>
+                                            <segue destination="odg-lx-4tZ" kind="showDetail" identifier="myToMyDetailSegue" id="Diu-yy-2SK"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="myTripPassengerCell" textLabel="IfY-gk-zcs" detailTextLabel="yKR-iw-LYH" imageView="fgU-wd-dNB" style="IBUITableViewCellStyleSubtitle" id="4KH-Oj-sg7">
@@ -522,7 +522,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="back" id="gQr-o9-1o0">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="tFP-wo-cWY" kind="show" identifier="backFromMyDetailSegue" id="8ov-Pd-cLN"/>
+                                                <segue destination="tFP-wo-cWY" kind="show" identifier="myDetailToMySegue" id="8ov-Pd-cLN"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" image="list" id="grc-sO-4lq">
@@ -739,6 +739,9 @@
                                     <navigationItem title="Trip Detail" id="uJF-eh-DLO">
                                         <barButtonItem key="leftBarButtonItem" image="back" id="9Ya-Gc-rUL">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <segue destination="Bge-u5-3P3" kind="show" identifier="findDetailToFindSegue" id="jDa-KX-QTb"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" image="list" id="UyN-6Z-f29">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -952,14 +955,14 @@
                                         <barButtonItem key="leftBarButtonItem" image="back" id="jXb-pB-kHQ">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="Bge-u5-3P3" kind="show" identifier="cancelCreateSegue" id="QZV-dJ-4Dz"/>
+                                                <segue destination="Bge-u5-3P3" kind="show" identifier="createToFindSegue" id="QZV-dJ-4Dz"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" image="check" id="wKU-dQ-vqg">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="pressedDone:" destination="AlY-ur-EVd" id="Ij3-EL-kni"/>
-                                                <segue destination="odg-lx-4tZ" kind="show" identifier="doneCreateSegue" id="i5o-xv-ivH"/>
+                                                <segue destination="odg-lx-4tZ" kind="show" identifier="createToMyDetailSegue" id="i5o-xv-ivH"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1136,7 +1139,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="back" id="3hS-rs-rzo">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="wAx-do-p6D" kind="show" identifier="backFromAboutSegue" id="ArO-S7-SFv"/>
+                                                <segue destination="wAx-do-p6D" kind="show" identifier="aboutToHomeSegue" id="ArO-S7-SFv"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1265,13 +1268,13 @@
                                         <barButtonItem key="leftBarButtonItem" image="back" id="aoY-6S-Jek">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="wAx-do-p6D" kind="show" identifier="backFromPassengerSegue" id="Raw-aq-Qvc"/>
+                                                <segue destination="wAx-do-p6D" kind="show" identifier="passengerToHomeSegue" id="Raw-aq-Qvc"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" image="add" id="xy6-ng-hND">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="AlY-ur-EVd" kind="show" identifier="newTripPassengerSegue" id="6aP-mZ-NC4"/>
+                                                <segue destination="AlY-ur-EVd" kind="show" identifier="passengerToCreateSegue" id="6aP-mZ-NC4"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1305,7 +1308,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="UH3-Pq-3Tl" kind="showDetail" identifier="findPassengerDetailSegue" id="usi-en-bvW"/>
+                                            <segue destination="UH3-Pq-3Tl" kind="showDetail" identifier="passengerToFindDetailSegue" id="usi-en-bvW"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="findNoTripPassengerCell" textLabel="H8z-10-Myb" imageView="P8Q-hO-YyL" style="IBUITableViewCellStyleDefault" id="xsY-cz-Rnv">
@@ -1368,13 +1371,13 @@
                                         <barButtonItem key="leftBarButtonItem" image="back" id="ekT-UM-aCz">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="wAx-do-p6D" kind="show" identifier="backFromDriverSegue" id="x33-xm-PBt"/>
+                                                <segue destination="wAx-do-p6D" kind="show" identifier="driverToHomeSegue" id="x33-xm-PBt"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" image="add" id="yTk-8w-569">
                                             <color key="tintColor" red="0.37176165799999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="AlY-ur-EVd" kind="show" identifier="newTripDriverSegue" id="8zC-SI-9QQ"/>
+                                                <segue destination="AlY-ur-EVd" kind="show" identifier="driverToCreateSegue" id="8zC-SI-9QQ"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1408,7 +1411,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="UH3-Pq-3Tl" kind="showDetail" identifier="findDriveDetailSegue" id="iQs-pZ-IgL"/>
+                                            <segue destination="UH3-Pq-3Tl" kind="showDetail" identifier="driverToFindDetailSegue" id="iQs-pZ-IgL"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="findNoTripDriverCell" textLabel="AGI-uh-fSS" imageView="Z1z-oa-3hj" style="IBUITableViewCellStyleDefault" id="laW-7T-w1C">
@@ -1504,11 +1507,12 @@
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="M1x-rv-Lrf"/>
         <segue reference="QZV-dJ-4Dz"/>
-        <segue reference="6aP-mZ-NC4"/>
-        <segue reference="usi-en-bvW"/>
-        <segue reference="Diu-yy-2SK"/>
-        <segue reference="YoK-xz-ML3"/>
-        <segue reference="Wud-gt-uDd"/>
+        <segue reference="8zC-SI-9QQ"/>
+        <segue reference="iQs-pZ-IgL"/>
+        <segue reference="i5o-xv-ivH"/>
+        <segue reference="8ov-Pd-cLN"/>
+        <segue reference="x33-xm-PBt"/>
     </inferredMetricsTieBreakers>
 </document>

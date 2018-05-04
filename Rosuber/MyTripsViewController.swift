@@ -9,6 +9,9 @@
 import UIKit
 
 class MyTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    let myToHomeSegueIdentifier = "myToHomeSegue"
+    let myToMyDetailSegueIdentifier = "myToMyDetailSegue"
+    
     let myTripDriverCellIdentifier = "myTripDriverCell"
     let myTripPassengerCellIdentifier = "myTripPassengerCell"
     let myNoTripCellIdentifier = "myNoTripCell"

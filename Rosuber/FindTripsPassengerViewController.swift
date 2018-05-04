@@ -10,6 +10,9 @@ import UIKit
 import Firebase
 
 class FindTripsPassengerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    let passengerToHomeSegueIdentifier = "passengerToHomeSegue"
+    let passengerToCreateSegueIdentifier = "passengerToCreateSegue"
+    let passengerToFindDetailSegueIdentifier = "passengerToFindDetailSegue"
     
     let findTripPassengerCellIdentifier = "findTripPassengerCell"
     let findNoTripPassengerCellIdentifier = "findNoTripPassengerCell"

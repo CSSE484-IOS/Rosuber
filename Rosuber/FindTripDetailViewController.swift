@@ -9,6 +9,7 @@
 import UIKit
 
 class FindTripDetailViewController: UIViewController {
+    let findDetailToFindSegueIdentifier = "findDetailToFindSegue"
     
     var trip: Trip?
 

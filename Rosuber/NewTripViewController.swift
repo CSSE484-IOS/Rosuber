@@ -9,6 +9,9 @@
 import UIKit
 
 class NewTripViewController: UIViewController {
+    let createToFindSegueIdentifier = "createToFindSegue"
+    let createToMyDetailSegueIdentifier = "createToMyDetailSegue"
+    
     @IBOutlet weak var driverSwitch: UISwitch!
     @IBOutlet weak var fromField: UITextField!
     @IBOutlet weak var toField: UITextField!
