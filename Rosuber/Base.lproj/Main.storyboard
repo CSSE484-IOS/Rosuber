@@ -1017,7 +1017,7 @@
                                                 <rect key="frame" x="147.5" y="0.0" width="147.5" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -1034,7 +1034,7 @@
                                                 <rect key="frame" x="147.5" y="0.0" width="147.5" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -1090,7 +1090,7 @@
                                                 <rect key="frame" x="208" y="0.0" width="87" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -1526,11 +1526,10 @@
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Diu-yy-2SK"/>
         <segue reference="QZV-dJ-4Dz"/>
         <segue reference="8zC-SI-9QQ"/>
         <segue reference="iQs-pZ-IgL"/>
-        <segue reference="8ov-Pd-cLN"/>
+        <segue reference="YoK-xz-ML3"/>
         <segue reference="Wud-gt-uDd"/>
     </inferredMetricsTieBreakers>
 </document>
