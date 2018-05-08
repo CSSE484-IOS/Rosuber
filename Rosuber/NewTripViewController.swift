@@ -22,6 +22,8 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var capacityField: UILabel!
     @IBOutlet weak var capacitySlider: UISlider!
     @IBOutlet weak var priceField: UITextField!
+    
+    var textFields: [UITextField]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +32,30 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
         toField.delegate = self
         priceField.delegate = self
         updateView()
+        textFields = [fromField, toField, priceField]
     }
     
     @IBAction func pressedDone(_ sender: Any) {
+        for tf in textFields {
+            unhighligh(textField: tf)
+        }
+        var isValid = true
+        for tf in textFields {
+            if tf.text!.isEmpty {
+                isValid = false
+                highlight(textField: tf)
+            }
+        }
+        if isValid {
+            addNewTrip()
+        } else {
+            let errorAlert = UIAlertController(title: "Required Field(s) Empty", message: "", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(errorAlert, animated: true)
+        }
+    }
+    
+    func addNewTrip() {
         newTrip = Trip(isDriver: driverSwitch.isOn,
                        capacity: Int(self.capacitySlider.value),
                        destination: toField.text!,
@@ -52,6 +75,16 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
         let fixed = roundf(capacitySlider.value / 1.0) * 1.0;
         capacitySlider.setValue(fixed, animated: true)
         updateView()
+    }
+    
+    func highlight(textField: UITextField) {
+        textField.layer.borderWidth = 3.0
+        textField.layer.borderColor = UIColor.red.cgColor
+    }
+    
+    func unhighligh(textField: UITextField) {
+        textField.layer.borderWidth = 0.0
+        textField.layer.borderColor = UIColor.black.cgColor
     }
     
     func updateView() {
