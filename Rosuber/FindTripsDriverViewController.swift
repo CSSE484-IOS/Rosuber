@@ -17,6 +17,8 @@ class FindTripsDriverViewController: UIViewController, UITableViewDataSource, UI
     let findTripDriverCellIdentifier = "findTripDriverCell"
     let findNoTripDriverCellIdentifier = "findNoTripDriverCell"
     
+    let cellHeaderHeight: CGFloat = 10
+    
     var tripsRef: CollectionReference!
     var tripsListener: ListenerRegistration!
     var trips = [Trip]()
@@ -96,8 +98,12 @@ class FindTripsDriverViewController: UIViewController, UITableViewDataSource, UI
     
     // MARK: - Table view data source
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return trips.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return max(trips.count, 1)
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -113,8 +119,18 @@ class FindTripsDriverViewController: UIViewController, UITableViewDataSource, UI
             formatter.pmSymbol = "PM"
             cell.detailTextLabel?.text = formatter.string(from: trips[indexPath.row].time)
         }
-        
+        cell.layer.cornerRadius = 5
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return cellHeaderHeight
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        return view
     }
 
     // MARK: - Navigation
