@@ -14,17 +14,20 @@ class User: NSObject {
     var name: String
     var phoneNumber: String
     var created: Date!
+    var imgUrl: String!
     
     let emailKey = "email"
     let nameKey = "name"
     let phoneNumberKey = "phoneNumber"
     let createdKey = "created"
+    let imgUrlKey = "imgUrl"
     
     init(email: String, name: String, phoneNumber: String) {
         self.email = email
         self.name = name
         self.phoneNumber = phoneNumber
         self.created = Date()
+        self.imgUrl = ""
     }
     
     init(documentSnapshot: DocumentSnapshot) {
@@ -36,12 +39,16 @@ class User: NSObject {
         if data[createdKey] != nil {
             self.created = data[createdKey] as! Date
         }
+        if data[imgUrlKey] != nil {
+            self.imgUrl = data[imgUrlKey] as! String
+        }
     }
     
     var data: [String: Any] {
         return [emailKey: self.email,
                 nameKey: self.name,
                 phoneNumberKey: self.phoneNumber,
-                createdKey: self.created]
+                createdKey: self.created,
+                imgUrlKey: self.imgUrl]
     }
 }

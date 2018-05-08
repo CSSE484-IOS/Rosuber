@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		000F386DC900C2E3E4D84DAE /* Pods_Rosuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB633554A87FA51BA91F0B08 /* Pods_Rosuber.framework */; };
 		1B2FD62C20978D2000C9E12D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B2FD62B20978D2000C9E12D /* GoogleService-Info.plist */; };
+		1B639E7C209AAA8C002F33C5 /* FindTripsDriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B639E7B209AAA8C002F33C5 /* FindTripsDriverViewController.swift */; };
+		1B639E7E209AAAA7002F33C5 /* FindTripsPassengerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B639E7D209AAAA7002F33C5 /* FindTripsPassengerViewController.swift */; };
+		1B639E83209B8997002F33C5 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B639E82209B8997002F33C5 /* ImageUtils.swift */; };
 		1B81FCEE2086F90B00C12059 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FCED2086F90B00C12059 /* AppDelegate.swift */; };
 		1B81FCF02086F90B00C12059 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FCEF2086F90B00C12059 /* HomeViewController.swift */; };
 		1B81FCF32086F90B00C12059 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCF12086F90B00C12059 /* Main.storyboard */; };
@@ -35,6 +38,9 @@
 
 /* Begin PBXFileReference section */
 		1B2FD62B20978D2000C9E12D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1B639E7B209AAA8C002F33C5 /* FindTripsDriverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTripsDriverViewController.swift; sourceTree = "<group>"; };
+		1B639E7D209AAAA7002F33C5 /* FindTripsPassengerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTripsPassengerViewController.swift; sourceTree = "<group>"; };
+		1B639E82209B8997002F33C5 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		1B81FCEA2086F90B00C12059 /* Rosuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rosuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B81FCED2086F90B00C12059 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B81FCEF2086F90B00C12059 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +91,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		1B639E7F209AB4C9002F33C5 /* OldFiles */ = {
+			isa = PBXGroup;
+			children = (
+				1BE31192208FB3210094975C /* FindTripsViewController.swift */,
+			);
+			path = OldFiles;
+			sourceTree = "<group>";
+		};
 		1B81FCE12086F90A00C12059 = {
 			isa = PBXGroup;
 			children = (
@@ -112,18 +126,21 @@
 				1B81FCF42086F91300C12059 /* Assets.xcassets */,
 				1B81FCF62086F91300C12059 /* LaunchScreen.storyboard */,
 				1B81FCF92086F91300C12059 /* Info.plist */,
+				1BE311A22092A68B0094975C /* Model */,
 				1B81FCEF2086F90B00C12059 /* HomeViewController.swift */,
 				1B81FD03208D1AA600C12059 /* ProfileViewController.swift */,
 				1BE31190208FB3140094975C /* MyTripsViewController.swift */,
-				1BE31192208FB3210094975C /* FindTripsViewController.swift */,
 				1BE31194208FB3880094975C /* MyTripDetailViewController.swift */,
+				1B639E7B209AAA8C002F33C5 /* FindTripsDriverViewController.swift */,
+				1B639E7D209AAAA7002F33C5 /* FindTripsPassengerViewController.swift */,
 				1BE3119D208FF46C0094975C /* FindTripDetailViewController.swift */,
 				1BE311A72092AE3E0094975C /* NewTripViewController.swift */,
 				1BE3118E208FB2A20094975C /* AboutViewController.swift */,
-				1BE311A22092A68B0094975C /* Model */,
+				1B639E82209B8997002F33C5 /* ImageUtils.swift */,
 				1BE31196208FB93A0094975C /* Icons */,
 				1BE31188208FAF890094975C /* CollectionViewAttempt */,
 				1BE311A12090271B0094975C /* ThirdLibrary */,
+				1B639E7F209AB4C9002F33C5 /* OldFiles */,
 			);
 			path = Rosuber;
 			sourceTree = "<group>";
@@ -275,6 +292,10 @@
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/Rosefire/Rosefire.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
@@ -289,6 +310,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rosefire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
@@ -310,6 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B639E83209B8997002F33C5 /* ImageUtils.swift in Sources */,
 				1B81FD0C208E118400C12059 /* MenuItem.swift in Sources */,
 				1B81FD04208D1AA600C12059 /* ProfileViewController.swift in Sources */,
 				1B81FD08208D245400C12059 /* MenuCell.swift in Sources */,
@@ -324,6 +350,8 @@
 				1B81FCEE2086F90B00C12059 /* AppDelegate.swift in Sources */,
 				1BE3118F208FB2A20094975C /* AboutViewController.swift in Sources */,
 				1BE311A42092A6B30094975C /* Trip.swift in Sources */,
+				1B639E7C209AAA8C002F33C5 /* FindTripsDriverViewController.swift in Sources */,
+				1B639E7E209AAAA7002F33C5 /* FindTripsPassengerViewController.swift in Sources */,
 				1BE311A82092AE3E0094975C /* NewTripViewController.swift in Sources */,
 				1B81FD06208D1D6E00C12059 /* BottomMenuLauncher.swift in Sources */,
 			);
@@ -473,7 +501,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = Rosuber/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.rosehulman.fengy2.Rosuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -489,7 +520,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = Rosuber/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.rosehulman.fengy2.Rosuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
