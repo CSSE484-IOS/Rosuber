@@ -63,7 +63,9 @@ class FindTripsDriverViewController: UIViewController, UITableViewDataSource, UI
     
     func tripAdded(_ document: DocumentSnapshot) {
         let newTrip = Trip(documentSnapshot: document)
-        trips.append(newTrip)
+        if newTrip.driverKey == "" {
+            trips.append(newTrip)
+        }
     }
     
     func tripUpdated(_ document: DocumentSnapshot) {

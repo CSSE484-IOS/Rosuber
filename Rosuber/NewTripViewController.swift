@@ -30,7 +30,6 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
         toField.delegate = self
         priceField.delegate = self
         updateView()
-        tripsRef = Firestore.firestore().collection("trips")
     }
     
     @IBAction func pressedDone(_ sender: Any) {
