@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class NewTripViewController: UIViewController {
+class NewTripViewController: UIViewController, UITextFieldDelegate {
     let createToFindSegueIdentifier = "createToFindSegue"
     
     var newTrip: Trip!
@@ -25,7 +25,10 @@ class NewTripViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.capacitySlider.value = 1
+        capacitySlider.value = 1
+        fromField.delegate = self
+        toField.delegate = self
+        priceField.delegate = self
         updateView()
     }
     
@@ -57,6 +60,11 @@ class NewTripViewController: UIViewController {
         } else {
             capacityField.text = "\(Int(capacitySlider.value)) passengers"
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 
 }

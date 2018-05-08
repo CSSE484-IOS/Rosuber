@@ -112,7 +112,7 @@ class FindTripsDriverViewController: UIViewController, UITableViewDataSource, UI
             cell = tableView.dequeueReusableCell(withIdentifier: findNoTripDriverCellIdentifier, for: indexPath)
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: findTripDriverCellIdentifier, for: indexPath)
-            cell.textLabel?.text = "\(trips[indexPath.row].origin) - \(trips[indexPath.row].destination)"
+            cell.textLabel?.text = "\(trips[indexPath.section].origin) - \(trips[indexPath.section].destination)"
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yyyy HH:mma"
             formatter.amSymbol = "AM"
