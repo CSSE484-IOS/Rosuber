@@ -117,7 +117,7 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
             formatter.dateFormat = "MM/dd/yyyy HH:mma"
             formatter.amSymbol = "AM"
             formatter.pmSymbol = "PM"
-            cell.detailTextLabel?.text = formatter.string(from: trips[indexPath.row].time)
+            cell.detailTextLabel?.text = formatter.string(from: trips[indexPath.section].time)
         }
         cell.layer.cornerRadius = 5
         return cell
@@ -138,7 +138,7 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == passengerToFindDetailSegueIdentifier {
             if let indexPath = tableView.indexPathForSelectedRow {
-                (segue.destination as! FindTripDetailViewController).trip = trips[indexPath.row]
+                (segue.destination as! FindTripDetailViewController).trip = trips[indexPath.section]
             }
         }
     }
