@@ -28,6 +28,7 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         capacitySlider.value = 1
+        datePicker.minimumDate = Date()
         fromField.delegate = self
         toField.delegate = self
         priceField.delegate = self
@@ -46,13 +47,55 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
                 highlight(textField: tf)
             }
         }
+        
         if isValid {
-            addNewTrip()
+            let alertController = UIAlertController(title: "Please Confirm Your New Trip", message: getConfirmMessage(), preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "Create", style: .default, handler: { (action) in
+                self.addNewTrip()
+            }))
+            present(alertController, animated: true)
         } else {
             let errorAlert = UIAlertController(title: "Required Field(s) Empty", message: "", preferredStyle: .alert)
             errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(errorAlert, animated: true)
         }
+    }
+    
+    @IBAction func changedSlider(_ sender: Any) {
+        let fixed = roundf(capacitySlider.value / 1.0) * 1.0;
+        capacitySlider.setValue(fixed, animated: true)
+        updateView()
+    }
+    
+    func getConfirmMessage() -> String {
+        var msg = ""
+        
+        if driverSwitch.isOn {
+            msg += "I would like to "
+        } else {
+            msg += "I am looking for a driver who can "
+        }
+        
+        msg += "offer \(Int(capacitySlider.value)) "
+        if Int(capacitySlider.value) == 1 {
+            msg += "passenger "
+        } else {
+            msg += "passengers "
+        }
+        
+        msg += "a ride from \(fromField.text!) to \(toField.text!) "
+        msg += "for $\((Float(priceField.text!)! * 100).rounded() / 100) "
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd, yyyy"
+        msg += "on \(formatter.string(from: datePicker.date)) "
+        formatter.dateFormat = "HH:mma"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        msg += "at \(formatter.string(from: datePicker.date))."
+        
+        return msg
     }
     
     func addNewTrip() {
@@ -69,12 +112,6 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
             }
             self.newTrip.id = self.tripRef.documentID
         }
-    }
-    
-    @IBAction func changedSlider(_ sender: Any) {
-        let fixed = roundf(capacitySlider.value / 1.0) * 1.0;
-        capacitySlider.setValue(fixed, animated: true)
-        updateView()
     }
     
     func highlight(textField: UITextField) {
