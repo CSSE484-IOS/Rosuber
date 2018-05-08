@@ -12,7 +12,6 @@ import Firebase
 class NewTripViewController: UIViewController, UITextFieldDelegate {
     let createToFindSegueIdentifier = "createToFindSegue"
     
-    var newTrip: Trip!
     var tripRef: DocumentReference!
     var activeField: UITextField?
     
@@ -98,7 +97,7 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
         }
         
         msg += "a ride from \(fromField.text!) to \(toField.text!) "
-        msg += "for $\((Float(priceField.text!)! * 100).rounded() / 100) "
+        msg += "for $\((Float(priceField.text!)! * 100).rounded() / 100) (per passenger) "
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM dd, yyyy"
@@ -112,7 +111,7 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
     }
     
     func addNewTrip() {
-        newTrip = Trip(isDriver: driverSwitch.isOn,
+        let newTrip = Trip(isDriver: driverSwitch.isOn,
                        capacity: Int(self.capacitySlider.value),
                        destination: toField.text!,
                        origin: fromField.text!,
@@ -123,7 +122,11 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
                 print("Error when add document to firestore. Error: \(error.localizedDescription)")
                 return
             }
-            self.newTrip.id = self.tripRef.documentID
+            newTrip.id = self.tripRef.documentID
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTripDetailViewController = storyBoard.instantiateViewController(withIdentifier: "myTripDetailViewController") as! MyTripDetailViewController
+            myTripDetailViewController.trip = newTrip
+            self.present(myTripDetailViewController, animated: true)
         }
     }
     
@@ -153,7 +156,6 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
 
 // Credit: https://stackoverflow.com/questions/28813339/move-a-view-up-only-when-the-keyboard-covers-an-input-field
 extension NewTripViewController {
-    
     func registerForKeyboardNotifications(){
         //Adding notifies on keyboard appearing
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -170,7 +172,8 @@ extension NewTripViewController {
         //Need to calculate keyboard exact size due to Apple suggestions
         self.scrollView.isScrollEnabled = true
         var info = notification.userInfo!
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        var keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        keyboardSize?.height += 30
         let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
         
         self.scrollView.contentInset = contentInsets
