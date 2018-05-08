@@ -63,7 +63,9 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
     
     func tripAdded(_ document: DocumentSnapshot) {
         let newTrip = Trip(documentSnapshot: document)
-        trips.append(newTrip)
+        if newTrip.passengersString.split(separator: ",").count < newTrip.capacity {
+            trips.append(newTrip)
+        }
     }
     
     func tripUpdated(_ document: DocumentSnapshot) {
