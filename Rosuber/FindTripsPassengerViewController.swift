@@ -72,6 +72,14 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
         let modifiedTrip = Trip(documentSnapshot: document)
         for trip in trips {
             if (trip.id == modifiedTrip.id) {
+                if (modifiedTrip.passengersString.split(separator: ",").count >= modifiedTrip.capacity) {
+                    for i in 0..<trips.count {
+                        if trip.id == trips[i].id {
+                            trips.remove(at: i)
+                            return
+                        }
+                    }
+                }
                 trip.capacity = modifiedTrip.capacity
                 trip.destination = modifiedTrip.destination
                 trip.driverKey = modifiedTrip.driverKey
@@ -79,9 +87,10 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
                 trip.origin = modifiedTrip.origin
                 trip.price = modifiedTrip.price
                 trip.time = modifiedTrip.time
-                break
+                return
             }
         }
+        tripAdded(document)
     }
     
     func tripRemoved(_ document: DocumentSnapshot) {
