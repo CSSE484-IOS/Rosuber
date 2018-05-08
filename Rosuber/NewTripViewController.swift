@@ -13,9 +13,9 @@ class NewTripViewController: UIViewController {
     var tripsRef: CollectionReference!
     
     let createToFindSegueIdentifier = "createToFindSegue"
-    let createToMyDetailSegueIdentifier = "createToMyDetailSegue"
     
-    var trip: Trip!
+    var newTrip: Trip!
+    var tripRef: DocumentReference!
     
     @IBOutlet weak var driverSwitch: UISwitch!
     @IBOutlet weak var fromField: UITextField!
@@ -27,43 +27,39 @@ class NewTripViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if self.trip != nil {
-            self.capacitySlider.value = Float(self.trip.capacity)
-            self.fromField.text = self.trip.origin
-            self.toField.text = self.trip.destination
-            self.datePicker.date = self.trip.time
-            self.priceField.text = "\(self.trip.price)"
-        } else {
-            self.capacitySlider.value = 0
-        }
+        self.capacitySlider.value = 1
         updateView()
         tripsRef = Firestore.firestore().collection("trips")
     }
     
     @IBAction func pressedDone(_ sender: Any) {
-        let newTrip = Trip(capacity: Int(self.capacitySlider.value),
-                           destination: self.toField.text!,
-                           origin: self.fromField.text!,
-                           price: Float(self.priceField.text!)!,
-                           time: self.datePicker.date)
-        //DONE: update to Firestore
-        self.tripsRef.addDocument(data: newTrip.data)
+        newTrip = Trip(isDriver: driverSwitch.isOn,
+                       capacity: Int(self.capacitySlider.value),
+                       destination: toField.text!,
+                       origin: fromField.text!,
+                       price: (Float(priceField.text!)! * 100).rounded() / 100,
+                       time: datePicker.date)
+        tripRef = Firestore.firestore().collection("trips").addDocument(data: newTrip.data) { (error) in
+            if let error = error {
+                print("Error when add document to firestore. Error: \(error.localizedDescription)")
+                return
+            }
+            self.newTrip.id = self.tripRef.documentID
+        }
     }
     
     @IBAction func changedSlider(_ sender: Any) {
+        let fixed = roundf(capacitySlider.value / 1.0) * 1.0;
+        capacitySlider.setValue(fixed, animated: true)
         updateView()
     }
     
     func updateView() {
-        capacityField.text = "\(Int(capacitySlider.value))"
-    }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //TODO: if segue is doneCreateSegue then set the trip
+        if Int(capacitySlider.value) == 1 {
+            capacityField.text = "1 passenger"
+        } else {
+            capacityField.text = "\(Int(capacitySlider.value)) passengers"
+        }
     }
 
 }

@@ -17,6 +17,8 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     let myTripPassengerCellIdentifier = "myTripPassengerCell"
     let myNoTripCellIdentifier = "myNoTripCell"
     
+    let cellHeaderHeight: CGFloat = 10
+    
     var currentUserCollectionRef: CollectionReference!
     var tripsListener: ListenerRegistration!
     var trips = [Trip]()
@@ -98,8 +100,13 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
 
 
     // MARK: - Table view data source
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return trips.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,8 +122,18 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
             formatter.pmSymbol = "PM"
             cell.detailTextLabel?.text = formatter.string(from: trips[indexPath.row].time)
         }
-        
+        cell.layer.cornerRadius = 5
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return cellHeaderHeight
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        return view
     }
 
     // MARK: - Navigation

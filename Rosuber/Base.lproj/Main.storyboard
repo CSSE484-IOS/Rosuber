@@ -982,7 +982,6 @@
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="pressedDone:" destination="AlY-ur-EVd" id="Ij3-EL-kni"/>
-                                                <segue destination="odg-lx-4tZ" kind="show" identifier="createToMyDetailSegue" id="i5o-xv-ivH"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1064,7 +1063,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gs1-K1-pSn">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 passenger" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gs1-K1-pSn">
                                                 <rect key="frame" x="147.5" y="0.0" width="147.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1072,7 +1071,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="YSR-LV-3Al">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="YSR-LV-3Al">
                                         <rect key="frame" x="-2" y="378" width="299" height="31"/>
                                         <connections>
                                             <action selector="changedSlider:" destination="AlY-ur-EVd" eventType="valueChanged" id="Zhh-IO-m0h"/>
@@ -1087,7 +1086,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AcZ-D8-d6y">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="e.x. 5" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AcZ-D8-d6y">
                                                 <rect key="frame" x="208" y="0.0" width="87" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1527,11 +1526,11 @@
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jDa-KX-QTb"/>
+        <segue reference="Diu-yy-2SK"/>
+        <segue reference="QZV-dJ-4Dz"/>
         <segue reference="8zC-SI-9QQ"/>
         <segue reference="iQs-pZ-IgL"/>
-        <segue reference="i5o-xv-ivH"/>
         <segue reference="8ov-Pd-cLN"/>
-        <segue reference="x33-xm-PBt"/>
+        <segue reference="Wud-gt-uDd"/>
     </inferredMetricsTieBreakers>
 </document>
