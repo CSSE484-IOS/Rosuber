@@ -65,13 +65,24 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tripAdded(_ document: DocumentSnapshot) {
         let newTrip = Trip(documentSnapshot: document)
-        trips.append(newTrip)
+        if (newTrip.driverKey == (Auth.auth().currentUser?.uid)! || newTrip.contains(passenger: (Auth.auth().currentUser?.uid)!)) {
+            trips.append(newTrip)
+        }
     }
     
     func tripUpdated(_ document: DocumentSnapshot) {
         let modifiedTrip = Trip(documentSnapshot: document)
         for trip in trips {
             if (trip.id == modifiedTrip.id) {
+                if (modifiedTrip.driverKey != Auth.auth().currentUser?.uid &&
+                    !modifiedTrip.contains(passenger: (Auth.auth().currentUser?.uid)!)) {
+                    for i in 0..<trips.count {
+                        if trip.id == trips[i].id {
+                            trips.remove(at: i)
+                            return
+                        }
+                    }
+                }
                 trip.capacity = modifiedTrip.capacity
                 trip.destination = modifiedTrip.destination
                 trip.driverKey = modifiedTrip.driverKey
@@ -79,9 +90,10 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
                 trip.origin = modifiedTrip.origin
                 trip.price = modifiedTrip.price
                 trip.time = modifiedTrip.time
-                break
+                return
             }
         }
+        tripAdded(document)
     }
     
     func tripRemoved(_ document: DocumentSnapshot) {

@@ -90,12 +90,10 @@ class Trip: NSObject {
         }
     }
     
-    //    func contains(passenger: String) -> Bool {
-    //        for i in 0..<passengers.count {
-    //            if passengers[i] == passenger {
-    //                return true
-    //            }
-    //        }
-    //        return false
-    //    }
+    func contains(passenger: String) -> Bool {
+        if passengerKeys.keys.contains(passenger) {
+            return true
+        }
+        return false
+    }
 }
