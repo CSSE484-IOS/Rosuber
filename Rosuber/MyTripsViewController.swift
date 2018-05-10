@@ -11,7 +11,8 @@ import Firebase
 
 class MyTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let myToHomeSegueIdentifier = "myToHomeSegue"
-    let myToMyDetailSegueIdentifier = "myToMyDetailSegue"
+    let myDriverToMyDetailSegueIdentifier = "myDriverToMyDetailSegue"
+    let myPassengerToMyDetailSegueIdentifier = "myPassengerToMyDetailSegue"
     
     let myTripDriverCellIdentifier = "myTripDriverCell"
     let myTripPassengerCellIdentifier = "myTripPassengerCell"
@@ -158,7 +159,7 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == myToMyDetailSegueIdentifier {
+        if segue.identifier == myDriverToMyDetailSegueIdentifier || segue.identifier == myPassengerToMyDetailSegueIdentifier {
             if let indexPath = tableView.indexPathForSelectedRow {
                 (segue.destination as! MyTripDetailViewController).trip = trips[indexPath.section]
             }
