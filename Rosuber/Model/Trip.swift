@@ -89,9 +89,6 @@ class Trip: NSObject {
     }
     
     func contains(passenger: String) -> Bool {
-        if passengerKeys.keys.contains(passenger) {
-            return true
-        }
-        return false
+        return passengerKeys.keys.contains(passenger)
     }
 }
