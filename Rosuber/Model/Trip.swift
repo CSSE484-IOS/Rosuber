@@ -75,12 +75,12 @@ class Trip: NSObject {
         var str = ""
         for (key, _) in passengerKeys {
             if key != "time" {
-                str += "\(key), "
+                str += "\(key),"
             }
         }
-        if str.hasSuffix(", ") {
+        if str.hasSuffix(",") {
             let start = str.startIndex
-            let end = str.index(str.endIndex, offsetBy: -2)
+            let end = str.index(str.endIndex, offsetBy: -1)
             let range = start..<end
             return "\(str[range])"
         } else {
@@ -88,12 +88,10 @@ class Trip: NSObject {
         }
     }
     
-    //    func contains(passenger: String) -> Bool {
-    //        for i in 0..<passengers.count {
-    //            if passengers[i] == passenger {
-    //                return true
-    //            }
-    //        }
-    //        return false
-    //    }
+    func contains(passenger: String) -> Bool {
+        if passengerKeys.keys.contains(passenger) {
+            return true
+        }
+        return false
+    }
 }
