@@ -91,4 +91,8 @@ class Trip: NSObject {
     func contains(passenger: String) -> Bool {
         return passengerKeys.keys.contains(passenger)
     }
+    
+    func remove(passenger: String) {
+        passengerKeys.removeValue(forKey: passenger)
+    }
 }
