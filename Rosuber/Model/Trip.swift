@@ -68,21 +68,19 @@ class Trip: NSObject {
                 originKey: self.origin,
                 priceKey: self.price,
                 timeKey: self.time,
-                createdKey: self.created,
-                driverKeyKey: self.driverKey,
-                passengerKeysKey: self.passengerKeys]
+                createdKey: self.created]
     }
     
     var passengersString: String {
         var str = ""
         for (key, _) in passengerKeys {
             if key != "time" {
-                str += "\(key), "
+                str += "\(key),"
             }
         }
-        if str.hasSuffix(", ") {
+        if str.hasSuffix(",") {
             let start = str.startIndex
-            let end = str.index(str.endIndex, offsetBy: -2)
+            let end = str.index(str.endIndex, offsetBy: -1)
             let range = start..<end
             return "\(str[range])"
         } else {
@@ -91,9 +89,10 @@ class Trip: NSObject {
     }
     
     func contains(passenger: String) -> Bool {
-        if passengerKeys.keys.contains(passenger) {
-            return true
-        }
-        return false
+        return passengerKeys.keys.contains(passenger)
+    }
+    
+    func remove(passenger: String) {
+        passengerKeys.removeValue(forKey: passenger)
     }
 }

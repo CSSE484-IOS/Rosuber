@@ -67,7 +67,7 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
         
         driverLabel.text = trip.driverKey
         passengerLabel.text = trip.passengersString
-        priceLabel.text = "\(trip.price)"
+        priceLabel.text = String(format: "%.2f", Float(trip.price))
         capacityLabel.text = "\(trip.capacity)"
     }
 
@@ -95,7 +95,14 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
     }
     
     func leaveTrip() {
-        print("TODO: leaving trip")
+        print("leaving trip")
+        if (trip.driverKey == Auth.auth().currentUser?.uid) {
+            trip.driverKey = ""
+        } else {
+            trip.remove(passenger: (Auth.auth().currentUser?.uid)!)
+        }
+        tripRef.setData(trip.data)
+        self.updateView()
     }
     
     func sendMessage() {

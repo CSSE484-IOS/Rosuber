@@ -63,7 +63,7 @@ class FindTripsDriverViewController: UIViewController, UITableViewDataSource, UI
     
     func tripAdded(_ document: DocumentSnapshot) {
         let newTrip = Trip(documentSnapshot: document)
-        if newTrip.driverKey == "" {
+        if newTrip.driverKey == "" && newTrip.time > Date() {
             trips.append(newTrip)
         }
     }
@@ -72,7 +72,7 @@ class FindTripsDriverViewController: UIViewController, UITableViewDataSource, UI
         let modifiedTrip = Trip(documentSnapshot: document)
         for trip in trips {
             if (trip.id == modifiedTrip.id) {
-                if (modifiedTrip.driverKey != "") {
+                if (modifiedTrip.driverKey != "" || modifiedTrip.time < Date()) {
                     for i in 0..<trips.count {
                         if trip.id == trips[i].id {
                             trips.remove(at: i)

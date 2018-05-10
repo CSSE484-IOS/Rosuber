@@ -63,7 +63,7 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
     
     func tripAdded(_ document: DocumentSnapshot) {
         let newTrip = Trip(documentSnapshot: document)
-        if newTrip.passengersString.split(separator: ",").count < newTrip.capacity {
+        if newTrip.passengersString.split(separator: ",").count < newTrip.capacity && newTrip.time > Date() {
             trips.append(newTrip)
         }
     }
@@ -72,7 +72,7 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
         let modifiedTrip = Trip(documentSnapshot: document)
         for trip in trips {
             if (trip.id == modifiedTrip.id) {
-                if (modifiedTrip.passengersString.split(separator: ",").count >= modifiedTrip.capacity) {
+                if (modifiedTrip.passengersString.split(separator: ",").count >= modifiedTrip.capacity || modifiedTrip.time < Date()) {
                     for i in 0..<trips.count {
                         if trip.id == trips[i].id {
                             trips.remove(at: i)

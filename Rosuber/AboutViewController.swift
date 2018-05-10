@@ -14,9 +14,21 @@ class AboutViewController: UIViewController {
     @IBOutlet weak var creditViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var creditView: UIView!
     
+    @IBOutlet weak var developerOneImageView: UIImageView!
+    @IBOutlet weak var developerTwoImageView: UIImageView!
+    @IBOutlet weak var instructorImageView: UIImageView!
+    @IBOutlet weak var launchImageView: UIImageView!
+    
+    var imageViews: [UIImageView]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         creditViewTopConstraint.constant = creditView.frame.height
+        imageViews = [developerOneImageView, developerTwoImageView, instructorImageView, launchImageView]
+        for view in imageViews {
+            view.image = view.image!.withRenderingMode(.alwaysTemplate)
+            view.tintColor = UIColor.white
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

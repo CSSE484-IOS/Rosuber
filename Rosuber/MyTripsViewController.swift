@@ -11,7 +11,8 @@ import Firebase
 
 class MyTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let myToHomeSegueIdentifier = "myToHomeSegue"
-    let myToMyDetailSegueIdentifier = "myToMyDetailSegue"
+    let myDriverToMyDetailSegueIdentifier = "myDriverToMyDetailSegue"
+    let myPassengerToMyDetailSegueIdentifier = "myPassengerToMyDetailSegue"
     
     let myTripDriverCellIdentifier = "myTripDriverCell"
     let myTripPassengerCellIdentifier = "myTripPassengerCell"
@@ -34,7 +35,7 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard let currentUser = Auth.auth().currentUser else { return }
+//        guard let currentUser = Auth.auth().currentUser else { return }
 //        currentUserCollectionRef = Firestore.firestore().collection(currentUser.uid)
         currentUserCollectionRef = Firestore.firestore().collection("trips")
         
@@ -65,17 +66,19 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tripAdded(_ document: DocumentSnapshot) {
         let newTrip = Trip(documentSnapshot: document)
-        if (newTrip.driverKey == (Auth.auth().currentUser?.uid)! || newTrip.contains(passenger: (Auth.auth().currentUser?.uid)!)) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        if newTrip.driverKey == currentUser.uid || newTrip.contains(passenger: currentUser.uid) {
             trips.append(newTrip)
         }
     }
     
     func tripUpdated(_ document: DocumentSnapshot) {
         let modifiedTrip = Trip(documentSnapshot: document)
+        guard let currentUser = Auth.auth().currentUser else { return }
         for trip in trips {
-            if (trip.id == modifiedTrip.id) {
-                if (modifiedTrip.driverKey != Auth.auth().currentUser?.uid &&
-                    !modifiedTrip.contains(passenger: (Auth.auth().currentUser?.uid)!)) {
+            if trip.id == modifiedTrip.id {
+                if modifiedTrip.driverKey != currentUser.uid &&
+                    !modifiedTrip.contains(passenger: currentUser.uid) {
                     for i in 0..<trips.count {
                         if trip.id == trips[i].id {
                             trips.remove(at: i)
@@ -123,10 +126,16 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
+        guard let currentUser = Auth.auth().currentUser else { return tableView.dequeueReusableCell(withIdentifier: myNoTripCellIdentifier, for: indexPath) }
         if trips.count == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: myNoTripCellIdentifier, for: indexPath)
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: myTripDriverCellIdentifier, for: indexPath)
+            if trips[indexPath.section].driverKey == currentUser.uid {
+                cell = tableView.dequeueReusableCell(withIdentifier: myTripDriverCellIdentifier, for: indexPath)
+            } else {
+                cell = tableView.dequeueReusableCell(withIdentifier: myTripPassengerCellIdentifier, for: indexPath)
+            }
+            
             cell.textLabel?.text = "\(trips[indexPath.section].origin) - \(trips[indexPath.section].destination)"
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yyyy HH:mma"
@@ -151,7 +160,7 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == myToMyDetailSegueIdentifier {
+        if segue.identifier == myDriverToMyDetailSegueIdentifier || segue.identifier == myPassengerToMyDetailSegueIdentifier {
             if let indexPath = tableView.indexPathForSelectedRow {
                 (segue.destination as! MyTripDetailViewController).trip = trips[indexPath.section]
             }

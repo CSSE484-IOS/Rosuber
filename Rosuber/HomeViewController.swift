@@ -71,12 +71,15 @@ class HomeViewController: UIViewController {
                     if let document = documentSnapshot {
                         if document.exists {
                             let user = User(documentSnapshot: document)
-                            self.helloLabel.text = "Hi, \(user.name.split(separator: " ")[0])!"
-                            self.helloDetailLabel.text = "You're an Rosuber user"
                             let formatter = DateFormatter()
+                            
+                            formatter.dateFormat = "EEEE"
+                            self.helloLabel.text = "Hi, \(user.name.split(separator: " ")[0])! Happy \(formatter.string(from: Date()))!"
+                            
+                            self.helloDetailLabel.text = "Thank you for using Rosuber"
                             formatter.dateFormat = "MMM dd, yyyy"
                             let date = formatter.string(from: user.created)
-                            self.dateLabel.text = "since \(date)."
+                            self.dateLabel.text = "since \(date)!"
                         }
                     }
                 }
