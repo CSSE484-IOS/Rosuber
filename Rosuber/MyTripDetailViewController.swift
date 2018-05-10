@@ -67,7 +67,7 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
         
         driverLabel.text = trip.driverKey
         passengerLabel.text = trip.passengersString
-        priceLabel.text = "\(trip.price)"
+        priceLabel.text = String(format: "%.2f", Float(trip.price))
         capacityLabel.text = "\(trip.capacity)"
     }
 

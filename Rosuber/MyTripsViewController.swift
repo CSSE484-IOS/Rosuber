@@ -34,7 +34,7 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard let currentUser = Auth.auth().currentUser else { return }
+//        guard let currentUser = Auth.auth().currentUser else { return }
 //        currentUserCollectionRef = Firestore.firestore().collection(currentUser.uid)
         currentUserCollectionRef = Firestore.firestore().collection("trips")
         
@@ -65,13 +65,26 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tripAdded(_ document: DocumentSnapshot) {
         let newTrip = Trip(documentSnapshot: document)
-        trips.append(newTrip)
+        guard let currentUser = Auth.auth().currentUser else { return }
+        if newTrip.driverKey == currentUser.uid || newTrip.contains(passenger: currentUser.uid) {
+            trips.append(newTrip)
+        }
     }
     
     func tripUpdated(_ document: DocumentSnapshot) {
         let modifiedTrip = Trip(documentSnapshot: document)
+        guard let currentUser = Auth.auth().currentUser else { return }
         for trip in trips {
-            if (trip.id == modifiedTrip.id) {
+            if trip.id == modifiedTrip.id {
+                if modifiedTrip.driverKey != currentUser.uid &&
+                    !modifiedTrip.contains(passenger: currentUser.uid) {
+                    for i in 0..<trips.count {
+                        if trip.id == trips[i].id {
+                            trips.remove(at: i)
+                            return
+                        }
+                    }
+                }
                 trip.capacity = modifiedTrip.capacity
                 trip.destination = modifiedTrip.destination
                 trip.driverKey = modifiedTrip.driverKey
@@ -79,7 +92,7 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
                 trip.origin = modifiedTrip.origin
                 trip.price = modifiedTrip.price
                 trip.time = modifiedTrip.time
-                break
+                return
             }
         }
     }
@@ -111,10 +124,16 @@ class MyTripsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
+        guard let currentUser = Auth.auth().currentUser else { return tableView.dequeueReusableCell(withIdentifier: myNoTripCellIdentifier, for: indexPath) }
         if trips.count == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: myNoTripCellIdentifier, for: indexPath)
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: myTripDriverCellIdentifier, for: indexPath)
+            if trips[indexPath.section].driverKey == currentUser.uid {
+                cell = tableView.dequeueReusableCell(withIdentifier: myTripDriverCellIdentifier, for: indexPath)
+            } else {
+                cell = tableView.dequeueReusableCell(withIdentifier: myTripPassengerCellIdentifier, for: indexPath)
+            }
+            
             cell.textLabel?.text = "\(trips[indexPath.section].origin) - \(trips[indexPath.section].destination)"
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yyyy HH:mma"
