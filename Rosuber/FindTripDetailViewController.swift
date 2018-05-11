@@ -186,6 +186,8 @@ class FindTripDetailViewController: UIViewController {
             alertController.addAction(UIAlertAction(title: "Join as passenger", style: .destructive, handler: { _ in
                 self.trip.passengerKeys[(Auth.auth().currentUser?.uid)!] = true
                 self.tripRef.setData(self.trip.data)
+                self.passengers.removeAll()
+                self.parsePassengers()
                 self.updateView()
             }))
         }
@@ -198,8 +200,14 @@ class FindTripDetailViewController: UIViewController {
             trip.driverKey = ""
         } else {
             trip.remove(passenger: (Auth.auth().currentUser?.uid)!)
+            self.passengers.removeAll()
+            self.parsePassengers()
         }
-        tripRef.setData(trip.data)
+        if (trip.driverKey == "" && trip.passengersString == "") {
+            tripRef.delete()
+        } else {
+            tripRef.setData(trip.data)
+        }
         self.updateView()
     }
     

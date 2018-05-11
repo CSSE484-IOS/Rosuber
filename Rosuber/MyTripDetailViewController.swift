@@ -81,14 +81,16 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
             self.sendEmail()
         }))
         
-        actionController.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: { _ in
-            let alertController = UIAlertController(title: "Are you sure you want to leave this trip?", message: "", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alertController.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: { _ in
-                self.leaveTrip()
+        if trip.time > Date() {
+            actionController.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: { _ in
+                let alertController = UIAlertController(title: "Are you sure you want to leave this trip?", message: "", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Cancel",    style: .cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: { _ in
+                    self.leaveTrip()
+                }))
+                self.present(alertController, animated: true)
             }))
-            self.present(alertController, animated: true)
-        }))
+        }
         
         actionController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
         present(actionController, animated: true)
@@ -101,7 +103,12 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
         } else {
             trip.remove(passenger: (Auth.auth().currentUser?.uid)!)
         }
-        tripRef.setData(trip.data)
+        if (trip.driverKey == "" && trip.passengersString == "") {
+            tripRef.delete()
+            
+        } else {
+            tripRef.setData(trip.data)
+        }
         self.updateView()
     }
     
