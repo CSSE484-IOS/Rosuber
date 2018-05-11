@@ -104,7 +104,12 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
             trip.remove(passenger: (Auth.auth().currentUser?.uid)!)
         }
         if (trip.driverKey == "" && trip.passengersString == "") {
-            tripRef.delete()
+            let alertController = UIAlertController(title: "No occupants registered for this trip. This trip will be deleted.", message: "", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: {_ in
+                self.tripRef.delete()
+                self.performSegue(withIdentifier: self.myDetailToMySegueIdentifier, sender: nil)
+            }))
+            self.present(alertController, animated: true)
             
         } else {
             tripRef.setData(trip.data)
