@@ -58,6 +58,7 @@ class FindTripDetailViewController: UIViewController {
     
     func parseDriver() {
         if trip.driverKey != "" {
+            driver
             Firestore.firestore().collection("users").document(trip.driverKey).getDocument { (documentSnapshot, error) in
                 if let error = error {
                     print("Error getting driver \(self.trip.driverKey) from Firebase in Find Trip Detail page. Error: \(error.localizedDescription)")
@@ -73,6 +74,7 @@ class FindTripDetailViewController: UIViewController {
     
     func parsePassengers() {
         if !trip.passengersString.isEmpty {
+            passengers.removeAll()
             let passengersArr = trip.passengersString.split(separator: ",")
             for p in passengersArr {
                 Firestore.firestore().collection("users").document(String(p)).getDocument { (documentSnapshot, error) in
@@ -82,19 +84,22 @@ class FindTripDetailViewController: UIViewController {
                     }
                     if let document = documentSnapshot {
                         self.passengers.append(User(documentSnapshot: document))
-                        
-                        var str = ""
-                        for i in 0..<self.passengers.count {
-                            str += self.passengers[i].name
-                            if i < self.passengers.count - 1 {
-                                str += ", "
-                            }
-                        }
-                        self.passengerLabel.text = str
-                    }
+                        updatePassengersLabel()
+                    } 
                 }
             }
         }
+    }
+    
+    func updatePassengersLabel() {
+        var str = ""
+        for i in 0..<self.passengers.count {
+            str += self.passengers[i].name
+            if i < self.passengers.count - 1 {
+                str += "\n"
+            }
+        }
+        self.passengerLabel.text = str
     }
     
     func updateView() {
@@ -116,18 +121,8 @@ class FindTripDetailViewController: UIViewController {
             driverLabel.text = ""
         }
         
-        passengerLabel.text = ""
         if !passengers.isEmpty {
-            print("not empty")
-            var str = ""
-            for i in 0..<passengers.count {
-                str += passengers[i].name
-                if i < passengers.count - 1 {
-                    str += ", "
-                }
-            }
-            print(str)
-            passengerLabel.text = str
+            updatePassengersLabel()
         }
         
         priceLabel.text = String(format: "%.2f", Float(trip.price))
