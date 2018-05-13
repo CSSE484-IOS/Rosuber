@@ -17,6 +17,9 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
     var tripRef: DocumentReference!
     var tripListener: ListenerRegistration!
     
+    var driver: User?
+    var passengers = [User]()
+    
     @IBOutlet weak var originLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -43,6 +46,8 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
                 return
             }
             self.trip = Trip(documentSnapshot: documentSnapshot!)
+            self.parseDriver()
+            self.parsePassengers()
             self.updateView()
         })
     }
@@ -50,6 +55,51 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         tripListener.remove()
+    }
+    
+    func parseDriver() {
+        if trip.driverKey != "" {
+            Firestore.firestore().collection("users").document(trip.driverKey).getDocument { (documentSnapshot, error) in
+                if let error = error {
+                    print("Error getting driver \(self.trip.driverKey) from Firebase in Find Trip Detail page. Error: \(error.localizedDescription)")
+                    return
+                }
+                if let document = documentSnapshot {
+                    self.driver = User(documentSnapshot: document)
+                    self.driverLabel.text = self.driver?.name
+                }
+            }
+        }
+    }
+    
+    func parsePassengers() {
+        if !trip.passengersString.isEmpty {
+            passengers.removeAll()
+            let passengersArr = trip.passengersString.split(separator: ",")
+            for p in passengersArr {
+                Firestore.firestore().collection("users").document(String(p)).getDocument { (documentSnapshot, error) in
+                    if let error = error {
+                        print("Error getting passenger \(p) from Firebase in Find Trip Detail page. Error: \(error.localizedDescription)")
+                        return
+                    }
+                    if let document = documentSnapshot {
+                        self.passengers.append(User(documentSnapshot: document))
+                        self.updatePassengersLabel()
+                    }
+                }
+            }
+        }
+    }
+    
+    func updatePassengersLabel() {
+        var str = ""
+        for i in 0..<self.passengers.count {
+            str += self.passengers[i].name
+            if i < self.passengers.count - 1 {
+                str += "\n"
+            }
+        }
+        self.passengerLabel.text = str
     }
     
     func updateView() {
@@ -65,8 +115,16 @@ class MyTripDetailViewController: UIViewController, MFMessageComposeViewControll
         formatter.pmSymbol = "PM"
         timeLabel.text = formatter.string(from: trip.time)
         
-        driverLabel.text = trip.driverKey
-        passengerLabel.text = trip.passengersString
+        if let driver = driver {
+            driverLabel.text = driver.name
+        } else {
+            driverLabel.text = ""
+        }
+        
+        if !passengers.isEmpty {
+            updatePassengersLabel()
+        }
+        
         priceLabel.text = String(format: "%.2f", Float(trip.price))
         capacityLabel.text = "\(trip.capacity)"
     }

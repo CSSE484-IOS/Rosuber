@@ -58,7 +58,6 @@ class FindTripDetailViewController: UIViewController {
     
     func parseDriver() {
         if trip.driverKey != "" {
-            driver
             Firestore.firestore().collection("users").document(trip.driverKey).getDocument { (documentSnapshot, error) in
                 if let error = error {
                     print("Error getting driver \(self.trip.driverKey) from Firebase in Find Trip Detail page. Error: \(error.localizedDescription)")
@@ -84,7 +83,7 @@ class FindTripDetailViewController: UIViewController {
                     }
                     if let document = documentSnapshot {
                         self.passengers.append(User(documentSnapshot: document))
-                        updatePassengersLabel()
+                        self.updatePassengersLabel()
                     } 
                 }
             }
