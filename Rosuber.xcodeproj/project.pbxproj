@@ -131,6 +131,7 @@
 				1BE311A22092A68B0094975C /* Model */,
 				1B81FCEF2086F90B00C12059 /* HomeViewController.swift */,
 				1B81FD03208D1AA600C12059 /* ProfileViewController.swift */,
+				1B130B1120A9111C0076DD3E /* TripDetailViewController.swift */,
 				1BE31190208FB3140094975C /* MyTripsViewController.swift */,
 				1BE31194208FB3880094975C /* MyTripDetailViewController.swift */,
 				1B639E7B209AAA8C002F33C5 /* FindTripsDriverViewController.swift */,
@@ -143,7 +144,6 @@
 				1BE31188208FAF890094975C /* CollectionViewAttempt */,
 				1BE311A12090271B0094975C /* ThirdLibrary */,
 				1B639E7F209AB4C9002F33C5 /* OldFiles */,
-				1B130B1120A9111C0076DD3E /* TripDetailViewController.swift */,
 			);
 			path = Rosuber;
 			sourceTree = "<group>";
