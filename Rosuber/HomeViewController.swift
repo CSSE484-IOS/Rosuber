@@ -11,7 +11,7 @@ import Firebase
 import Rosefire
 import MaterialComponents.MaterialSnackbar
 
-class HomeViewController: UIViewController {
+class HomeViewController: MenuViewController {
     let ROSEFIRE_REGISTRY_TOKEN = "4cecdaba-e05f-435d-bbfe-8b111f2447f4"
     
     let homeToProfileSegueIdentifier = "homeToProfileSegue"
@@ -19,11 +19,6 @@ class HomeViewController: UIViewController {
     let homeToFindSegueIdentifier = "homeToFindSegue"
     let homeToAboutSegueIdentifier = "homeToAboutSegue"
     
-    var showMenu = true
-    
-    @IBOutlet weak var menuLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var menuView: UIView!
-    @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var loginLogoutButton: UIBarButtonItem!
     @IBOutlet weak var spinnerStackView: UIStackView!
     @IBOutlet weak var spinnerLabel: UILabel!
@@ -38,9 +33,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        menuView.layer.shadowOpacity = 1
-        menuView.layer.shadowRadius = 6
-        blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         spinnerStackView.isHidden = true
     }
     
@@ -91,34 +83,12 @@ class HomeViewController: UIViewController {
         }
     }
     
-    @IBAction func pressedMenu(_ sender: Any) {
-        if showMenu {
-            blackView.alpha = 1
-            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-            menuLeadingConstraint.constant = 0
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-        } else {
-            handleDismiss()
-        }
-        showMenu = !showMenu
-    }
-    
-    @objc func handleDismiss() {
-        blackView.alpha = 0
-        menuLeadingConstraint.constant = -150
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    
     @IBAction func pressedLoginLogout(_ sender: Any) {
         if Auth.auth().currentUser == nil {
+            loginViaRosefire()
             blackView.alpha = 1
             spinnerStackView.isHidden = false
             spinnerLabel.text = "Signing in Rosefire..."
-            loginViaRosefire()
         } else {
             let ac = UIAlertController(title: "Are you sure you want to logout?", message: "", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -135,6 +105,9 @@ class HomeViewController: UIViewController {
             (error, result) in
             if let error = error {
                 print("Error communicating with Rosefire! \(error.localizedDescription)")
+                self.blackView.alpha = 0
+                self.spinnerStackView.isHidden = true
+                self.spinnerLabel.text = ""
                 return
             }
             print("You are now signed in with Rosefire! username: \(result!.username)")

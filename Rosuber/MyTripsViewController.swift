@@ -9,8 +9,7 @@
 import UIKit
 import Firebase
 
-class MyTripsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let myToHomeSegueIdentifier = "myToHomeSegue"
+class MyTripsViewController: MenuViewController, UITableViewDataSource, UITableViewDelegate {
     let myDriverToMyDetailSegueIdentifier = "myDriverToMyDetailSegue"
     let myPassengerToMyDetailSegueIdentifier = "myPassengerToMyDetailSegue"
     

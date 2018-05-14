@@ -10,10 +10,10 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: MenuViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let profileToHomeSegueIdentifier = "profileToHomeSegue"
     
-    var showMenu = true
+    var showBtmMenu = true
     var imagePicker = UIImagePickerController()
     
     var user: User!
@@ -24,8 +24,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var photoListener: ListenerRegistration!
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var menuView: UIView!
-    @IBOutlet weak var blackView: UIView!
+    @IBOutlet weak var bottomMenuView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -38,9 +37,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-        menuView.layer.shadowOpacity = 1
-        menuView.layer.shadowRadius = 6
-        blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        bottomMenuView.layer.shadowOpacity = 1
+        bottomMenuView.layer.shadowRadius = 6
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,12 +60,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         usernameLabel.text = user.id
         emailLabel.text = user.email
         
-        if user.phoneNumber.count == 10 {
-            let start = user.phoneNumber.index(user.phoneNumber.startIndex, offsetBy: 3)
-            let end = user.phoneNumber.index(user.phoneNumber.endIndex, offsetBy: -4)
-            let range = start..<end
-            phoneLabel.text = "\(user.phoneNumber.prefix(3))-\(user.phoneNumber[range])-\(user.phoneNumber.suffix(4))"
-        }
+        updatePhoneLabel()
         
         photoListener = userRef.addSnapshotListener({ (snapshot, error) in
             if let error = error {
@@ -82,8 +75,19 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         })
     }
     
+    func updatePhoneLabel() {
+        if user.phoneNumber.count == 10 {
+            let start = user.phoneNumber.index(user.phoneNumber.startIndex, offsetBy: 3)
+            let end = user.phoneNumber.index(user.phoneNumber.endIndex, offsetBy: -4)
+            let range = start..<end
+            phoneLabel.text = "\(user.phoneNumber.prefix(3))-\(user.phoneNumber[range])-\(user.phoneNumber.suffix(4))"
+        } else {
+            phoneLabel.text = "Not Available"
+        }
+    }
+    
     @IBAction func pressedEdit(_ sender: Any) {
-        if showMenu {
+        if showBtmMenu {
             blackView.alpha = 1
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
             menuBottomConstraint.constant = 0
@@ -91,17 +95,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 self.view.layoutIfNeeded()
             }, completion: nil)
         } else {
-            handleDismiss()
+            handleEditDismiss()
         }
-        showMenu = !showMenu
+        showBtmMenu = !showBtmMenu
     }
     
-    @objc func handleDismiss() {
+    @objc func handleEditDismiss() {
         blackView.alpha = 0
         menuBottomConstraint.constant = 100
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    override func handleDismiss() {
+        menuBottomConstraint.constant = 100
+        super.handleDismiss()
     }
     
     @IBAction func pressedUpdatePhone(_ sender: Any) {
@@ -117,7 +126,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             let phoneTextField = alertController.textFields![0]
             if phoneTextField.text!.count == 10 {
                 self.user.phoneNumber = phoneTextField.text!
-                self.updateView()
+                self.updatePhoneLabel()
                 self.userRef.setData(self.user.data)
                 self.handleDismiss()
             } else {
