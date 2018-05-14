@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class AboutViewController: UIViewController {
+class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate {
     let aboutToHomeSegueIdentifier = "aboutToHomeSegue"
     
     @IBOutlet weak var creditViewTopConstraint: NSLayoutConstraint!
@@ -39,4 +40,23 @@ class AboutViewController: UIViewController {
         }, completion: nil)
     }
 
+    @IBAction func pressedContactUs(_ sender: Any) {
+        if MFMailComposeViewController.canSendMail() {
+            let controller = MFMailComposeViewController()
+            controller.mailComposeDelegate = self
+            controller.setToRecipients(["fengy2@rose-hulman.edu",
+                                        "greenlrt@rose-hulman.edu"])
+            
+            controller.setSubject("Rosuber")
+            
+            var body = "Hi, Yizhi and Ryan!\n\n   "
+            controller.setMessageBody(body, isHTML: false)
+            
+            present(controller, animated: true, completion: nil)
+        } else {
+            let errorAlert = UIAlertController(title: "Error", message: "No Mail Service available!", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(errorAlert, animated: true)
+        }
+    }
 }
