@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 import Firebase
 
 class FindTripDetailViewController: UIViewController {
@@ -18,6 +19,7 @@ class FindTripDetailViewController: UIViewController {
     
     var driver: User?
     var passengers = [User]()
+    var contacts = [User]()
     
     @IBOutlet weak var originLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
@@ -41,7 +43,7 @@ class FindTripDetailViewController: UIViewController {
                 return
             }
             if !documentSnapshot!.exists {
-                print("This document got deleted by someonee else!")
+                print("This document got deleted by someone else!")
                 return
             }
             self.trip = Trip(documentSnapshot: documentSnapshot!)
@@ -66,6 +68,7 @@ class FindTripDetailViewController: UIViewController {
                 if let document = documentSnapshot {
                     self.driver = User(documentSnapshot: document)
                     self.driverLabel.text = self.driver?.name
+                    self.parseContacts()
                 }
             }
         }
@@ -84,8 +87,28 @@ class FindTripDetailViewController: UIViewController {
                     if let document = documentSnapshot {
                         self.passengers.append(User(documentSnapshot: document))
                         self.updatePassengersLabel()
+                        self.parseContacts()
                     } 
                 }
+            }
+        }
+    }
+    
+    func parseContacts() {
+        guard let currentUser = Auth.auth().currentUser else {
+            let errorAlert = UIAlertController(title: "Error", message: "Unable to recognize user authentication! Please check network connection!", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(errorAlert, animated: true)
+            return
+        }
+        if let driver = driver {
+            if driver.id != currentUser.uid {
+                contacts.append(driver)
+            }
+        }
+        for i in 0..<passengers.count {
+            if passengers[i].id != currentUser.uid {
+                contacts.append(passengers[i])
             }
         }
     }
@@ -98,7 +121,7 @@ class FindTripDetailViewController: UIViewController {
                 str += "\n"
             }
         }
-        self.passengerLabel.text = str
+        passengerLabel.text = str
     }
     
     func updateView() {
@@ -117,11 +140,13 @@ class FindTripDetailViewController: UIViewController {
         if let driver = driver {
             driverLabel.text = driver.name
         } else {
-            driverLabel.text = ""
+            driverLabel.text = "No Driver"
         }
         
         if !passengers.isEmpty {
             updatePassengersLabel()
+        } else {
+            passengerLabel.text = "No Passenger"
         }
         
         priceLabel.text = String(format: "%.2f", Float(trip.price))
@@ -130,28 +155,189 @@ class FindTripDetailViewController: UIViewController {
     
     
     @IBAction func pressedMenu(_ sender: Any) {
-        guard let currentUser = Auth.auth().currentUser else { return }
+        guard let currentUser = Auth.auth().currentUser else {
+            let errorAlert = UIAlertController(title: "Error", message: "Unable to recognize user authentication! Please check network connection!", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(errorAlert, animated: true)
+            return
+        }
         
         let actionController = UIAlertController(title: "Find Trip Options", message: nil, preferredStyle: .actionSheet)
         
-        if driver != nil && driver?.id != currentUser.uid {
-            actionController.addAction(UIAlertAction(title: "Contact Driver", style: .default, handler: { _ in
-                print("pressed contact driver")
-            }))
-        }
-        
-        if !passengers.isEmpty && !(passengers.count == 1 && passengers[0].id == currentUser.uid) {
-            actionController.addAction(UIAlertAction(title: "Contact Passenger(s)", style: .default, handler: { _ in
-                print("pressed contact passenger(s)")
-            }))
-        }
+        contactDriver(currentUid: currentUser.uid, actionController: actionController)
+        contactPassengers(currentUid: currentUser.uid, actionController: actionController)
+        contactAll(actionController: actionController)
         
         actionController.addAction(UIAlertAction(title: "Join", style: .default, handler: { _ in
-            print("pressed join")
+            let alertController = UIAlertController(title: "Are you sure you want to join this trip?", message: "", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "Join", style: .destructive, handler: { _ in
+                self.joinTrip()
+            }))
+            self.present(alertController, animated: true)
         }))
         
         actionController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
         present(actionController, animated: true)
     }
     
+    func joinTrip() {
+        print("TODO: joining trip")
+    }
+}
+
+// MARK: - Contact methods
+
+extension FindTripDetailViewController {
+    
+    func contactDriver(currentUid: String, actionController: UIAlertController) {
+        if let driver = driver {
+            if driver.id != currentUid {
+                actionController.addAction(UIAlertAction(title: "Contact Driver", style: .default, handler: { _ in
+                    let contactController = UIAlertController(title: "Contact via", message: nil, preferredStyle: .alert)
+                    
+                    contactController.addAction(UIAlertAction(title: "SMS", style: .default, handler: { _ in
+                        if driver.phoneNumber == "" {
+                            let errorAlert = UIAlertController(title: "Not Available", message: "Driver has not updated his/her phone number.", preferredStyle: .alert)
+                            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                            self.present(errorAlert, animated: true)
+                        } else {
+                            self.sendMessage(recipients: [driver.phoneNumber])
+                        }
+                    }))
+                    contactController.addAction(UIAlertAction(title: "Email", style: .default, handler: { _ in
+                        self.sendEmail(recipients: [driver.email])
+                    }))
+                    
+                    contactController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+                    self.present(contactController, animated: true)
+                }))
+            }
+        }
+    }
+    
+    func contactPassengers(currentUid: String, actionController: UIAlertController) {
+        if !passengers.isEmpty && !(passengers.count == 1 && passengers[0].id == currentUid) {
+            var recipientsSMSs = [String]()
+            var recipientsEmails = [String]()
+            for i in 0..<passengers.count {
+                if passengers[i].id != currentUid {
+                    if passengers[i].phoneNumber != "" {
+                        recipientsSMSs.append(passengers[i].phoneNumber)
+                    }
+                    recipientsEmails.append(passengers[i].email)
+                }
+            }
+            
+            actionController.addAction(UIAlertAction(title: "Contact Passenger(s)", style: .default, handler: { _ in
+                let contactController = UIAlertController(title: "Contact via", message: nil, preferredStyle: .alert)
+                
+                contactController.addAction(UIAlertAction(title: "SMS", style: .default, handler: { _ in
+                    if recipientsSMSs.isEmpty {
+                        let errorAlert = UIAlertController(title: "Not Available", message: "Passengers have not updated their phone number.", preferredStyle: .alert)
+                        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                        self.present(errorAlert, animated: true)
+                    } else {
+                        self.sendMessage(recipients: recipientsSMSs)
+                    }
+                }))
+                contactController.addAction(UIAlertAction(title: "Email", style: .default, handler: { _ in
+                    self.sendEmail(recipients: recipientsEmails)
+                }))
+                
+                contactController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+                self.present(contactController, animated: true)
+            }))
+        }
+    }
+    
+    func contactAll(actionController: UIAlertController) {
+        if contacts.count > 1 {
+            var recipientsSMSs = [String]()
+            var recipientsEmails = [String]()
+            for i in 0..<contacts.count {
+                if contacts[i].phoneNumber != "" {
+                    recipientsSMSs.append(contacts[i].phoneNumber)
+                }
+                recipientsEmails.append(contacts[i].email)
+            }
+            
+            actionController.addAction(UIAlertAction(title: "Contact All", style: .default, handler: { _ in
+                let contactController = UIAlertController(title: "Contact via", message: nil, preferredStyle: .alert)
+                
+                contactController.addAction(UIAlertAction(title: "SMS", style: .default, handler: { _ in
+                    if recipientsSMSs.isEmpty {
+                        let errorAlert = UIAlertController(title: "Not Available", message: "They have not updated their phone number.", preferredStyle: .alert)
+                        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                        self.present(errorAlert, animated: true)
+                    } else {
+                        self.sendMessage(recipients: recipientsSMSs)
+                    }
+                }))
+                contactController.addAction(UIAlertAction(title: "Email", style: .default, handler: { _ in
+                    self.sendEmail(recipients: recipientsEmails)
+                }))
+                
+                contactController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+                self.present(contactController, animated: true)
+            }))
+        }
+    }
+    
+}
+
+// MARK: - MFMessage and MFMail methods
+
+extension FindTripDetailViewController: MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate {
+    
+    func sendMessage(recipients: [String]) {
+        if MFMessageComposeViewController.canSendText() {
+            let controller = MFMessageComposeViewController()
+            controller.messageComposeDelegate = self
+            controller.recipients = recipients
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM dd, yyyy"
+            var body = "Hello!"
+            body += "Regarding to our trip to \(trip.destination) from \(trip.origin) on \(formatter.string(from: trip.time)), "
+            controller.body = body
+            
+            controller.messageComposeDelegate = self
+            present(controller, animated: true, completion: nil)
+        } else {
+            let errorAlert = UIAlertController(title: "Error", message: "No Message Service available!", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(errorAlert, animated: true)
+        }
+    }
+    
+    func sendEmail(recipients: [String]) {
+        if MFMailComposeViewController.canSendMail() {
+            let controller = MFMailComposeViewController()
+            controller.mailComposeDelegate = self
+            controller.setToRecipients(recipients)
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM dd, yyyy"
+            controller.setSubject("Rosuber: Trip on \(formatter.string(from: trip.time)) ")
+            
+            var body = "Hello!\n\n   "
+            body += "Regarding to our trip to \(trip.destination) from \(trip.origin), "
+            controller.setMessageBody(body, isHTML: false)
+            
+            present(controller, animated: true, completion: nil)
+        } else {
+            let errorAlert = UIAlertController(title: "Error", message: "No Mail Service available!", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(errorAlert, animated: true)
+        }
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }

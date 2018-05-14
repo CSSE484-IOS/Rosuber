@@ -62,12 +62,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         usernameLabel.text = user.id
         emailLabel.text = user.email
         
-        if user.phoneNumber.count == 10 {
-            let start = user.phoneNumber.index(user.phoneNumber.startIndex, offsetBy: 3)
-            let end = user.phoneNumber.index(user.phoneNumber.endIndex, offsetBy: -4)
-            let range = start..<end
-            phoneLabel.text = "\(user.phoneNumber.prefix(3))-\(user.phoneNumber[range])-\(user.phoneNumber.suffix(4))"
-        }
+        updatePhoneLabel()
         
         photoListener = userRef.addSnapshotListener({ (snapshot, error) in
             if let error = error {
@@ -80,6 +75,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 }
             }
         })
+    }
+    
+    func updatePhoneLabel() {
+        if user.phoneNumber.count == 10 {
+            let start = user.phoneNumber.index(user.phoneNumber.startIndex, offsetBy: 3)
+            let end = user.phoneNumber.index(user.phoneNumber.endIndex, offsetBy: -4)
+            let range = start..<end
+            phoneLabel.text = "\(user.phoneNumber.prefix(3))-\(user.phoneNumber[range])-\(user.phoneNumber.suffix(4))"
+        } else {
+            phoneLabel.text = "Not Available"
+        }
     }
     
     @IBAction func pressedEdit(_ sender: Any) {
@@ -117,7 +123,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             let phoneTextField = alertController.textFields![0]
             if phoneTextField.text!.count == 10 {
                 self.user.phoneNumber = phoneTextField.text!
-                self.updateView()
+                self.updatePhoneLabel()
                 self.userRef.setData(self.user.data)
                 self.handleDismiss()
             } else {
