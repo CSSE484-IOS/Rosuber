@@ -10,6 +10,7 @@
 		000F386DC900C2E3E4D84DAE /* Pods_Rosuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB633554A87FA51BA91F0B08 /* Pods_Rosuber.framework */; };
 		1B130B1220A9111C0076DD3E /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B130B1120A9111C0076DD3E /* TripDetailViewController.swift */; };
 		1B130B1420A9C1C90076DD3E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B130B1320A9C1C90076DD3E /* MenuViewController.swift */; };
+		1B130B1620AA07AA0076DD3E /* TipsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B130B1520AA07AA0076DD3E /* TipsUtils.swift */; };
 		1B2FD62C20978D2000C9E12D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B2FD62B20978D2000C9E12D /* GoogleService-Info.plist */; };
 		1B639E7C209AAA8C002F33C5 /* FindTripsDriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B639E7B209AAA8C002F33C5 /* FindTripsDriverViewController.swift */; };
 		1B639E7E209AAAA7002F33C5 /* FindTripsPassengerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B639E7D209AAAA7002F33C5 /* FindTripsPassengerViewController.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		1B130B1120A9111C0076DD3E /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		1B130B1320A9C1C90076DD3E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		1B130B1520AA07AA0076DD3E /* TipsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsUtils.swift; sourceTree = "<group>"; };
 		1B2FD62B20978D2000C9E12D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1B639E7B209AAA8C002F33C5 /* FindTripsDriverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTripsDriverViewController.swift; sourceTree = "<group>"; };
 		1B639E7D209AAAA7002F33C5 /* FindTripsPassengerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTripsPassengerViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				1BE311A72092AE3E0094975C /* NewTripViewController.swift */,
 				1BE3118E208FB2A20094975C /* AboutViewController.swift */,
 				1B639E82209B8997002F33C5 /* ImageUtils.swift */,
+				1B130B1520AA07AA0076DD3E /* TipsUtils.swift */,
 				1BE31196208FB93A0094975C /* Icons */,
 				1BE31188208FAF890094975C /* CollectionViewAttempt */,
 				1BE311A12090271B0094975C /* ThirdLibrary */,
@@ -348,6 +351,7 @@
 				1BE31193208FB3210094975C /* FindTripsViewController.swift in Sources */,
 				1BE311A0209019DF0094975C /* VSTextField.swift in Sources */,
 				1BE31195208FB3880094975C /* MyTripDetailViewController.swift in Sources */,
+				1B130B1620AA07AA0076DD3E /* TipsUtils.swift in Sources */,
 				1BE31191208FB3140094975C /* MyTripsViewController.swift in Sources */,
 				1B81FCF02086F90B00C12059 /* HomeViewController.swift in Sources */,
 				1BE311A62092A6C60094975C /* User.swift in Sources */,
@@ -507,7 +511,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 582V4DL5CW;
+				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = Rosuber/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -526,7 +530,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 582V4DL5CW;
+				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = Rosuber/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

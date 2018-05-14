@@ -31,6 +31,10 @@ class HomeViewController: MenuViewController {
     @IBOutlet weak var helloDetailLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var tipsTitleLabel: UILabel!
+    @IBOutlet weak var tipsContentLabel: UILabel!
+    @IBOutlet weak var moreTipsButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         spinnerStackView.isHidden = true
@@ -76,11 +80,29 @@ class HomeViewController: MenuViewController {
                     }
                 }
             }
+            showTips()
         } else {
             helloLabel.text = "Dear Rose Family,"
             helloDetailLabel.text = "Please login to explore Rosuber!"
             dateLabel.text = ""
+            hideTips()
         }
+    }
+    
+    func hideTips() {
+        tipsTitleLabel.text = ""
+        tipsContentLabel.text = ""
+        moreTipsButton.isHidden = true
+    }
+    
+    func showTips() {
+        tipsTitleLabel.text = "Tips❕"
+        tipsContentLabel.text = TipsUtils.getRandomTips()
+        moreTipsButton.isHidden = false
+    }
+    
+    @IBAction func pressedMoreTips(_ sender: Any) {
+        showTips()
     }
     
     @IBAction func pressedLoginLogout(_ sender: Any) {
