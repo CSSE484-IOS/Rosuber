@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class FindTripsDriverViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FindTripsDriverViewController: MenuViewController, UITableViewDataSource, UITableViewDelegate {
     let driverToHomeSegueIdentifier = "driverToHomeSegue"
     let driverToCreateSegueIdentifier = "driverToCreateSegue"
     let driverToFindDetailSegueIdentifier = "driverToFindDetailSegue"

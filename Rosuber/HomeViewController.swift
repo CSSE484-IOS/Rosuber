@@ -11,7 +11,7 @@ import Firebase
 import Rosefire
 import MaterialComponents.MaterialSnackbar
 
-class HomeViewController: UIViewController {
+class HomeViewController: MenuViewController {
     let ROSEFIRE_REGISTRY_TOKEN = "4cecdaba-e05f-435d-bbfe-8b111f2447f4"
     
     let homeToProfileSegueIdentifier = "homeToProfileSegue"
@@ -19,11 +19,6 @@ class HomeViewController: UIViewController {
     let homeToFindSegueIdentifier = "homeToFindSegue"
     let homeToAboutSegueIdentifier = "homeToAboutSegue"
     
-    var showMenu = true
-    
-    @IBOutlet weak var menuLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var menuView: UIView!
-    @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var loginLogoutButton: UIBarButtonItem!
     @IBOutlet weak var spinnerStackView: UIStackView!
     @IBOutlet weak var spinnerLabel: UILabel!
@@ -38,9 +33,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        menuView.layer.shadowOpacity = 1
-        menuView.layer.shadowRadius = 6
-        blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         spinnerStackView.isHidden = true
     }
     
@@ -88,28 +80,6 @@ class HomeViewController: UIViewController {
             helloLabel.text = "Dear Rose Family,"
             helloDetailLabel.text = "Please login to explore Rosuber!"
             dateLabel.text = ""
-        }
-    }
-    
-    @IBAction func pressedMenu(_ sender: Any) {
-        if showMenu {
-            blackView.alpha = 1
-            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-            menuLeadingConstraint.constant = 0
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-        } else {
-            handleDismiss()
-        }
-        showMenu = !showMenu
-    }
-    
-    @objc func handleDismiss() {
-        blackView.alpha = 0
-        menuLeadingConstraint.constant = -150
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
         }
     }
     

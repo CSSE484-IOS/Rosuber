@@ -10,10 +10,10 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: MenuViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let profileToHomeSegueIdentifier = "profileToHomeSegue"
     
-    var showMenu = true
+    var showBtmMenu = true
     var imagePicker = UIImagePickerController()
     
     var user: User!
@@ -24,8 +24,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var photoListener: ListenerRegistration!
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var menuView: UIView!
-    @IBOutlet weak var blackView: UIView!
+    @IBOutlet weak var bottomMenuView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -38,9 +37,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-        menuView.layer.shadowOpacity = 1
-        menuView.layer.shadowRadius = 6
-        blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        bottomMenuView.layer.shadowOpacity = 1
+        bottomMenuView.layer.shadowRadius = 6
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +87,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func pressedEdit(_ sender: Any) {
-        if showMenu {
+        if showBtmMenu {
             blackView.alpha = 1
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
             menuBottomConstraint.constant = 0
@@ -97,17 +95,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 self.view.layoutIfNeeded()
             }, completion: nil)
         } else {
-            handleDismiss()
+            handleEditDismiss()
         }
-        showMenu = !showMenu
+        showBtmMenu = !showBtmMenu
     }
     
-    @objc func handleDismiss() {
+    @objc func handleEditDismiss() {
         blackView.alpha = 0
         menuBottomConstraint.constant = 100
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    override func handleDismiss() {
+        menuBottomConstraint.constant = 100
+        super.handleDismiss()
     }
     
     @IBAction func pressedUpdatePhone(_ sender: Any) {

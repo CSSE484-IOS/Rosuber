@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class AboutViewController: MenuViewController, MFMailComposeViewControllerDelegate {
     let aboutToHomeSegueIdentifier = "aboutToHomeSegue"
     
     @IBOutlet weak var creditViewTopConstraint: NSLayoutConstraint!
