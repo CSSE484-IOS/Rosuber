@@ -49,7 +49,7 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
             
             controller.setSubject("Rosuber")
             
-            var body = "Hi, Yizhi and Ryan!\n\n   "
+            let body = "Hi, Yizhi and Ryan!\n\n   "
             controller.setMessageBody(body, isHTML: false)
             
             present(controller, animated: true, completion: nil)
@@ -58,5 +58,9 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
             errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(errorAlert, animated: true)
         }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
