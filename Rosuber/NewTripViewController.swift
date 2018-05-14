@@ -30,6 +30,7 @@ class NewTripViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         capacitySlider.value = 1
         datePicker.minimumDate = Date()
+        datePicker.setValue(UIColor.white, forKeyPath: "textColor")
         fromField.delegate = self
         toField.delegate = self
         priceField.delegate = self
