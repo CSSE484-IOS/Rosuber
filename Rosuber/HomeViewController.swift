@@ -115,10 +115,10 @@ class HomeViewController: UIViewController {
     
     @IBAction func pressedLoginLogout(_ sender: Any) {
         if Auth.auth().currentUser == nil {
+            loginViaRosefire()
             blackView.alpha = 1
             spinnerStackView.isHidden = false
             spinnerLabel.text = "Signing in Rosefire..."
-            loginViaRosefire()
         } else {
             let ac = UIAlertController(title: "Are you sure you want to logout?", message: "", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -135,6 +135,9 @@ class HomeViewController: UIViewController {
             (error, result) in
             if let error = error {
                 print("Error communicating with Rosefire! \(error.localizedDescription)")
+                self.blackView.alpha = 0
+                self.spinnerStackView.isHidden = true
+                self.spinnerLabel.text = ""
                 return
             }
             print("You are now signed in with Rosefire! username: \(result!.username)")
