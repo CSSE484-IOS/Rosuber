@@ -139,17 +139,17 @@ class TripDetailViewController: UIViewController {
         if let driver = driver {
             driverLabel.text = driver.name
         } else {
-            driverLabel.text = "No Driver"
+            driverLabel.text = ""
         }
         
         if !passengers.isEmpty {
             updatePassengersLabel()
         } else {
-            passengerLabel.text = "No Passenger"
+            passengerLabel.text = ""
         }
         
         priceLabel.text = String(format: "%.2f", Float(trip.price))
-        capacityLabel.text = "\(trip.capacity)"
+        capacityLabel.text = "\(trip.capacity) passenger(s) max"
     }
     
     
