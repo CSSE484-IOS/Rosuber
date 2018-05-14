@@ -20,6 +20,7 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
     let cellHeaderHeight: CGFloat = 10
     
     var tripsRef: CollectionReference!
+    var tripsQuery: Query!
     var tripsListener: ListenerRegistration!
     var trips = [Trip]()
     
@@ -36,8 +37,10 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        tripsQuery = tripsRef.whereField("time", isGreaterThanOrEqualTo: Date())
+        
         self.trips.removeAll()
-        tripsListener = tripsRef.order(by: "time", descending: false).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
+        tripsListener = tripsQuery.order(by: "time", descending: false).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
             guard let snapshot = querySnapshot else {
                 print("Error fetching trips. error: \(error!.localizedDescription)")
                 return
@@ -63,7 +66,7 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
     
     func tripAdded(_ document: DocumentSnapshot) {
         let newTrip = Trip(documentSnapshot: document)
-        if newTrip.passengersString.split(separator: ",").count < newTrip.capacity && newTrip.time > Date() {
+        if newTrip.passengersString.split(separator: ",").count < newTrip.capacity {
             trips.append(newTrip)
         }
     }
@@ -72,7 +75,7 @@ class FindTripsPassengerViewController: UIViewController, UITableViewDataSource,
         let modifiedTrip = Trip(documentSnapshot: document)
         for trip in trips {
             if (trip.id == modifiedTrip.id) {
-                if (modifiedTrip.passengersString.split(separator: ",").count >= modifiedTrip.capacity || modifiedTrip.time < Date()) {
+                if (modifiedTrip.passengersString.split(separator: ",").count >= modifiedTrip.capacity) {
                     for i in 0..<trips.count {
                         if trip.id == trips[i].id {
                             trips.remove(at: i)
