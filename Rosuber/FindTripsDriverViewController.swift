@@ -20,6 +20,7 @@ class FindTripsDriverViewController: MenuViewController, UITableViewDataSource, 
     let cellHeaderHeight: CGFloat = 10
     
     var tripsRef: CollectionReference!
+    var tripsQuery: Query!
     var tripsListener: ListenerRegistration!
     var trips = [Trip]()
 
@@ -36,8 +37,9 @@ class FindTripsDriverViewController: MenuViewController, UITableViewDataSource, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        tripsQuery = tripsRef.whereField("time", isGreaterThanOrEqualTo: Date()).whereField("driver", isEqualTo: "")
         self.trips.removeAll()
-        tripsListener = tripsRef.order(by: "time", descending: false).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
+        tripsListener = tripsQuery.order(by: "time", descending: false).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
             guard let snapshot = querySnapshot else {
                 print("Error fetching trips. error: \(error!.localizedDescription)")
                 return

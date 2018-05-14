@@ -46,8 +46,8 @@ class TripDetailViewController: UIViewController {
                 return
             }
             self.trip = Trip(documentSnapshot: documentSnapshot!)
-            self.parseDriver()
-            self.parsePassengers()
+//            self.parseDriver()
+//            self.parsePassengers()
             self.updateView()
         })
     }
@@ -94,6 +94,7 @@ class TripDetailViewController: UIViewController {
     }
     
     func parseContacts() {
+        contacts.removeAll()
         guard let currentUser = Auth.auth().currentUser else {
             let errorAlert = UIAlertController(title: "Error", message: "Unable to recognize user authentication! Please check network connection!", preferredStyle: .alert)
             errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -136,6 +137,10 @@ class TripDetailViewController: UIViewController {
         formatter.pmSymbol = "PM"
         timeLabel.text = formatter.string(from: trip.time)
         
+        parseDriver()
+        parsePassengers()
+        parseContacts()
+        
         if let driver = driver {
             driverLabel.text = driver.name
         } else {
@@ -151,7 +156,6 @@ class TripDetailViewController: UIViewController {
         priceLabel.text = String(format: "%.2f", Float(trip.price))
         capacityLabel.text = "\(trip.capacity) passenger(s) max"
     }
-    
     
     @IBAction func pressedMenu(_ sender: Any) {
         guard let currentUser = Auth.auth().currentUser else {
