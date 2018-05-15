@@ -55,7 +55,7 @@ class Trip: NSObject {
         passengerKeys = data[passengerKeysKey] as! [String: Any]
         capacity = documentSnapshot.get(capacityKey) as? Int ?? 0
         origin = data[originKey] as! String
-        price = data[priceKey] as! Float
+        price = data[priceKey] as? Float ?? 0.00
         time = data[timeKey] as! Date
         created = data[createdKey] as! Date
     }
