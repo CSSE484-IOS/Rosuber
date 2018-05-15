@@ -37,7 +37,7 @@ class FindTripsDriverViewController: MenuViewController, UITableViewDataSource, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tripsQuery = tripsRef.whereField("time", isGreaterThanOrEqualTo: Date()).whereField("driver", isEqualTo: "")
+        tripsQuery = tripsRef.whereField("time", isGreaterThanOrEqualTo: Date()).whereField("driverKey", isEqualTo: "")
         self.trips.removeAll()
         tripsListener = tripsQuery.order(by: "time", descending: false).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
             guard let snapshot = querySnapshot else {

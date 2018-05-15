@@ -11,8 +11,6 @@ import UIKit
 class MenuViewController: UIViewController {
     let menuViewWidth: CGFloat = 150
     
-    var showMenu = true
-    
     @IBOutlet weak var menuLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var blackView: UIView!
@@ -25,17 +23,12 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func pressedMenu(_ sender: Any) {
-        if showMenu {
-            blackView.alpha = 1
-            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-            menuLeadingConstraint.constant = 0
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-        } else {
-            handleDismiss()
-        }
-        showMenu = !showMenu
+        blackView.alpha = 1
+        blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        menuLeadingConstraint.constant = 0
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
     
     @objc func handleDismiss() {

@@ -95,9 +95,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFa-b5-jt7" userLabel="BlackView">
+                            <view opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFa-b5-jt7" userLabel="BlackView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJi-pe-3o4" userLabel="MenuView">
                                 <rect key="frame" x="-150" y="20" width="150" height="647"/>
@@ -2032,13 +2031,13 @@
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XvV-bm-FtX"/>
-        <segue reference="A4F-ZA-VMh"/>
+        <segue reference="BBr-Dw-EvE"/>
+        <segue reference="sao-W9-Rae"/>
         <segue reference="6aP-mZ-NC4"/>
         <segue reference="usi-en-bvW"/>
         <segue reference="Diu-yy-2SK"/>
-        <segue reference="Cy1-Ql-TP0"/>
-        <segue reference="sdT-Hm-uAX"/>
+        <segue reference="YoK-xz-ML3"/>
+        <segue reference="zsB-8W-ESN"/>
         <segue reference="3EE-tO-YxY"/>
     </inferredMetricsTieBreakers>
 </document>
