@@ -32,8 +32,10 @@ class MyTripDetailViewController: TripDetailViewController {
     func leave(currentUid: String) {
         if (trip.driverKey == currentUid) {
             trip.driverKey = ""
+            parseDriver()
         } else {
             trip.remove(passenger: currentUid)
+            parsePassengers()
         }
         if (trip.driverKey == "" && trip.passengersString == "") {
             let alertController = UIAlertController(title: "No occupants registered for this trip. This trip will be deleted.", message: "", preferredStyle: .alert)
@@ -45,7 +47,6 @@ class MyTripDetailViewController: TripDetailViewController {
         } else {
             tripRef.setData(trip.data)
         }
-        updateView()
     }
     
     override func joinTrip(currentUid: String, actionController: UIAlertController) {
@@ -67,16 +68,14 @@ class MyTripDetailViewController: TripDetailViewController {
             alertController.addAction(UIAlertAction(title: "Driver", style: .destructive, handler: { _ in
                 self.trip.driverKey = currentUid
                 self.tripRef.setData(self.trip.data)
-                self.updateView()
+                self.parseDriver()
             }))
         }
         if (trip.capacity > trip.passengerKeys.count - 1) {
             alertController.addAction(UIAlertAction(title: "Passenger", style: .destructive, handler: { _ in
                 self.trip.passengerKeys[currentUid] = true
                 self.tripRef.setData(self.trip.data)
-                self.passengers.removeAll()
                 self.parsePassengers()
-                self.updateView()
             }))
         }
         self.present(alertController, animated: true)

@@ -35,16 +35,14 @@ class FindTripDetailViewController: TripDetailViewController {
             alertController.addAction(UIAlertAction(title: "Driver", style: .destructive, handler: { _ in
                 self.trip.driverKey = currentUid
                 self.tripRef.setData(self.trip.data)
-                self.updateView()
+                self.parseDriver()
             }))
         }
         if (trip.capacity > trip.passengerKeys.count - 1) {
             alertController.addAction(UIAlertAction(title: "Passenger", style: .destructive, handler: { _ in
                 self.trip.passengerKeys[currentUid] = true
                 self.tripRef.setData(self.trip.data)
-                self.passengers.removeAll()
                 self.parsePassengers()
-                self.updateView()
             }))
         }
         self.present(alertController, animated: true)
@@ -66,10 +64,10 @@ class FindTripDetailViewController: TripDetailViewController {
     func leave(currentUid: String) {
         if (trip.driverKey == currentUid) {
             trip.driverKey = ""
+            parseDriver()
         } else {
             trip.remove(passenger: currentUid)
-            self.passengers.removeAll()
-            self.parsePassengers()
+            parsePassengers()
         }
         if (trip.driverKey == "" && trip.passengersString == "") {
             let alertController = UIAlertController(title: "No occupants registered for this trip. This trip will be deleted.", message: "", preferredStyle: .alert)
@@ -82,6 +80,5 @@ class FindTripDetailViewController: TripDetailViewController {
         } else {
             tripRef.setData(trip.data)
         }
-        self.updateView()
     }
 }

@@ -32,6 +32,9 @@ class TripDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tripRef = Firestore.firestore().collection("trips").document(trip.id!)
+        parseDriver()
+        parsePassengers()
+        parseContacts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,8 +49,6 @@ class TripDetailViewController: UIViewController {
                 return
             }
             self.trip = Trip(documentSnapshot: documentSnapshot!)
-//            self.parseDriver()
-//            self.parsePassengers()
             self.updateView()
         })
     }
@@ -76,8 +77,8 @@ class TripDetailViewController: UIViewController {
     }
     
     func parsePassengers() {
+        passengers.removeAll()
         if !trip.passengersString.isEmpty {
-            passengers.removeAll()
             let passengersArr = trip.passengersString.split(separator: ",")
             for p in passengersArr {
                 Firestore.firestore().collection("users").document(String(p)).getDocument { (documentSnapshot, error) in
@@ -116,6 +117,7 @@ class TripDetailViewController: UIViewController {
     }
     
     func updatePassengersLabel() {
+        passengerLabel.text = ""
         var str = ""
         for i in 0..<self.passengers.count {
             str += self.passengers[i].name
@@ -138,10 +140,6 @@ class TripDetailViewController: UIViewController {
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
         timeLabel.text = formatter.string(from: trip.time)
-        
-        parseDriver()
-        parsePassengers()
-        parseContacts()
         
         if let driver = driver {
             driverLabel.text = driver.name
