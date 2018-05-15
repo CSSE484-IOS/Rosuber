@@ -26,7 +26,7 @@ class FindTripDetailViewController: TripDetailViewController {
                 }))
                 self.present(alertController, animated: true)
             }))
-        }
+        } 
     }
     
     func join(currentUid: String) {

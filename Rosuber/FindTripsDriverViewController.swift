@@ -37,7 +37,7 @@ class FindTripsDriverViewController: MenuViewController, UITableViewDataSource, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tripsQuery = tripsRef.whereField("time", isGreaterThanOrEqualTo: Date()).whereField("driver", isEqualTo: "")
+        tripsQuery = tripsRef.whereField("time", isGreaterThanOrEqualTo: Date()).whereField("driverKey", isEqualTo: "")
         self.trips.removeAll()
         tripsListener = tripsQuery.order(by: "time", descending: false).limit(to: 50).addSnapshotListener({ (querySnapshot, error) in
             guard let snapshot = querySnapshot else {
@@ -65,21 +65,17 @@ class FindTripsDriverViewController: MenuViewController, UITableViewDataSource, 
     
     func tripAdded(_ document: DocumentSnapshot) {
         let newTrip = Trip(documentSnapshot: document)
-        if newTrip.driverKey == "" {
-            trips.append(newTrip)
-        }
+        trips.append(newTrip)
     }
     
     func tripUpdated(_ document: DocumentSnapshot) {
         let modifiedTrip = Trip(documentSnapshot: document)
         for trip in trips {
             if (trip.id == modifiedTrip.id) {
-                if (modifiedTrip.driverKey != "") {
-                    for i in 0..<trips.count {
-                        if trip.id == trips[i].id {
-                            trips.remove(at: i)
-                            return
-                        }
+                for i in 0..<trips.count {
+                    if trip.id == trips[i].id {
+                        trips.remove(at: i)
+                        return
                     }
                 }
                 trip.capacity = modifiedTrip.capacity
