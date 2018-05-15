@@ -17,7 +17,7 @@ class FindTripDetailViewController: TripDetailViewController {
     }
     
     override func joinTrip(currentUid: String, actionController: UIAlertController) {
-        if ((trip.driverKey == "" || trip.capacity > trip.passengerKeys.count - 1) && !trip.contains(passenger: currentUid)) {
+        if ((trip.driverKey == "") || (trip.driverKey != currentUid && trip.capacity > trip.passengerKeys.count - 1)) && !trip.contains(passenger: currentUid) {
             actionController.addAction(UIAlertAction(title: "Join", style: .default, handler: { _ in
                 let alertController = UIAlertController(title: "Are you sure you want to join this trip?", message: "", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -51,7 +51,7 @@ class FindTripDetailViewController: TripDetailViewController {
     }
     
     override func leaveTrip(currentUid: String, actionController: UIAlertController) {
-        if !((trip.driverKey == "" || trip.capacity > trip.passengerKeys.count - 1) && !trip.contains(passenger: currentUid)) {
+        if trip.driverKey == currentUid || trip.contains(passenger: currentUid) {
             actionController.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: { _ in
                 let alertController = UIAlertController(title: "Are you sure you want to leave this trip?", message: "", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
