@@ -70,6 +70,8 @@ class TripDetailViewController: UIViewController {
                     self.parseContacts()
                 }
             }
+        } else {
+            self.driver = nil
         }
     }
     
