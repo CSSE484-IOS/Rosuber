@@ -17,7 +17,7 @@ class MyTripDetailViewController: TripDetailViewController {
     }
     
     override func leaveTrip(currentUid: String, actionController: UIAlertController) {
-        if trip.time > Date() {
+        if (trip.time > Date() && (trip.driverKey == currentUid || trip.contains(passenger: currentUid))) {
         actionController.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: { _ in
                         let alertController = UIAlertController(title: "Are you sure you want to leave this trip?", message: "", preferredStyle: .alert)
                         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -46,5 +46,39 @@ class MyTripDetailViewController: TripDetailViewController {
             tripRef.setData(trip.data)
         }
         updateView()
+    }
+    
+    override func joinTrip(currentUid: String, actionController: UIAlertController) {
+        if ((trip.driverKey == "") || (trip.driverKey != currentUid && trip.capacity > trip.passengerKeys.count - 1)) && !trip.contains(passenger: currentUid) {
+            actionController.addAction(UIAlertAction(title: "Join", style: .default, handler: { _ in
+                let alertController = UIAlertController(title: "Are you sure you want to join this trip?", message: "", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: "Join", style: .default, handler: { _ in
+                    self.join(currentUid: currentUid)
+                }))
+                self.present(alertController, animated: true)
+            }))
+        }
+    }
+    
+    func join(currentUid: String) {
+        let alertController = UIAlertController(title: "Join as a", message: "", preferredStyle: .alert)
+        if (trip.driverKey == "") {
+            alertController.addAction(UIAlertAction(title: "Driver", style: .destructive, handler: { _ in
+                self.trip.driverKey = currentUid
+                self.tripRef.setData(self.trip.data)
+                self.updateView()
+            }))
+        }
+        if (trip.capacity > trip.passengerKeys.count - 1) {
+            alertController.addAction(UIAlertAction(title: "Passenger", style: .destructive, handler: { _ in
+                self.trip.passengerKeys[currentUid] = true
+                self.tripRef.setData(self.trip.data)
+                self.passengers.removeAll()
+                self.parsePassengers()
+                self.updateView()
+            }))
+        }
+        self.present(alertController, animated: true)
     }
 }
